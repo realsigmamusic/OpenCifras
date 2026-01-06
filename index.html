@@ -7,6 +7,22 @@
     <title>OpenCifras</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(() => console.log('App pronto para uso Offline!'))
+                    .catch((err) => console.log('Erro no SW:', err));
+            });
+        }
+    </script>
+    <link rel="manifest" href="./manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Contrato">
+    <meta name="theme-color" content="#0d6efd"> <!-- .bg-primary -->
+    <link rel="apple-touch-icon" href="maskable_icon_x512.png">
 </head>
 
 <body>
@@ -25,7 +41,7 @@
                         <a class="nav-link" href="#" onclick="navegar('editor')">Adicionar Música</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Backup</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modalBackup">Backup</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">ChordMark</a>
@@ -33,9 +49,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">GitHub</a>
                     </li>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+                    <form class="d-flex" role="search" id="form-busca" onsubmit="return false;">
+                        <input class="form-control me-2" type="search" placeholder="Buscar música ou trecho..."
+                            aria-label="Search" id="input-busca">
+                        <button class="btn btn-outline-success" type="button" onclick="filtrarLista()">Buscar</button>
                     </form>
                 </ul>
             </div>
@@ -82,9 +99,42 @@
                 </div>
             </div>
             <h3 id="titulo-musica" class="mb-4 text-center"></h3>
-            <div id="render-area" class="bg-dark border rounded p-4"></div>
+            <div id="render-area" class="bg-dark border rounded p-2"></div>
         </div>
 
+    </div>
+
+    <div class="modal fade" id="modalBackup" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📦 Backup & Restauração</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <h6 class="text-primary fw-bold mb-3">Salvar Repertório (Exportar)</h6>
+                    <p class="small text-muted">Baixe um arquivo contendo todas as suas músicas.</p>
+                    <button class="btn btn-outline-primary w-100 mb-4" onclick="exportarDados()">
+                        ⬇️ Baixar Backup (.json)
+                    </button>
+
+                    <hr>
+
+                    <h6 class="text-danger fw-bold mb-3 mt-4">Restaurar Repertório (Importar)</h6>
+                    <p class="small text-muted">Carregue um arquivo de backup. <br>Isso adicionará as músicas ao banco
+                        atual.</p>
+
+                    <input type="file" id="input-importar" accept=".json" style="display: none"
+                        onchange="importarDados(this)">
+
+                    <button class="btn btn-outline-danger w-100"
+                        onclick="document.getElementById('input-importar').click()">
+                        ⬆️ Selecionar Arquivo
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -101,7 +151,7 @@
         carregarLista();
     </script>
 
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </body>
 
 </html>

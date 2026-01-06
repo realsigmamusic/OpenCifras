@@ -12,7 +12,6 @@
     white-space: pre-wrap;
     line-height: 1.5;
     font-size: 1rem;
-    padding: 0px;
 }
 
 /* Tonalidade */
@@ -27,6 +26,7 @@
     font-weight: 900;
 }
 
+/* Repetição */
 .cmSectionMultiplier {
     color: var(--bs-success);
 }
@@ -64,7 +64,8 @@
 /* Repetição */
 .cmLine--isFromSectionCopy .cmLyricLine,
 .cmLine--isFromSectionCopy .cmChordLine {
-    opacity: 0.5;
+    opacity: 0.8;
+    font-style: italic;
 }
 
 /* Barra de compasso */
