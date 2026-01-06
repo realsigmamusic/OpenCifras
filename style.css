@@ -1,0 +1,84 @@
+.tela {
+    display: none;
+}
+
+.tela-ativa {
+    display: block;
+}
+
+/* ChordMark CSS Classes */
+.cmSong {
+    font-family: var(--bs-font-monospace);
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 1rem;
+    padding: 0px;
+}
+
+/* Tonalidade */
+.cmKeyDeclaration {
+    color: var(--bs-success);
+    font-weight: 900;
+}
+
+/* Fórmula de compasso */
+.cmTimeSignature {
+    color: var(--bs-success);
+    font-weight: 900;
+}
+
+.cmSectionMultiplier {
+    color: var(--bs-success);
+}
+
+/* Título de sessões */
+.cmSectionLabel {
+    background-color: var(--bs-secondary-bg);
+    border-radius: var(--bs-border-radius);
+    border-bottom: none;
+    color: var(--bs-warning);
+    font-weight: 900;
+    padding: 4px 10px;
+    display: block;
+    width: 100%;
+}
+
+/* Linha de acordes */
+.cmChordLine {
+    display: block;
+    margin-bottom: -1.4rem;
+}
+
+/* Acordes */
+.cmChordSymbol {
+    color: var(--bs-primary);
+    font-weight: 900;
+}
+
+/* Linha de letra da música */
+.cmLyricLine {
+    color: var(--bs-light-text-emphasis);
+    display: block;
+}
+
+/* Repetição */
+.cmLine--isFromSectionCopy .cmLyricLine,
+.cmLine--isFromSectionCopy .cmChordLine {
+    opacity: 0.5;
+}
+
+/* Barra de compasso */
+.cmBarSeparator {
+    color: var(--bs-secondary);
+}
+
+/* Pontos */
+.cmChordDuration {
+    color: var(--bs-secondary);
+}
+
+/* [] */
+.cmSubBeatGroupOpener,
+.cmSubBeatGroupCloser {
+    color: var(--bs-secondary);
+}

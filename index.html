@@ -1,48 +1,18 @@
 <!doctype html>
 <html lang="pt-br" data-bs-theme="dark">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OpenCifras</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    
-    <style>
-        .tela { display: none; }
-        .tela-ativa { display: block; }
-        
-        /* ChordMark CSS Classes */
-        .cmSong { font-family: 'Courier New', monospace; }
-        .cmSectionLabel { 
-            color: #ffc107; 
-            font-weight: bold; 
-            font-size: 1.2rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .cmLine { margin-bottom: 0.5rem; }
-        .cmChordLine { 
-            color: #0dcaf0; 
-            font-weight: bold; 
-        }
-        .cmLyricLine { 
-            color: #e9ecef;
-        }
-        .cmChordSymbol {
-            color: #0dcaf0;
-            font-weight: bold;
-            margin-right: 0.3rem;
-        }
-        .cmBarSeparator {
-            color: #6c757d;
-            margin: 0 0.5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" onclick="navegar('lista')">🎸 OpenCifras</a>
+            <a class="navbar-brand" href="#" onclick="navegar('lista')">OpenCifras</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -52,15 +22,28 @@
                         <a class="nav-link" href="#" onclick="navegar('lista')">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="navegar('editor')">Nova Música (+)</a>
+                        <a class="nav-link" href="#" onclick="navegar('editor')">Adicionar Música</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Backup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ChordMark</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">GitHub</a>
+                    </li>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+                    </form>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        
+
         <!-- TELA: LISTA -->
         <div id="tela-lista" class="tela tela-ativa">
             <h4 class="mb-3">Meu Repertório</h4>
@@ -71,9 +54,9 @@
 
         <!-- TELA: EDITOR -->
         <div id="tela-editor" class="tela">
-            <h4 class="mb-3">Editor de Cifra</h4>
+            <h4 class="mb-3">Editor</h4>
             <input type="hidden" id="editor-id">
-            
+
             <div class="mb-3">
                 <label class="form-label">Título da Música</label>
                 <input type="text" class="form-control" id="editor-titulo" placeholder="Ex: Amazing Grace">
@@ -81,30 +64,21 @@
 
             <div class="mb-3">
                 <label class="form-label">Cifra (Formato ChordMark)</label>
-                <textarea class="form-control font-monospace" id="editor-conteudo" rows="15" 
-                placeholder="#v&#10;C.. G..&#10;A_mazing grace, how _sweet the sound&#10;&#10;#c&#10;| C | G | Am | F |&#10;_I once was _lost but _now I'm _found"></textarea>
-                <div class="form-text">
-                    <strong>Sintaxe ChordMark:</strong>
-                    <ul class="mb-0 mt-2 small">
-                        <li><code>#v</code> = Verso, <code>#c</code> = Refrão, <code>#i</code> = Intro, <code>#b</code> = Ponte</li>
-                        <li><code>C..</code> = Acorde C por 2 tempos, <code>| C | G |</code> = Compassos</li>
-                        <li><code>_</code> = Marcador de posição do acorde na letra</li>
-                        <li><code>%</code> = Repete última linha de acordes</li>
-                    </ul>
-                </div>
+                <textarea class="form-control font-monospace" id="editor-conteudo" rows="15"
+                    placeholder="key C&#10;6/8&#10;&#10;#v&#10;C.. G..&#10;A_mazing grace, how _sweet the sound&#10;"></textarea>
             </div>
 
-            <button class="btn btn-success w-100 mb-2" onclick="salvarMusica()">💾 Salvar Música</button>
+            <button class="btn btn-success w-100 mb-2" onclick="salvarMusica()">Salvar</button>
             <button class="btn btn-secondary w-100" onclick="cancelarEdicao()">Cancelar</button>
         </div>
 
         <!-- TELA: LEITOR -->
         <div id="tela-leitor" class="tela">
             <div class="d-flex justify-content-between mb-3">
-                <button class="btn btn-outline-light" onclick="navegar('lista')">← Voltar</button>
+                <button class="btn btn-outline-light" onclick="navegar('lista')">Voltar</button>
                 <div>
-                    <button class="btn btn-outline-primary" onclick="editarAtual()">✏️ Editar</button>
-                    <button class="btn btn-outline-danger" onclick="deletarAtual()">🗑️ Excluir</button>
+                    <button class="btn btn-outline-primary" onclick="editarAtual()">Editar</button>
+                    <button class="btn btn-outline-danger" onclick="deletarAtual()">Excluir</button>
                 </div>
             </div>
             <h3 id="titulo-musica" class="mb-4 text-center"></h3>
@@ -119,172 +93,15 @@
     <script type="module">
         // Importa ChordMark como ES Module
         import { parseSong, renderSong } from 'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm';
-        
+
         // Exporta para escopo global para uso nas funções
         window.chordMark = { parseSong, renderSong };
-        
+
         // Inicializa o app
         carregarLista();
     </script>
 
-    <script>
-        // CONFIGURAÇÃO DO BANCO DE DADOS
-        const db = new Dexie('OpenCifrasDB');
-        db.version(1).stores({
-            musicas: '++id, titulo, conteudo'
-        });
-
-        let musicaAtualId = null;
-
-        // NAVEGAÇÃO ENTRE TELAS
-        function navegar(tela) {
-            document.querySelectorAll('.tela').forEach(t => t.classList.remove('tela-ativa'));
-            document.getElementById(`tela-${tela}`).classList.add('tela-ativa');
-            
-            if(tela === 'lista') {
-                carregarLista();
-                musicaAtualId = null;
-            }
-            
-            if(tela === 'editor' && !musicaAtualId) {
-                limparEditor();
-            }
-        }
-
-        function limparEditor() {
-            document.getElementById('editor-id').value = '';
-            document.getElementById('editor-titulo').value = '';
-            document.getElementById('editor-conteudo').value = '';
-        }
-
-        function cancelarEdicao() {
-            if(confirm('Descartar alterações?')) {
-                musicaAtualId = null;
-                navegar('lista');
-            }
-        }
-
-        // SALVAR MÚSICA (CREATE/UPDATE)
-        async function salvarMusica() {
-            const id = document.getElementById('editor-id').value;
-            const titulo = document.getElementById('editor-titulo').value.trim();
-            const conteudo = document.getElementById('editor-conteudo').value;
-
-            if (!titulo) {
-                alert("Por favor, digite um título para a música!");
-                return;
-            }
-
-            try {
-                if (id) {
-                    await db.musicas.update(parseInt(id), { titulo, conteudo });
-                } else {
-                    await db.musicas.add({ titulo, conteudo });
-                }
-                
-                musicaAtualId = null;
-                navegar('lista');
-            } catch (error) {
-                alert('Erro ao salvar: ' + error.message);
-            }
-        }
-
-        // LISTAR MÚSICAS
-        async function carregarLista() {
-            const ul = document.getElementById('lista-musicas');
-            ul.innerHTML = '<div class="text-center text-muted">Carregando...</div>';
-            
-            try {
-                const musicas = await db.musicas.toArray();
-
-                if (musicas.length === 0) {
-                    ul.innerHTML = `
-                        <div class="text-center mt-5">
-                            <p class="text-muted">Nenhuma música cadastrada ainda.</p>
-                            <button class="btn btn-primary" onclick="navegar('editor')">
-                                ➕ Adicionar primeira música
-                            </button>
-                        </div>
-                    `;
-                    return;
-                }
-
-                ul.innerHTML = '';
-                musicas.forEach(musica => {
-                    const li = document.createElement('a');
-                    li.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
-                    li.style.cursor = 'pointer';
-                    li.innerHTML = `
-                        <span><strong>${musica.titulo}</strong></span>
-                        <small class="text-muted">Abrir →</small>
-                    `;
-                    li.onclick = () => abrirMusica(musica);
-                    ul.appendChild(li);
-                });
-            } catch (error) {
-                ul.innerHTML = `<div class="alert alert-danger">Erro ao carregar: ${error.message}</div>`;
-            }
-        }
-
-        // VISUALIZAR MÚSICA
-        function abrirMusica(musica) {
-            musicaAtualId = musica.id;
-            document.getElementById('titulo-musica').textContent = musica.titulo;
-            
-            try {
-                if (!window.chordMark) {
-                    throw new Error('ChordMark ainda não foi carregado. Aguarde um momento e tente novamente.');
-                }
-                
-                const song = window.chordMark.parseSong(musica.conteudo);
-                const html = window.chordMark.renderSong(song);
-                document.getElementById('render-area').innerHTML = html;
-            } catch (error) {
-                document.getElementById('render-area').innerHTML = `
-                    <div class="alert alert-warning">
-                        <strong>Erro ao renderizar:</strong> ${error.message}
-                    </div>
-                    <div class="mt-3">
-                        <strong>Conteúdo original:</strong>
-                        <pre class="text-white mt-2">${musica.conteudo}</pre>
-                    </div>
-                `;
-            }
-            
-            navegar('leitor');
-        }
-
-        // EDITAR MÚSICA
-        async function editarAtual() {
-            if(!musicaAtualId) return;
-            
-            try {
-                const musica = await db.musicas.get(musicaAtualId);
-                
-                document.getElementById('editor-id').value = musica.id;
-                document.getElementById('editor-titulo').value = musica.titulo;
-                document.getElementById('editor-conteudo').value = musica.conteudo;
-                
-                navegar('editor');
-            } catch (error) {
-                alert('Erro ao carregar música: ' + error.message);
-            }
-        }
-
-        // DELETAR MÚSICA
-        async function deletarAtual() {
-            if(!musicaAtualId) return;
-            
-            if(confirm('Tem certeza que deseja excluir esta música? Esta ação não pode ser desfeita.')) {
-                try {
-                    await db.musicas.delete(musicaAtualId);
-                    musicaAtualId = null;
-                    navegar('lista');
-                } catch (error) {
-                    alert('Erro ao excluir: ' + error.message);
-                }
-            }
-        }
-    </script>
+    <script src="main.js"></script>
 </body>
+
 </html>
