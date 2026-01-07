@@ -57,14 +57,13 @@
 
 /* Linha de letra da música */
 .cmLyricLine {
-    /* color: var(--bs-light-text-emphasis); */
     display: block;
 }
 
 /* Repetição */
 .cmLine--isFromSectionCopy .cmLyricLine,
 .cmLine--isFromSectionCopy .cmChordLine {
-    font-style: italic;
+    opacity: 0.85;
 }
 
 /* Barra de compasso */
