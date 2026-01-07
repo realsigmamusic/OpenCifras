@@ -22,19 +22,19 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="apple-mobile-web-app-title" content="Contrato">
-	<meta name="theme-color" content="#0d6efd"> <!-- .bg-primary -->
+	<!-- <meta name="theme-color" content="#e9ecef"> .bg-body-secondary (dark = #343a40 light = #e9ecef) -->
 	<link rel="apple-touch-icon" href="maskable_icon_x512.png">
 </head>
 
 <body>
 	<!-- CABEÇALHO -->
-	<nav class="navbar bg-primary text-light mb-3 fixed-top">
+	<nav class="navbar bg-body-secondary mb-3 fixed-top shadow">
 		<div class="container-fluid">
 			<h1>OpenCifras</h1>
 			<ul class="navbar-nav justify-content-between align-items-center">
 				<li class="nav-item">
-					<button class="btn btn-link nav-link text-light" onclick="alternarTema()" id="btn-tema">
-						<i class="bi bi-moon-stars-fill" id="icone-tema"></i>
+					<button class="btn btn-link nav-link" onclick="alternarTema()" id="btn-tema">
+						<i class="bi bi-moon-fill" id="icone-tema"></i>
 					</button>
 				</li>
 			</ul>
@@ -64,11 +64,7 @@
 
 		<!-- LEITOR -->
 		<div id="tela-leitor" class="tela">
-			<h1 id="titulo-musica" class="mb-1"></h1>
-			<p id="detalhes-musica" class="mb-3"></p>
-
-			<div
-				class="d-flex justify-content-center align-items-center gap-3 mb-4 p-2 bg-secondary bg-opacity-10 rounded">
+			<div class="d-flex justify-content-center align-items-center gap-3 mb-4 p-2 bg-secondary bg-opacity-10 rounded shadow">
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)">
 					<i class="bi bi-arrow-down"></i>
 				</button>
@@ -97,6 +93,9 @@
 					<i class="bi bi-pencil-square"></i>
 				</button>
 			</div>
+
+			<h1 id="titulo-musica" class="mb-1"></h1>
+			<p id="detalhes-musica" class="mb-3"></p>
 
 			<div id="render-area" class=""></div>
 		</div>
@@ -138,7 +137,7 @@
 	</div>
 
 	<!-- BACKUP MODAL -->
-	<div class="modal fade" id="modalBackup" tabindex="-1">
+	<div class="modal fade shadow" id="modalBackup" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -171,23 +170,23 @@
 		</div>
 	</div>
 
-	<footer class="bg-primary fixed-bottom">
+	<footer class="bg-body-secondary fixed-bottom">
 		<div class="container">
 			<div class="d-flex justify-content-around align-items-center py-2">
 
-				<button class="btn btn-link text-decoration-none text-light d-flex flex-column align-items-center p-1"
+				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
 					onclick="navegar('lista')">
-					<i class="bi bi-music-note-list fs-4"></i>
+					<i class="bi bi-music-note-list fs-5"></i>
 					<small style="font-size: 0.7rem;">Repertório</small>
 				</button>
 
-				<button class="btn btn-link text-decoration-none text-light d-flex flex-column align-items-center p-1"
+				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
 					onclick="navegar('editor')">
 					<i class="bi bi-plus-circle-fill fs-1"></i> </button>
 
-				<button class="btn btn-link text-decoration-none text-light d-flex flex-column align-items-center p-1"
+				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
 					data-bs-toggle="modal" data-bs-target="#modalBackup">
-					<i class="bi bi-hdd-network fs-4"></i>
+					<i class="bi bi-hdd-network fs-5"></i>
 					<small style="font-size: 0.7rem;">Backup</small>
 				</button>
 
