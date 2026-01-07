@@ -51,9 +51,17 @@ async function carregarLista(termoBusca = "") {
 		ul.innerHTML = '';
 		musicas.forEach(musica => {
 			const a = document.createElement('a');
-			a.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+			a.className = 'list-group-item list-group-item-action d-flex';
 			a.style.cursor = 'pointer';
-			a.innerHTML = `<strong>${musica.titulo}</strong> <i class="bi bi-box-arrow-right"></i>`;
+			a.innerHTML = `
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div>
+                        <h6 class="mb-0 fw-bold text-body">${musica.titulo}</h6>
+                        <p class="small fst-italic text-secondary">${musica.artista}</p>
+                    </div>
+                    <i class="bi bi-chevron-right text-muted opacity-50"></i>
+                </div>
+            `;
 			a.onclick = () => abrirMusica(musica);
 			ul.appendChild(a);
 		});
@@ -68,6 +76,13 @@ function abrirMusica(musica) {
 	tomAtual = 0;
 
 	document.getElementById('titulo-musica').textContent = musica.titulo;
+	const detalhesEl = document.getElementById('detalhes-musica');
+    if (musica.artista) {
+        detalhesEl.innerHTML = `${musica.artista}`;
+    } else {
+        detalhesEl.innerHTML = '';
+    }
+
 	renderizarCifra(document.getElementById('render-area'), musica.conteudo, tomAtual);
 
 	atualizarDisplayTom();
@@ -125,13 +140,15 @@ async function salvar() {
 		if (musicaAtualId) {
 			await db.musicas.update(musicaAtualId, {
 				titulo: dados.titulo,
-				conteudo: dados.conteudo
+				conteudo: dados.conteudo,
+				artista: dados.artista
 			});
 			idParaAbrir = musicaAtualId;
 		} else {
 			idParaAbrir = await db.musicas.add({
 				titulo: dados.titulo,
-				conteudo: dados.conteudo
+				conteudo: dados.conteudo,
+				artista: dados.artista
 			});
 		}
 

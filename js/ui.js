@@ -7,6 +7,7 @@ export function alternarTela(nomeTela) {
 export function limparEditor() {
 	document.getElementById('editor-id').value = '';
 	document.getElementById('editor-titulo').value = '';
+	document.getElementById('editor-artista').value = '';
 	document.getElementById('editor-conteudo').value = '';
 }
 
@@ -14,6 +15,7 @@ export function obterDadosEditor() {
 	return {
 		id: document.getElementById('editor-id').value,
 		titulo: document.getElementById('editor-titulo').value.trim(),
+		artista: document.getElementById('editor-artista').value.trim(),
 		conteudo: document.getElementById('editor-conteudo').value
 	};
 }
@@ -21,6 +23,7 @@ export function obterDadosEditor() {
 export function preencherEditor(musica) {
 	document.getElementById('editor-id').value = musica.id;
 	document.getElementById('editor-titulo').value = musica.titulo;
+	document.getElementById('editor-artista').value = musica.artista || '';
 	document.getElementById('editor-conteudo').value = musica.conteudo;
 }
 
