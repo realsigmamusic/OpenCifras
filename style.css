@@ -10,8 +10,8 @@
 .cmSong {
     font-family: var(--bs-font-monospace);
     white-space: pre-wrap;
-    line-height: 1.5;
-    font-size: 1rem;
+    line-height: 1.0;
+    font-size: 0.95rem;
 }
 
 /* Tonalidade */
@@ -46,7 +46,7 @@
 /* Linha de acordes */
 .cmChordLine {
     display: block;
-    margin-bottom: -1.4rem;
+    margin-bottom: -1.0rem;
 }
 
 /* Acordes */
