@@ -80,30 +80,3 @@
 .cmSubBeatGroupCloser {
 	color: var(--bs-secondary);
 }
-
-nav {
-	box-shadow: -4px 0 10px rgba(0,0,0,0.2);
-}
-
-footer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1050;
-	box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-}
-
-body {
-	padding-bottom: 90px; 
-}
-
-.btn-link:focus, .btn-link:active {
-	box-shadow: none;
-	outline: none;
-	opacity: 0.8;
-}
-
-footer button {
-	min-width: 80px;
-}
