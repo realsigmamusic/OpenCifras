@@ -10,14 +10,14 @@ let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
 
 function navegar(tela, adicionarAoHistorico = true) {
 	alternarTela(tela);
-	
+
 	if (tela === 'lista') {
 		const inputBusca = document.getElementById('input-busca');
-		if(inputBusca) inputBusca.value = ''; 
+		if (inputBusca) inputBusca.value = '';
 		carregarLista();
 		musicaAtualId = null;
 	}
-	
+
 	if (tela === 'editor' && !musicaAtualId) {
 		limparEditor();
 	}
@@ -36,8 +36,8 @@ async function carregarLista(termoBusca = "") {
 		if (termoBusca.trim().length > 0) {
 			const termo = termoBusca.toLowerCase();
 			musicas = await db.musicas.filter(musica => {
-				return musica.titulo.toLowerCase().includes(termo) || 
-					   musica.conteudo.toLowerCase().includes(termo);
+				return musica.titulo.toLowerCase().includes(termo) ||
+					musica.conteudo.toLowerCase().includes(termo);
 			}).toArray();
 		} else {
 			musicas = await db.musicas.orderBy('titulo').toArray();
@@ -66,10 +66,10 @@ function abrirMusica(musica) {
 	musicaAtualId = musica.id;
 	musicaAtualConteudo = musica.conteudo;
 	tomAtual = 0;
-	
+
 	document.getElementById('titulo-musica').textContent = musica.titulo;
 	renderizarCifra(document.getElementById('render-area'), musica.conteudo, tomAtual);
-	
+
 	atualizarDisplayTom();
 	navegar('leitor');
 	aplicarFonte();
@@ -83,7 +83,7 @@ function mudarTom(delta) {
 
 function mudarTamanhoFonte(delta) {
 	tamanhoFonte += delta;
-	
+
 	if (tamanhoFonte < 50) tamanhoFonte = 50;
 	if (tamanhoFonte > 250) tamanhoFonte = 250;
 
@@ -114,17 +114,33 @@ function atualizarDisplayTom() {
 
 async function salvar() {
 	const dados = obterDadosEditor();
-	if (!dados.titulo) return alert("Título obrigatório!");
+	if (!dados.titulo || !dados.conteudo) {
+		alert("Preencha título e conteúdo!");
+		return;
+	}
 
 	try {
-		if (dados.id) {
-			await db.musicas.update(parseInt(dados.id), { titulo: dados.titulo, conteudo: dados.conteudo });
+		let idParaAbrir;
+
+		if (musicaAtualId) {
+			await db.musicas.update(musicaAtualId, {
+				titulo: dados.titulo,
+				conteudo: dados.conteudo
+			});
+			idParaAbrir = musicaAtualId;
 		} else {
-			await db.musicas.add({ titulo: dados.titulo, conteudo: dados.conteudo });
+			idParaAbrir = await db.musicas.add({
+				titulo: dados.titulo,
+				conteudo: dados.conteudo
+			});
 		}
-		musicaAtualId = null;
-		navegar('lista');
+
+		const musicaAtualizada = await db.musicas.get(idParaAbrir);
+
+		abrirMusica(musicaAtualizada);
+
 	} catch (e) {
+		console.error(e);
 		alert("Erro ao salvar: " + e.message);
 	}
 }
@@ -158,15 +174,15 @@ window.alternarTema = alternarTema;
 window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
 
-function navigateToHome() { 
-	musicaAtualId = null; 
-	navegar('lista'); 
+function navigateToHome() {
+	musicaAtualId = null;
+	navegar('lista');
 }
 window.cancelarEdicao = navigateToHome;
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
 	if (event.state && event.state.tela) {
-		navegar(event.state.tela, false); 
+		navegar(event.state.tela, false);
 	} else {
 		navegar('lista', false);
 	}
