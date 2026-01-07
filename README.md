@@ -53,5 +53,5 @@ O projeto pode ser hospedado gratuitamente em qualquer serviço de hospedagem de
 ## Licença
 Este projeto está licenciado sob a licença **MIT**. Consulte o arquivo LICENSE para obter mais informações.
 
-- https://www.flaticon.com/
-- https://maskable.app/editor?hl=pt-BR
+- [Icons created by Nikita Golubev - Flaticon](https://www.flaticon.com/free-icon/plectrum_2986954?term=pick+guitar&related_id=2986954)
+- [Maskable​.app](https://maskable.app/editor?hl=pt-BR)
