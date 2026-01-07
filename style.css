@@ -1,109 +1,109 @@
 .tela {
-    display: none;
+	display: none;
 }
 
 .tela-ativa {
-    display: block;
+	display: block;
 }
 
 /* ChordMark CSS Classes */
 .cmSong {
-    font-family: var(--bs-font-monospace);
-    white-space: pre-wrap;
-    line-height: 1.2;
+	font-family: var(--bs-font-monospace);
+	white-space: pre-wrap;
+	line-height: 1.2;
 }
 
 /* Tonalidade */
 .cmKeyDeclaration {
-    color: var(--bs-success);
-    font-weight: 900;
+	color: var(--bs-success);
+	font-weight: 900;
 }
 
 /* Fórmula de compasso */
 .cmTimeSignature {
-    color: var(--bs-success);
-    font-weight: 900;
+	color: var(--bs-success);
+	font-weight: 900;
 }
 
 /* Repetição */
 .cmSectionMultiplier {
-    color: var(--bs-success);
+	color: var(--bs-success);
 }
 
 /* Título de sessões */
 .cmSectionLabel {
-    background-color: var(--bs-secondary-bg);
-    border-radius: var(--bs-border-radius);
-    border-bottom: none;
-    color: var(--bs-warning);
-    font-weight: 900;
-    padding: 4px 10px;
-    display: block;
-    width: 100%;
+	background-color: var(--bs-secondary-bg);
+	border-radius: var(--bs-border-radius);
+	border-bottom: none;
+	color: var(--bs-warning);
+	font-weight: 900;
+	padding: 4px 10px;
+	display: block;
+	width: 100%;
 }
 
 /* Linha de acordes */
 .cmChordLine {
-    display: block;
-    margin-bottom: -1.0rem;
+	display: block;
+	margin-bottom: -1.0rem;
 }
 
 /* Acordes */
 .cmChordSymbol {
-    color: var(--bs-primary);
-    font-weight: 900;
+	color: var(--bs-primary);
+	font-weight: 900;
 }
 
 /* Linha de letra da música */
 .cmLyricLine {
-    display: block;
+	display: block;
 }
 
 /* Repetição */
 .cmLine--isFromSectionCopy .cmLyricLine,
 .cmLine--isFromSectionCopy .cmChordLine {
-    opacity: 0.85;
+	opacity: 0.85;
 }
 
 /* Barra de compasso */
 .cmBarSeparator {
-    color: var(--bs-secondary);
+	color: var(--bs-secondary);
 }
 
 /* Pontos */
 .cmChordDuration {
-    color: var(--bs-secondary);
+	color: var(--bs-secondary);
 }
 
 /* [] */
 .cmSubBeatGroupOpener,
 .cmSubBeatGroupCloser {
-    color: var(--bs-secondary);
+	color: var(--bs-secondary);
 }
 
 nav {
-    box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+	box-shadow: -4px 0 10px rgba(0,0,0,0.2);
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1050;
-    box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1050;
+	box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
 }
 
 body {
-    padding-bottom: 90px; 
+	padding-bottom: 90px; 
 }
 
 .btn-link:focus, .btn-link:active {
-    box-shadow: none;
-    outline: none;
-    opacity: 0.8;
+	box-shadow: none;
+	outline: none;
+	opacity: 0.8;
 }
 
 footer button {
-    min-width: 80px;
+	min-width: 80px;
 }

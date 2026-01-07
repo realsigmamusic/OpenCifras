@@ -82,26 +82,26 @@ function mudarTom(delta) {
 }
 
 function mudarTamanhoFonte(delta) {
-    tamanhoFonte += delta;
-    
-    if (tamanhoFonte < 50) tamanhoFonte = 50;
-    if (tamanhoFonte > 250) tamanhoFonte = 250;
+	tamanhoFonte += delta;
+	
+	if (tamanhoFonte < 50) tamanhoFonte = 50;
+	if (tamanhoFonte > 250) tamanhoFonte = 250;
 
-    localStorage.setItem('tamanhoFonte', tamanhoFonte);
-    aplicarFonte();
+	localStorage.setItem('tamanhoFonte', tamanhoFonte);
+	aplicarFonte();
 }
 
 function resetarFonte() {
-    tamanhoFonte = 100;
-    localStorage.setItem('tamanhoFonte', tamanhoFonte);
-    aplicarFonte();
+	tamanhoFonte = 100;
+	localStorage.setItem('tamanhoFonte', tamanhoFonte);
+	aplicarFonte();
 }
 
 function aplicarFonte() {
-    const area = document.getElementById('render-area');
-    if (area) {
-        area.style.fontSize = `${tamanhoFonte}%`;
-    }
+	const area = document.getElementById('render-area');
+	if (area) {
+		area.style.fontSize = `${tamanhoFonte}%`;
+	}
 }
 
 function atualizarDisplayTom() {
