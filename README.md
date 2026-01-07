@@ -53,5 +53,5 @@ O projeto pode ser hospedado gratuitamente em qualquer serviço de hospedagem de
 ## Licença
 Este projeto está licenciado sob a licença **MIT**. Consulte o arquivo LICENSE para obter mais informações.
 
-- https://www.flaticon.com/free-icons/
+- https://www.flaticon.com/
 - https://maskable.app/editor?hl=pt-BR
