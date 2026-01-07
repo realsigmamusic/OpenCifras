@@ -3,6 +3,14 @@ import { renderizarCifra } from './render.js';
 import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema } from './ui.js';
 import { exportarDados, importarDados } from './backup.js';
 
+const MUSICAS_EXEMPLO = [
+	{
+		titulo: "Primeiros passos no OpenCifras",
+		artista: "Real Sigma Music",
+		conteudo: "Bem-vindo ao OpenCifras!\nO OpenCifras é um editor no formato ChordMark. Você pode usá-lo para escrever rapidamente transcrições precisas de músicas compostas por acordes e letras.\n\nDm7.. G7.. CM7\n_Apenas es_creva a _sua letra. \n% \nE _veja como _fica: fan_tástico!\n\nPor onde começar? Você pode ler o guia do usuário em:\nhttps://chordmark.netlify.app/docs/getting-started\nDivirta-se!\n"
+	}
+]
+
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
@@ -209,6 +217,21 @@ const temaSalvo = localStorage.getItem('tema');
 const preferenciaSistema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 aplicarTema(temaSalvo || preferenciaSistema);
 
+async function verificarExemplos() {
+    try {
+        const quantidade = await db.musicas.count();
+        if (quantidade === 0) {
+            await db.musicas.bulkAdd(MUSICAS_EXEMPLO);
+            console.log("Músicas de exemplo adicionadas!");
+        }
+    } catch (e) {
+        console.error("Erro ao criar exemplos:", e);
+    }
+}
+
 // INICIALIZAÇÃO
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));
-carregarLista();
+
+verificarExemplos().then(() => {
+    carregarLista();
+});
