@@ -10,7 +10,7 @@
 .cmSong {
     font-family: var(--bs-font-monospace);
     white-space: pre-wrap;
-    line-height: 1.0;
+    line-height: 1.2;
 }
 
 /* Tonalidade */
