@@ -23,3 +23,24 @@ export function preencherEditor(musica) {
     document.getElementById('editor-titulo').value = musica.titulo;
     document.getElementById('editor-conteudo').value = musica.conteudo;
 }
+
+export function aplicarTema(tema) {
+    document.documentElement.setAttribute('data-bs-theme', tema);
+
+    localStorage.setItem('tema', tema);
+
+    const icone = document.getElementById('icone-tema');
+    if (icone) {
+        if (tema === 'dark') {
+            icone.className = 'bi bi-sun-fill';
+        } else {
+            icone.className = 'bi bi-moon-stars-fill';
+        }
+    }
+}
+
+export function alternarTema() {
+    const temaAtual = document.documentElement.getAttribute('data-bs-theme');
+    const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+    aplicarTema(novoTema);
+}

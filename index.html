@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="pt-br">
 
-<!-- <html lang="pt-br" data-bs-theme="dark"> -->
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,9 +31,11 @@
     <nav class="navbar bg-primary text-light mb-3">
         <div class="container-fluid">
             <h1>OpenCifras</h1>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav justify-content-between align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="https://github.com/realsigmamusic/OpenCifras">GitHub</a>
+                    <button class="btn btn-link nav-link text-light" onclick="alternarTema()" id="btn-tema">
+                        <i class="bi bi-moon-stars-fill" id="icone-tema"></i>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -44,11 +44,11 @@
     <div class="container">
         <!-- LISTA -->
         <div id="tela-lista" class="tela tela-ativa">
-            <h4 class="mb-3">Meu Repertório</h4>
+            <h4 class="mb-3">Repertório</h4>
             <form class="d-flex" role="search" id="form-busca" onsubmit="return false;">
-                <input class="form-control me-2" type="search" placeholder="Buscar música ou trecho..."
-                    aria-label="Search" id="input-busca">
-                <button class="btn btn-outline-primary" type="button" onclick="filtrarLista()">
+                <input class="form-control me-2" type="search" placeholder="Buscar música..." aria-label="Search"
+                    id="input-busca">
+                <button class="btn btn-primary" type="button" onclick="filtrarLista()">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
@@ -62,35 +62,52 @@
             </div>
         </div>
 
-        <!-- EDITOR -->
+        <!-- TELA: LEITOR -->
         <div id="tela-leitor" class="tela">
             <h2 id="titulo-musica" class="mb-3 text-center"></h2>
 
             <div
                 class="d-flex justify-content-center align-items-center gap-3 mb-4 p-2 bg-secondary bg-opacity-25 rounded">
-                <button class="btn btn-outline-primary btn-sm" onclick="editarAtual()">Editar</button>
-                <button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(1)"><i
-                        class="bi bi-arrow-down"></i></button>
+                <button class="btn btn-primary btn-sm" onclick="editarAtual()">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </button>
+                <button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)">
+                    <i class="bi bi-arrow-down"></i>
+                </button>
                 <span id="display-tom" class="fw-bold" style="min-width: 60px; text-align: center;">Original</span>
-                <button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)"><i
-                        class="bi bi-arrow-up"></i></button>
-                <button class="btn btn-outline-danger btn-sm" onclick="deletarAtual()">Excluir</button>
+                <button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(1)">
+                    <i class="bi bi-arrow-up"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deletarAtual()">
+                    <i class="bi bi-trash"></i> Excluir
+                </button>
             </div>
 
             <div id="render-area" class="border rounded p-2"></div>
         </div>
 
-        <!-- TELA: LEITOR -->
-        <div id="tela-leitor" class="tela">
-            <div class="d-flex justify-content-between mb-3">
-                <button class="btn" onclick="navegar('lista')">Voltar</button>
-                <div>
-                    <button class="btn btn-outline-primary" onclick="editarAtual()">Editar</button>
-                    <button class="btn btn-outline-danger" onclick="deletarAtual()">Excluir</button>
-                </div>
+        <!-- EDITOR -->
+        <div id="tela-editor" class="tela">
+            <h4 class="mb-3">Editor</h4>
+
+            <input type="hidden" id="editor-id">
+
+            <div class="mb-3">
+                <label for="editor-titulo" class="form-label">Título</label>
+                <input type="text" class="form-control" id="editor-titulo" placeholder="Nome da música">
             </div>
-            <h2 id="titulo-musica" class="mb-4 text-center"></h2>
-            <div id="render-area" class="bg-dark border rounded p-2"></div>
+
+            <div class="mb-3">
+                <label for="editor-conteudo" class="form-label">Cifra</label>
+                <textarea class="form-control font-monospace" id="editor-conteudo" rows="12"
+                    placeholder="Cole a cifra aqui..."></textarea>
+                <div class="form-text">Use acordes em cima da letra ou no formato ChordPro [C].</div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
+                <button class="btn btn-primary" onclick="salvarMusica()">Salvar Música</button>
+            </div>
         </div>
 
     </div>
