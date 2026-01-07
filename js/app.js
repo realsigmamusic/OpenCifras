@@ -6,6 +6,7 @@ import { exportarDados, importarDados } from './backup.js';
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
+let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
 
 function navegar(tela, adicionarAoHistorico = true) {
 	alternarTela(tela);
@@ -71,6 +72,7 @@ function abrirMusica(musica) {
 	
 	atualizarDisplayTom();
 	navegar('leitor');
+	aplicarFonte();
 }
 
 function mudarTom(delta) {
@@ -79,11 +81,34 @@ function mudarTom(delta) {
 	atualizarDisplayTom();
 }
 
+function mudarTamanhoFonte(delta) {
+    tamanhoFonte += delta;
+    
+    if (tamanhoFonte < 50) tamanhoFonte = 50;
+    if (tamanhoFonte > 250) tamanhoFonte = 250;
+
+    localStorage.setItem('tamanhoFonte', tamanhoFonte);
+    aplicarFonte();
+}
+
+function resetarFonte() {
+    tamanhoFonte = 100;
+    localStorage.setItem('tamanhoFonte', tamanhoFonte);
+    aplicarFonte();
+}
+
+function aplicarFonte() {
+    const area = document.getElementById('render-area');
+    if (area) {
+        area.style.fontSize = `${tamanhoFonte}%`;
+    }
+}
+
 function atualizarDisplayTom() {
 	const display = document.getElementById('display-tom');
 	if (display) {
 		const sinal = tomAtual > 0 ? '+' : '';
-		display.innerText = tomAtual === 0 ? 'Original' : `${sinal}${tomAtual}`;
+		display.innerText = tomAtual === 0 ? 'Tom' : `${sinal}${tomAtual}`;
 	}
 }
 
@@ -130,6 +155,8 @@ window.importarDados = (el) => importarDados(el, carregarLista);
 window.filtrarLista = () => carregarLista(document.getElementById('input-busca').value);
 window.mudarTom = mudarTom;
 window.alternarTema = alternarTema;
+window.mudarTamanhoFonte = mudarTamanhoFonte;
+window.resetarFonte = resetarFonte;
 
 function navigateToHome() { 
 	musicaAtualId = null; 
