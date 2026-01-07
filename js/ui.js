@@ -31,13 +31,7 @@ export function aplicarTema(tema) {
 	document.documentElement.setAttribute('data-bs-theme', tema);
 
 	localStorage.setItem('tema', tema);
-
-	const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-	if (metaThemeColor) {
-		// .bg-body-secondary (dark = #343a40 light = #e9ecef)
-		metaThemeColor.setAttribute('content', tema === 'dark' ? '#343a40' : '#e9ecef');
-	}
-
+	
 	const icone = document.getElementById('icone-tema');
 	if (icone) {
 		if (tema === 'dark') {
@@ -45,6 +39,12 @@ export function aplicarTema(tema) {
 		} else {
 			icone.className = 'bi bi-moon-fill';
 		}
+	}
+	
+	const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+	if (metaThemeColor) {
+		// .bg-body-secondary (dark = #343a40 light = #e9ecef)
+		metaThemeColor.setAttribute('content', tema === 'dark' ? '#343a40' : '#e9ecef');
 	}
 }
 
