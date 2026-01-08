@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1.4.3';
+const CACHE_NAME = 'v1.4.4';
 const ASSETS = [
 	'./',
 	'./index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
 	'./js/ui.js',
 	'./js/render.js',
 	'./js/backup.js',
+	'./Music note list.svg',
 	'./maskable_icon_x512.png',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
 	'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
