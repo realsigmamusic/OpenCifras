@@ -8,7 +8,7 @@ const MUSICAS_EXEMPLO = [
 		titulo: "Primeiros passos no OpenCifras",
 		artista: "Real Sigma Music",
 		conteudo: "Bem-vindo ao OpenCifras!\nO OpenCifras é um editor no formato ChordMark. Você pode usá-lo para escrever rapidamente transcrições precisas de músicas compostas por acordes e letras.\n\nDm7.. G7.. CM7\n_Apenas es_creva a _sua letra. \n% \nE _veja como _fica: fan_tástico!\n\nPor onde começar? Você pode ler o guia do usuário em:\nhttps://chordmark.netlify.app/docs/getting-started\nDivirta-se!\n",
-id: 1
+		id: 1
 	}
 ]
 
@@ -86,11 +86,11 @@ function abrirMusica(musica) {
 
 	document.getElementById('titulo-musica').textContent = musica.titulo;
 	const detalhesEl = document.getElementById('detalhes-musica');
-    if (musica.artista) {
-        detalhesEl.innerHTML = `${musica.artista}`;
-    } else {
-        detalhesEl.innerHTML = '';
-    }
+	if (musica.artista) {
+		detalhesEl.innerHTML = `${musica.artista}`;
+	} else {
+		detalhesEl.innerHTML = '';
+	}
 
 	renderizarCifra(document.getElementById('render-area'), musica.conteudo, tomAtual);
 
@@ -219,20 +219,62 @@ const preferenciaSistema = window.matchMedia('(prefers-color-scheme: dark)').mat
 aplicarTema(temaSalvo || preferenciaSistema);
 
 async function verificarExemplos() {
-    try {
-        const quantidade = await db.musicas.count();
-        if (quantidade === 0) {
-            await db.musicas.bulkAdd(MUSICAS_EXEMPLO);
-            console.log("Músicas de exemplo adicionadas!");
-        }
-    } catch (e) {
-        console.error("Erro ao criar exemplos:", e);
-    }
+	try {
+		const quantidade = await db.musicas.count();
+		if (quantidade === 0) {
+			await db.musicas.bulkAdd(MUSICAS_EXEMPLO);
+			console.log("Músicas de exemplo adicionadas!");
+		}
+	} catch (e) {
+		console.error("Erro ao criar exemplos:", e);
+	}
+}
+
+const renderArea = document.getElementById('render-area');
+
+if (renderArea) {
+	renderArea.addEventListener('click', (e) => {
+		if (e.target.classList.contains('cmChordSymbol')) {
+			const nomeAcorde = e.target.textContent;
+			mostrarInfoAcorde(nomeAcorde);
+		}
+	});
+}
+
+function mostrarInfoAcorde(acordeStr) {
+	if (typeof Tonal === 'undefined') {
+		console.error("Tonal.js não carregado!");
+		return;
+	}
+
+	const acordeLimpo = acordeStr.replace(/[\s().]+/g, '');
+
+	const info = Tonal.Chord.get(acordeLimpo);
+
+	if (info.empty) {
+		console.warn('Acorde não reconhecido:', acordeLimpo);
+		return;
+	}
+
+	document.getElementById('titulo-acorde').textContent = info.symbol || acordeLimpo;
+
+	const acordeNomes = info.aliases && info.aliases.length ? info.aliases.join(', ') : '...';
+	document.getElementById('aliases-acorde').textContent = acordeNomes;
+
+	const notas = info.notes && info.notes.length ? info.notes.join(', ') : '...';
+	document.getElementById('notas-acorde').textContent = notas;
+
+	const intervalos = info.intervals && info.intervals.length ? info.intervals.join(' - ') : '...';
+	document.getElementById('intervalos-acorde').textContent = intervalos;
+
+	const modalElement = document.getElementById('modalAcorde');
+	const modal = new bootstrap.Modal(modalElement);
+	modal.show();
 }
 
 // INICIALIZAÇÃO
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));
 
 verificarExemplos().then(() => {
-    carregarLista();
+	carregarLista();
 });

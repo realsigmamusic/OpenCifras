@@ -2,27 +2,20 @@ import { parseSong, renderSong } from 'https://cdn.jsdelivr.net/npm/chord-mark@0
 
 export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 	try {
-		if (!parseSong || !renderSong) {
-			throw new Error("Biblioteca ChordMark não carregou.");
-		}
+		const valTransposicao = parseInt(semitons) || 0;
 
 		const song = parseSong(conteudo);
-		
+
 		const html = renderSong(song, {
-			alignBars: false, 
+			alignBars: false,
 			alignChordsWithLyrics: true,
-			transposeValue: semitons 
+			transposeValue: valTransposicao,
 		});
-		
+
 		elementoDestino.innerHTML = html;
-		
+
 	} catch (error) {
 		console.error("Erro no render:", error);
-		elementoDestino.innerHTML = `
-			<div class="alert alert-warning">
-				<strong>Erro ao renderizar:</strong> ${error.message}
-			</div>
-			<pre class="text-white">${conteudo}</pre>
-		`;
+		elementoDestino.innerHTML = `<div class="alert alert-warning">${error.message}</div>`;
 	}
 }

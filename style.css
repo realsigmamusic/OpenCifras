@@ -52,6 +52,11 @@
 .cmChordSymbol {
 	color: var(--bs-primary);
 	font-weight: 900;
+	cursor: pointer;
+}
+
+.cmChordSymbol:hover, .cmChordSymbol:active {
+    color: var(--bs-warning);
 }
 
 /* Linha de letra da música */
