@@ -62,7 +62,7 @@
 /* Repetição */
 .cmLine--isFromSectionCopy .cmLyricLine,
 .cmLine--isFromSectionCopy .cmChordLine {
-	opacity: 0.85;
+	opacity: 1.0;
 }
 
 /* Barra de compasso */
