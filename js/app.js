@@ -5,10 +5,9 @@ import { exportarDados, importarDados } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
 	{
-		titulo: "Primeiros passos no OpenCifras",
-		artista: "Real Sigma Music",
-		conteudo: "Bem-vindo ao OpenCifras!\nO OpenCifras é um editor no formato ChordMark. Você pode usá-lo para escrever rapidamente transcrições precisas de músicas compostas por acordes e letras.\n\nDm7.. G7.. CM7\n_Apenas es_creva a _sua letra. \n% \nE _veja como _fica: fan_tástico!\n\nPor onde começar? Você pode ler o guia do usuário em:\nhttps://chordmark.netlify.app/docs/getting-started\nDivirta-se!\n",
-		id: 1
+		titulo: "Luar do sertão",
+		artista: "Catulo da Paixão Cearense / João Pernambuco",
+		conteudo: "key A\n4/4\n\n#i\nA Bm7 E7 A\n\n#c\nA.. A7.. D.. B7..\nNão _há, ó _gente, ó, _não lu_ar\nE7.. E/D.. C#7\nComo _esse _do ser_tão\nA.. A7.. D.. B7..\nNão _há, ó _gente, ó, _não lu_ar\nE7 A.. E7..\nVomo _esse do ser_tão _\n\n#v\nA.. F#m7..\nOh que sau_dade do lu_ar\nBm7.. Dm7..\nDa minha terra_ Lá na _serra\nE7.. E/D.. A.. E7..\nBranque_jando folhas _secas pelo _chão _\nA.. F#m7..\nEste luar_ cá da ci_dade\nBm7.. Dm7..\nTão escuro_ não tem _aquela\nE7 A.. E7..\nsau_dade do luar lá do ser_tão _\n\n#c\n\n#v\nSe a lua _nasce por de_trás\nDa verde mata_ Mais pa_rece\nUm sol de _prata prate_ando a soli_dão _\nE a gente _pega na vi_ola\nQue ponte_ia E a can_ção\nÉ a lua _cheia a nos nascer do cora_ção _\n\n#c\n\nkey C\n#v\nCoisa mais _bela nesse _mundo\nNão e_xiste do que ou_vir\nUm galo _triste no ser_tão que faz _luar _\nParece at_é que a alma _da lua\nQue des_cansa escon_dida\nNa gar_ganta desse galo a solu_çar _\n\n#c\n\n#v\nAi quem me _dera se eu mor_resse\nLá na _serra abra_çado\nÀ minha _terra, e dor_mindo de uma _vez _\nSer enter_rado numa _grota\nPeque_nina onde à _tarde\nA suru_rina chora a sua viu_vez _\n\n#c x2\n\n#End\nC.. Bb.. C\n"
 	}
 ]
 
