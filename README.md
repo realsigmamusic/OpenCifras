@@ -3,6 +3,21 @@
 O **OpenCifras** é uma Aplicação Web Progressiva **(PWA)** de código aberto desenvolvida para músicos e estudantes. O objetivo do projeto é oferecer uma ferramenta simples, leve e funcional para criar, organizar e visualizar cifras e letras de músicas, funcionando totalmente offline.
 O aplicativo utiliza o formato ChordMark para renderização de cifras, permitindo transposição automática e formatação inteligente.
 
+<p align="center">
+  <img src="./docs/list-light.jpg" width="24%"/>
+  <img src="./docs/list-dark.jpg" width="24%"/>
+  <img src="./docs/view-light.jpg" width="24%"/>
+  <img src="./docs/view-dark.jpg" width="24%"/>
+  <br>
+  <img src="./docs/info-light.jpg" width="24%"/>
+  <img src="./docs/info-dark.jpg" width="24%"/>
+  <img src="./docs/edit-light.jpg" width="24%"/>
+  <img src="./docs/edit-dark.jpg" width="24%"/>
+  <br>
+  <img src="./docs/backup-light.jpg" width="24%"/>
+  <img src="./docs/backup-dark.jpg" width="24%"/>
+</p>
+
 ## Funcionalidades Principais
  * Gerenciamento de Repertório: Criação, leitura, edição e exclusão de músicas (CRUD).
  * Banco de Dados Local: Todas as músicas são salvas no navegador do usuário utilizando IndexedDB, garantindo privacidade e acesso offline.
