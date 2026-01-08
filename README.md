@@ -13,8 +13,8 @@ O foco do projeto é a simplicidade e a privacidade. Não há rastreamento de us
 <table>
   <tr>
     <td align="center" width="25%">
-      <strong>Repertótio</strong><br>
-      <img src="./docs/list-light.jpg" alt="Lista Claro">
+      <strong>Repertório</strong><br>
+      <img src="./docs/list-light.jpg" alt="Repertório Claro">
     </td>
     <td align="center" width="25%">
       <strong>Visualização</strong><br>
@@ -31,7 +31,7 @@ O foco do projeto é a simplicidade e a privacidade. Não há rastreamento de us
   </tr>
   <tr>
     <td align="center" width="25%">
-      <img src="./docs/list-dark.jpg" alt="Lista Escuro">
+      <img src="./docs/list-dark.jpg" alt="Repertório Escuro">
     </td>
     <td align="center" width="25%">
       <img src="./docs/view-dark.jpg" alt="Visualização Escuro">
