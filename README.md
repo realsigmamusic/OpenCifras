@@ -1,72 +1,126 @@
 # [OpenCifras](https://realsigmamusic.github.io/OpenCifras/)
 
-O **OpenCifras** é uma Aplicação Web Progressiva **(PWA)** de código aberto desenvolvida para músicos e estudantes. O objetivo do projeto é oferecer uma ferramenta simples, leve e funcional para criar, organizar e visualizar cifras e letras de músicas, funcionando totalmente offline.
-O aplicativo utiliza o formato ChordMark para renderização de cifras, permitindo transposição automática e formatação inteligente.
+**OpenCifras** é uma Aplicação Web Progressiva (PWA) de código aberto desenvolvida para músicos e estudantes. O projeto oferece uma ferramenta minimalista, leve e funcional para criar, organizar e visualizar cifras e letras de músicas, operando totalmente offline.
 
-<p align="center">
-  <img src="./docs/list-light.jpg" width="24%"/>
-  <img src="./docs/list-dark.jpg" width="24%"/>
-  <img src="./docs/view-light.jpg" width="24%"/>
-  <img src="./docs/view-dark.jpg" width="24%"/>
-  <br>
-  <img src="./docs/info-light.jpg" width="24%"/>
-  <img src="./docs/info-dark.jpg" width="24%"/>
-  <img src="./docs/edit-light.jpg" width="24%"/>
-  <img src="./docs/edit-dark.jpg" width="24%"/>
-  <br>
-  <img src="./docs/backup-light.jpg" width="24%"/>
-  <img src="./docs/backup-dark.jpg" width="24%"/>
-</p>
+O sistema utiliza o formato **ChordMark** para renderização, garantindo transposição automática de tons e formatação inteligente sem a necessidade de ajustes manuais de espaçamento.
 
-## Funcionalidades Principais
- * Gerenciamento de Repertório: Criação, leitura, edição e exclusão de músicas (CRUD).
- * Banco de Dados Local: Todas as músicas são salvas no navegador do usuário utilizando IndexedDB, garantindo privacidade e acesso offline.
- * Renderização Inteligente: Utiliza a biblioteca ChordMark para formatar cifras e letras automaticamente.
- * Transposição: Alteração do tom da música em tempo real com recálculo automático dos acordes.
- * Acessibilidade e Visualização:
-   * Controle de tamanho da fonte (Zoom).
-   * Temas Claro e Escuro (Dark Mode).
- * Metadados: Suporte para inclusão de Artista nas músicas.
- * Busca: Filtro em tempo real por título ou conteúdo da cifra.
- * Backup e Restauração: Possibilidade de exportar todo o banco de dados para um arquivo JSON e importar posteriormente.
- * Instalação (PWA): Pode ser instalado como um aplicativo nativo em dispositivos móveis e desktop.
- 
-## Tecnologias Utilizadas
-O projeto foi construído utilizando tecnologias web modernas, sem a necessidade de frameworks pesados ou processos de build complexos:
- * **HTML5**, **CSS3** e **JavaScript** (ES6 Modules)
- * **Bootstrap 5.3**: Para estilização responsiva e componentes de interface.
- * **Dexie.js**: Wrapper para facilitar a manipulação do **IndexedDB**.
- * **ChordMark**: Biblioteca para parsing e renderização de cifras.
- * **Bootstrap Icons**: Biblioteca de ícones.
+## Visão Geral
 
-## Como Executar o Projeto
-Como o OpenCifras é uma aplicação estática (client-side), não é necessário configurar um servidor backend (Node.js, PHP, Python, etc.).
-Execução Local
- * Clone este repositório ou baixe os arquivos.
- * Abra o arquivo index.html em seu navegador.
-   * Nota: Para que o Service Worker (PWA) e os Módulos ES6 funcionem corretamente, recomenda-se servir os arquivos através de um servidor HTTP local (como o Live Server do VS Code ou python -m http.server), em vez de abrir diretamente pelo sistema de arquivos (file://).
+O foco do projeto é a simplicidade e a privacidade. Não há rastreamento de usuários, contas ou dependência de servidores remotos para armazenar os dados. Tudo é processado e salvo localmente no dispositivo.
 
-## Hospedagem
-O projeto pode ser hospedado gratuitamente em qualquer serviço de hospedagem de páginas estáticas, como:
- * GitHub Pages
- * Vercel
- * Netlify
- * Cloudflare Pages
+### Galeria
 
-## Estrutura de Arquivos
- * index.html: Estrutura principal e layout da aplicação.
- * style.css: Estilizações personalizadas e ajustes de tema.
- * sw.js: Service Worker responsável pelo cache e funcionamento offline.
- * manifest.json: Configurações de instalação do PWA.
- * js/: Pasta contendo a lógica da aplicação modularizada.
-   * app.js: Lógica principal, controle de rotas e eventos globais.
-   * db.js: Configuração do banco de dados Dexie.js.
-   * ui.js: Manipulação do DOM e elementos de interface.
-   * render.js: Integração com a biblioteca ChordMark.
-   * backup.js: Lógica de exportação e importação de dados.
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <strong>Repertótio</strong><br>
+      <img src="./docs/list-light.jpg" alt="Lista Claro">
+    </td>
+    <td align="center" width="25%">
+      <strong>Visualização</strong><br>
+      <img src="./docs/view-light.jpg" alt="Visualização Claro">
+    </td>
+    <td align="center" width="25%">
+      <strong>Informações</strong><br>
+      <img src="./docs/info-light.jpg" alt="Info Claro">
+    </td>
+    <td align="center" width="25%">
+      <strong>Edição</strong><br>
+      <img src="./docs/edit-light.jpg" alt="Edição Claro">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="25%">
+      <img src="./docs/list-dark.jpg" alt="Lista Escuro">
+    </td>
+    <td align="center" width="25%">
+      <img src="./docs/view-dark.jpg" alt="Visualização Escuro">
+    </td>
+    <td align="center" width="25%">
+      <img src="./docs/info-dark.jpg" alt="Info Escuro">
+    </td>
+    <td align="center" width="25%">
+      <img src="./docs/edit-dark.jpg" alt="Edição Escuro">
+    </td>
+  </tr>
+</table>
 
-## Licença
-Este projeto está licenciado sob a licença **MIT**. Consulte o arquivo LICENSE para obter mais informações.
+## Funcionalidades
 
-- [Icons created by Nikita Golubev - Flaticon](https://www.flaticon.com/free-icon/plectrum_2986954?term=pick+guitar&related_id=2986954)
-- [Maskable​.app](https://maskable.app/editor?hl=pt-BR)
+### Gestão e Produtividade
+* **Funcionamento Offline:** Graças à tecnologia PWA e IndexedDB, o acesso ao repertório independe de conexão com a internet.
+* **CRUD Completo:** Criação, leitura, edição e exclusão de músicas de forma intuitiva.
+* **Busca Instantânea:** Filtragem em tempo real por título, artista ou conteúdo da letra.
+* **Backup e Restauração:** Exportação completa do banco de dados para arquivo JSON, permitindo migração entre dispositivos.
+
+### Ferramentas Musicais
+* **Renderização Dinâmica:** Formatação automática de cifras sobre as letras utilizando a biblioteca ChordMark.
+* **Transposição de Tom:** Alteração de tonalidade em tempo real com recálculo automático da harmonia.
+* **Metadados:** Organização por Artista e Título.
+
+### Interface e Acessibilidade
+* **Temas:** Suporte nativo a Modo Claro e Modo Escuro.
+* **Responsividade:** Layout adaptável para dispositivos móveis (Android/iOS) e Desktops.
+* **Zoom:** Controle de tamanho da fonte para melhor legibilidade durante a execução.
+
+## Tecnologias
+
+O projeto adota uma abordagem "Vanilla", evitando frameworks pesados e processos de build complexos, o que facilita a manutenção e o estudo do código.
+
+* **Core:** HTML5, CSS3 e JavaScript (ES6 Modules).
+* **Armazenamento:** Dexie.js (Wrapper para IndexedDB).
+* **Renderização:** ChordMark (Parser de cifras).
+* **Interface:** Bootstrap 5.3 (Grid system, componentes e utilitários).
+* **Ícones:** Bootstrap Icons.
+
+## Como Executar
+
+### Pré-requisitos
+Não é necessário instalar Node.js, PHP ou Python para o funcionamento básico, pois é uma aplicação *client-side* estática.
+
+### Passos
+1. Clone este repositório:
+```bash
+git clone https://github.com/realsigmamusic/OpenCifras.git
+```
+2. Acesse a pasta do projeto.
+3. Sirva os arquivos através de um servidor HTTP local.
+**Por que um servidor local?**
+Devido às políticas de segurança dos navegadores (CORS), os *Service Workers* e *ES6 Modules* não funcionam corretamente se abertos diretamente via protocolo de arquivo (`file://`).
+Exemplos de como subir um servidor simples:
+    * **Python:** `python -m http.server`
+    * **VS Code:** Extensão "Live Server".
+    * **Node (http-server):** `npx http-server .`
+4. Acesse `http://localhost:8000` (ou a porta indicada pelo seu servidor).
+
+## Hospedagem (Deploy)
+
+Sendo uma aplicação estática, o OpenCifras pode ser hospedado gratuitamente em serviços como:
+
+* GitHub Pages
+* Vercel
+* Netlify
+* Cloudflare Pages
+
+## Estrutura do Projeto
+
+* `index.html`: Ponto de entrada e estrutura DOM principal.
+* `sw.js`: Service Worker para cacheamento de ativos e suporte offline.
+* `manifest.json`: Definições de instalação PWA.
+* `js/`: Lógica da aplicação modularizada.
+* `app.js`: Controlador principal e roteamento.
+* `db.js`: Camada de persistência de dados.
+* `render.js`: Integração com o renderizador de cifras.
+* `ui.js`: Manipulação de eventos e interface.
+* `backup.js`: Rotinas de importação/exportação.
+
+
+
+## Licença e Créditos
+
+Este projeto é distribuído sob a licença **MIT**. Veja o arquivo `LICENSE` para detalhes.
+
+**Créditos de Terceiros:**
+
+* Ícones criados por Nikita Golubev (Flaticon).
+* Ícones adaptados via Maskable.app.
