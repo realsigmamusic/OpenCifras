@@ -39,11 +39,7 @@
 				</h1>
 			</a>
 			<ul class="navbar-nav justify-content-between align-items-center">
-				<li class="nav-item">
-					<button class="btn btn-link nav-link" onclick="alternarTema()" id="btn-tema">
-						<i class="bi bi-moon-fill" id="icone-tema"></i>
-					</button>
-				</li>
+
 			</ul>
 		</div>
 	</nav>
@@ -72,11 +68,12 @@
 		<!-- LEITOR -->
 		<div id="tela-leitor" class="tela">
 			<div
-				class="d-flex justify-content-center align-items-center gap-1 mb-4 p-2 bg-secondary bg-gradient bg-opacity-10 rounded">
+				class="d-flex justify-content-center align-items-center gap-2 mb-4 p-2 bg-secondary bg-gradient bg-opacity-10 rounded">
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)">
 					<i class="bi bi-arrow-down"></i>
 				</button>
-				<button id="display-tom" class="btn btn-sm fw-light text-center" onclick="resetarTom()">
+				<button id="display-tom" class="btn btn-sm bg-secondary bg-opacity-10 fw-light text-center"
+					onclick="resetarTom()">
 					Tom
 				</button>
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(1)">
@@ -96,13 +93,6 @@
 						<i class="bi bi-plus-lg"></i>
 					</button>
 				</div>
-				<div class="vr mx-2 text-secondary"></div>
-
-				<select class="form-select btn btn-secondary" id="select-view">
-					<option value="default">ChordMark</option>
-					<option value="opencifras">OpenCifras</option>
-					<option value="minimalist">Minimalista</option>
-				</select>
 
 				<div class="vr mx-2 btn-secondary text-secondary"></div>
 
@@ -162,40 +152,6 @@
 
 	</div>
 
-	<!-- BACKUP MODAL -->
-	<div class="modal fade shadow" id="modalBackup" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Backup & Restauração</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body text-center">
-
-					<h6 class="text-primary fw-bold mb-3">Salvar Repertório (Exportar)</h6>
-					<p class="small text-muted">Baixe um arquivo contendo todas as suas músicas.</p>
-					<button class="btn btn-outline-primary w-100 mb-4" onclick="exportarDados()">
-						Baixar Backup (.json)
-					</button>
-
-					<hr>
-
-					<h6 class="text-warning fw-bold mb-3 mt-4">Restaurar Repertório (Importar)</h6>
-					<p class="small text-muted">Carregue um arquivo de backup. <br>Isso adicionará as músicas ao banco
-						atual.</p>
-
-					<input type="file" id="input-importar" accept=".json" style="display: none"
-						onchange="importarDados(this)">
-
-					<button class="btn btn-outline-warning w-100"
-						onclick="document.getElementById('input-importar').click()">
-						Selecionar Arquivo
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<!-- ACORDE MODAL -->
 	<div class="modal fade" id="modalAcorde" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-sm">
@@ -226,6 +182,53 @@
 		</div>
 	</div>
 
+	<!-- MODAL SETTINGS -->
+	<div class="modal fade shadow" id="modalSettings" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fw-bold">
+						<i class="bi bi-sliders fs-5"></i>
+						Configurações
+					</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body text-center">
+					<h3 class="mb-3">Modo de vizualização</h3>
+					<select class="form-select mb-3" id="select-view">
+						<option value="opencifras">OpenCifras</option>
+						<option value="minimalist">Minimalista</option>
+					</select>
+					<select class="form-select mb-3" id="tema" onchange="alternarTema(this.value)">
+						<option value="light">Tema claro</option>
+						<option value="dark">Tema escuro</option>
+					</select>
+					<hr>
+					<h3 class="mb-3">Backup</h3>
+					<p>Arquivo <code>.json</code> com todas as suas músicas.</p>
+					<div class="d-flex justify-content-center align-items-center gap-3">
+						<div class="col-5">
+							<button class="btn btn-outline-primary w-100" onclick="exportarDados()">
+								<i class="bi bi-box-arrow-in-up"></i>
+								Exportar
+							</button>
+						</div>
+						<div class="vr"></div>
+						<div class="col-5">
+							<input type="file" id="input-importar" accept=".json" style="display: none"
+								onchange="importarDados(this)">
+							<button class="btn btn-outline-warning w-100"
+								onclick="document.getElementById('input-importar').click()">
+								<i class="bi bi-box-arrow-in-down"></i>
+								Importar
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- RODAPÉ -->
 	<footer class="bg-body-secondary fixed-bottom">
 		<div class="container">
@@ -242,9 +245,9 @@
 					<i class="bi bi-plus-circle-fill fs-1"></i> </button>
 
 				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
-					data-bs-toggle="modal" data-bs-target="#modalBackup">
-					<i class="bi bi-hdd-network fs-5"></i>
-					<small style="font-size: 0.7rem;">Backup</small>
+					data-bs-toggle="modal" data-bs-target="#modalSettings">
+					<i class="bi bi-sliders fs-5"></i>
+					<small style="font-size: 0.7rem;">Configurações</small>
 				</button>
 
 			</div>

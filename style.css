@@ -73,15 +73,18 @@
 /* Barra de compasso */
 .cmBarSeparator {
 	color: var(--bs-secondary);
+	opacity: 0.7;
 }
 
 /* Pontos */
 .cmChordDuration {
 	color: var(--bs-secondary);
+	opacity: 0.5;
 }
 
 /* [] */
 .cmSubBeatGroupOpener,
 .cmSubBeatGroupCloser {
 	color: var(--bs-secondary);
+	opacity: 0.5;
 }

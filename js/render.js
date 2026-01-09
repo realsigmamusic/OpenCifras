@@ -29,10 +29,6 @@ export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 					printSubBeatDelimiters: false
 				});
 				break;
-			default:
-				html = renderSong(song, {
-					transposeValue: valTransposicao
-				});
 		}
 
 		elementoDestino.innerHTML = html;

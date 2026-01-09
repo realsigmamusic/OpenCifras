@@ -56,28 +56,26 @@ export function preencherEditor(musica) {
 
 export function aplicarTema(tema) {
 	document.documentElement.setAttribute('data-bs-theme', tema);
-
 	localStorage.setItem('tema', tema);
 
 	const icone = document.getElementById('icone-tema');
 	if (icone) {
-		if (tema === 'dark') {
-			icone.className = 'bi bi-sun-fill';
-		} else {
-			icone.className = 'bi bi-moon-fill';
-		}
+		icone.className = tema === 'dark'
+			? 'bi bi-sun-fill'
+			: 'bi bi-moon-fill';
 	}
 
 	const metaThemeColor = document.querySelector('meta[name="theme-color"]');
 	if (metaThemeColor) {
-		// .bg-body-secondary (dark = #343a40 light = #e9ecef)
-		metaThemeColor.setAttribute('content', tema === 'dark' ? '#343a40' : '#e9ecef');
+		metaThemeColor.setAttribute(
+			'content',
+			tema === 'dark' ? '#343a40' : '#e9ecef'
+		);
 	}
 }
 
 export function alternarTema() {
-	const temaAtual = document.documentElement.getAttribute('data-bs-theme');
-	const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
+	const novoTema = document.getElementById('tema').value;
 	aplicarTema(novoTema);
 }
 
@@ -85,25 +83,25 @@ const botoesInserir = document.querySelectorAll('.btn-inserir');
 const editor = document.getElementById('editor-conteudo');
 
 botoesInserir.forEach(botao => {
-    botao.addEventListener('click', (e) => {
-        const charParaInserir = botao.getAttribute('data-char');
-        inserirNoCursor(charParaInserir);
-    });
+	botao.addEventListener('click', (e) => {
+		const charParaInserir = botao.getAttribute('data-char');
+		inserirNoCursor(charParaInserir);
+	});
 });
 
 function inserirNoCursor(texto) {
-    if (!editor) return;
+	if (!editor) return;
 
-    const inicioSelecao = editor.selectionStart;
-    const fimSelecao = editor.selectionEnd;
-    const textoAtual = editor.value;
+	const inicioSelecao = editor.selectionStart;
+	const fimSelecao = editor.selectionEnd;
+	const textoAtual = editor.value;
 
-    editor.value = textoAtual.substring(0, inicioSelecao) + texto + textoAtual.substring(fimSelecao);
+	editor.value = textoAtual.substring(0, inicioSelecao) + texto + textoAtual.substring(fimSelecao);
 
-    editor.focus();
+	editor.focus();
 
-    const novaPosicao = inicioSelecao + texto.length;
-    editor.setSelectionRange(novaPosicao, novaPosicao);
+	const novaPosicao = inicioSelecao + texto.length;
+	editor.setSelectionRange(novaPosicao, novaPosicao);
 
-    editor.dispatchEvent(new Event('input'));
+	editor.dispatchEvent(new Event('input'));
 }
