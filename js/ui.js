@@ -80,3 +80,30 @@ export function alternarTema() {
 	const novoTema = temaAtual === 'dark' ? 'light' : 'dark';
 	aplicarTema(novoTema);
 }
+
+const botoesInserir = document.querySelectorAll('.btn-inserir');
+const editor = document.getElementById('editor-conteudo');
+
+botoesInserir.forEach(botao => {
+    botao.addEventListener('click', (e) => {
+        const charParaInserir = botao.getAttribute('data-char');
+        inserirNoCursor(charParaInserir);
+    });
+});
+
+function inserirNoCursor(texto) {
+    if (!editor) return;
+
+    const inicioSelecao = editor.selectionStart;
+    const fimSelecao = editor.selectionEnd;
+    const textoAtual = editor.value;
+
+    editor.value = textoAtual.substring(0, inicioSelecao) + texto + textoAtual.substring(fimSelecao);
+
+    editor.focus();
+
+    const novaPosicao = inicioSelecao + texto.length;
+    editor.setSelectionRange(novaPosicao, novaPosicao);
+
+    editor.dispatchEvent(new Event('input'));
+}
