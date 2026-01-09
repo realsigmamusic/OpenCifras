@@ -105,3 +105,14 @@ function inserirNoCursor(texto) {
 
 	editor.dispatchEvent(new Event('input'));
 }
+
+export function carregarTemaSalvo() {
+    const temaSalvo = localStorage.getItem('tema') || 'light';
+    
+    const select = document.getElementById('tema');
+    if (select) {
+        select.value = temaSalvo;
+    }
+
+    aplicarTema(temaSalvo);
+}

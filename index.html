@@ -152,13 +152,13 @@
 
 	</div>
 
-	<!-- ACORDE MODAL -->
+	<!-- MODAL INFORMAÇÃO DO ACORDE -->
 	<div class="modal fade" id="modalAcorde" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-sm">
 			<div class="modal-content">
-				<div class="modal-header bg-primary text-white">
+				<div class="modal-header bg-body-secondary">
 					<h5 class="modal-title fw-bold"><i class="bi bi-info-circle"></i></h5>
-					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					<button type="button" class="btn-close btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body text-center">
@@ -186,19 +186,20 @@
 	<div class="modal fade shadow" id="modalSettings" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-header bg-body-secondary">
 					<h1 class="modal-title fw-bold">
-						<i class="bi bi-sliders fs-5"></i>
 						Configurações
 					</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
-				<div class="modal-body text-center">
-					<h3 class="mb-3">Modo de vizualização</h3>
+				<div class="modal-body">
+					<h3 class="mb-3">Personalização</h3>
+					<p class="mb-1">Modo de vizualização:</p>
 					<select class="form-select mb-3" id="select-view">
 						<option value="opencifras">OpenCifras</option>
 						<option value="minimalist">Minimalista</option>
 					</select>
+					<p class="mb-1">Temas:</p>
 					<select class="form-select mb-3" id="tema" onchange="alternarTema(this.value)">
 						<option value="light">Tema claro</option>
 						<option value="dark">Tema escuro</option>

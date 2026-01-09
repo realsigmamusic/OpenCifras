@@ -38,3 +38,20 @@ export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 		elementoDestino.innerHTML = `<div class="alert alert-warning">${error.message}</div>`;
 	}
 }
+
+export function alterarModoVisualizacao() {
+    const select = document.getElementById('select-view');
+    if (select) {
+        localStorage.setItem('pref_viewMode', select.value);
+        document.dispatchEvent(new Event('solicita-renderizacao'));
+    }
+}
+
+export function carregarModoVisualizacao() {
+    const select = document.getElementById('select-view');
+    const modoSalvo = localStorage.getItem('pref_viewMode');
+  
+    if (select && modoSalvo) {
+        select.value = modoSalvo;
+    }
+}

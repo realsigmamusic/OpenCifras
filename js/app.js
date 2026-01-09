@@ -1,6 +1,6 @@
 import { db } from './db.js';
-import { renderizarCifra } from './render.js';
-import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema } from './ui.js';
+import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
+import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo } from './ui.js';
 import { exportarDados, importarDados } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
@@ -214,6 +214,7 @@ window.alternarTema = alternarTema;
 window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
 window.resetarTom = resetarTom;
+window.alterarModoVisualizacao = alterarModoVisualizacao;
 
 function navigateToHome() {
 	musicaAtualId = null;
@@ -286,6 +287,19 @@ function mostrarInfoAcorde(acordeStr) {
 	const modal = new bootstrap.Modal(modalElement);
 	modal.show();
 }
+
+window.addEventListener('load', () => {
+    if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
+
+    carregarModoVisualizacao();
+});
+
+document.addEventListener('solicita-renderizacao', () => {
+    const areaRender = document.getElementById('render-area');
+    if (window.musicaAtualGlobal && areaRender) {
+        renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0); 
+    }
+});
 
 // INICIALIZAÇÃO
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));
