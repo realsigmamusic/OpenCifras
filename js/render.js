@@ -6,11 +6,34 @@ export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 
 		const song = parseSong(conteudo);
 
-		const html = renderSong(song, {
-			alignBars: false,
-			alignChordsWithLyrics: true,
-			transposeValue: valTransposicao,
-		});
+		let html;
+
+		switch (document.getElementById('select-view').value) {
+			case 'opencifras':
+				html = renderSong(song, {
+					alignBars: false,
+					alignChordsWithLyrics: true,
+					transposeValue: valTransposicao,
+					printBarSeparators: 'always',
+					printChordsDuration: 'always',
+					printSubBeatDelimiters: true
+				});
+				break;
+			case 'minimalist':
+				html = renderSong(song, {
+					alignBars: false,
+					alignChordsWithLyrics: true,
+					transposeValue: valTransposicao,
+					printBarSeparators: 'never',
+					printChordsDuration: 'never',
+					printSubBeatDelimiters: false
+				});
+				break;
+			default:
+				html = renderSong(song, {
+					transposeValue: valTransposicao
+				});
+		}
 
 		elementoDestino.innerHTML = html;
 

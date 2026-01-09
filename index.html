@@ -72,11 +72,13 @@
 		<!-- LEITOR -->
 		<div id="tela-leitor" class="tela">
 			<div
-				class="d-flex justify-content-center align-items-center gap-3 mb-4 p-2 bg-secondary bg-gradient bg-opacity-10 rounded">
+				class="d-flex justify-content-center align-items-center gap-1 mb-4 p-2 bg-secondary bg-gradient bg-opacity-10 rounded">
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)">
 					<i class="bi bi-arrow-down"></i>
 				</button>
-				<span id="display-tom" class="fw-light text-center fs-6">Tom</span>
+				<button id="display-tom" class="btn btn-sm fw-light text-center">
+					Tom
+				</button>
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(1)">
 					<i class="bi bi-arrow-up"></i>
 				</button>
@@ -94,10 +96,17 @@
 						<i class="bi bi-plus-lg"></i>
 					</button>
 				</div>
-
 				<div class="vr mx-2 text-secondary"></div>
 
-				<button class="btn btn-primary btn-sm" onclick="editarAtual()">
+				<select class="form-select btn btn-secondary" id="select-view">
+					<option value="default">ChordMark</option>
+					<option value="opencifras">OpenCifras</option>
+					<option value="minimalist">Minimalista</option>
+				</select>
+
+				<div class="vr mx-2 btn-secondary text-secondary"></div>
+
+				<button class="btn btn-secondary btn-sm" onclick="editarAtual()">
 					<i class="bi bi-pencil-square"></i>
 				</button>
 			</div>
@@ -124,14 +133,9 @@
 			<div class="mb-3">
 				<div class="d-flex justify-content-between align-bottom mb-2">
 					<label for="editor-conteudo" class="form-label mt-2">Cifra (ChordMark)</label>
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
-							data-char="#">#</button>
-						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
-							data-char="_">_</button>
-						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
-							data-char="/">/</button>
-					</div>
+					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="#">#</button>
+					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="_">_</button>
+					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="/">/</button>
 					<button type="button" class="btn btn-sm btn-outline-warning" id="btn-importar-cifra">
 						<i class="bi bi-arrow-clockwise"></i>
 						Converter cifra

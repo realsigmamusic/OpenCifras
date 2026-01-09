@@ -127,6 +127,15 @@ function aplicarFonte() {
 	}
 }
 
+const selectModoLimpo = document.getElementById('select-view');
+if (selectModoLimpo) {
+    selectModoLimpo.addEventListener('change', () => {
+        if (musicaAtualId) {
+            renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
+        }
+    });
+}
+
 function atualizarDisplayTom() {
 	const display = document.getElementById('display-tom');
 	if (display) {
