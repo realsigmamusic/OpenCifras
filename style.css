@@ -79,12 +79,12 @@
 /* Pontos */
 .cmChordDuration {
 	color: var(--bs-secondary);
-	opacity: 0.5;
+	opacity: 0.7;
 }
 
 /* [] */
 .cmSubBeatGroupOpener,
 .cmSubBeatGroupCloser {
 	color: var(--bs-secondary);
-	opacity: 0.5;
+	opacity: 0.7;
 }
