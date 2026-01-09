@@ -121,9 +121,16 @@
 				<input type="text" class="form-control" id="editor-artista" placeholder="Nome do artista...">
 			</div>
 
+			
 			<div class="mb-3">
-				<label for="editor-conteudo" class="form-label">Cifra</label>
-				<textarea class="form-control font-monospace" id="editor-conteudo" rows="12"
+				<div class="d-flex justify-content-between align-items-end mb-2">
+					<label for="editor-conteudo" class="form-label">Cifra (ChordMark)</label>
+					<button type="button" class="btn btn-sm btn-outline-warning" id="btn-importar-cifra">
+						<i class="bi bi-arrow-clockwise"></i>
+						Converter cifra
+					</button>
+				</div>
+				<textarea class="form-control font-monospace" id="editor-conteudo" rows="10"
 					placeholder="Cifra no formato ChordMark..."></textarea>
 				<div class="form-text">Aprenda a usar o ChordMark <a
 						href="https://chordmark.netlify.app/docs/getting-started" target="_blank">AQUI!</a> </div>

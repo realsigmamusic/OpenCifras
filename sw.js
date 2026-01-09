@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v1.5.2';
+const CACHE_NAME = 'v1.5.3';
 const ASSETS = [
 	'./',
 	'./index.html',
@@ -16,6 +16,7 @@ const ASSETS = [
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
 	'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
 	'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm',
+    'https://cdn.jsdelivr.net/npm/chord-mark-converters@0.17.0/+esm',
 	'https://cdn.jsdelivr.net/npm/tonal@latest/browser/tonal.min.js'
 ];
 
