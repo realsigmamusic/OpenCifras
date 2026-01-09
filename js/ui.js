@@ -126,3 +126,8 @@ export function carregarTemaSalvo() {
 
 	aplicarTema(temaSalvo);
 }
+
+function copiarPix() {
+    navigator.clipboard.writeText('realsigmamusic@gmail.com');
+    alert("Chave PIX copiada!");
+}
