@@ -4,6 +4,16 @@ export function alternarTela(nomeTela) {
 	document.querySelectorAll('.tela').forEach(t => t.classList.remove('tela-ativa'));
 	const tela = document.getElementById(`tela-${nomeTela}`);
 	if (tela) tela.classList.add('tela-ativa');
+
+	if (nomeTela === 'leitor') {
+		document.body.classList.add('bloquear-refresh');
+		document.documentElement.classList.add('bloquear-refresh');
+	} else {
+		document.body.classList.remove('bloquear-refresh');
+		document.documentElement.classList.remove('bloquear-refresh');
+	}
+
+	window.scrollTo(0, 0);
 }
 
 const btnLimpar = document.getElementById('btn-importar-cifra');
@@ -107,12 +117,12 @@ function inserirNoCursor(texto) {
 }
 
 export function carregarTemaSalvo() {
-    const temaSalvo = localStorage.getItem('tema') || 'light';
-    
-    const select = document.getElementById('tema');
-    if (select) {
-        select.value = temaSalvo;
-    }
+	const temaSalvo = localStorage.getItem('tema') || 'light';
 
-    aplicarTema(temaSalvo);
+	const select = document.getElementById('tema');
+	if (select) {
+		select.value = temaSalvo;
+	}
+
+	aplicarTema(temaSalvo);
 }

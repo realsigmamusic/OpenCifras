@@ -6,6 +6,12 @@
 	display: block;
 }
 
+/* Bloqueia o "pull-to-refresh" (puxar para atualizar) */
+html.bloquear-refresh, 
+body.bloquear-refresh {
+    overscroll-behavior-y: contain;
+}
+
 /* ChordMark CSS Classes */
 .cmSong {
 	font-family: var(--bs-font-monospace);
