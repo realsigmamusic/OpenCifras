@@ -115,22 +115,21 @@
 			<input type="hidden" id="editor-id">
 
 			<div class="mb-3">
-				<label for="editor-titulo" class="form-label">Título</label>
+				<label for="editor-titulo" class="form-label mt-2">Título</label>
 				<input type="text" class="form-control mb-1" id="editor-titulo" placeholder="Nome da música...">
-				<label for="editor-artista" class="form-label">Artista</label>
+				<label for="editor-artista" class="form-label mt-2">Artista</label>
 				<input type="text" class="form-control" id="editor-artista" placeholder="Nome do artista...">
 			</div>
 
-
 			<div class="mb-3">
-				<div class="d-flex justify-content-between align-items-end mb-2">
-					<label for="editor-conteudo" class="form-label">Cifra (ChordMark)</label>
-					<div class="btn-group me-2" role="group">
-						<button type="button" class="btn btn-sm btn-outline-secondary btn-inserir"
+				<div class="d-flex justify-content-between align-bottom mb-2">
+					<label for="editor-conteudo" class="form-label mt-2">Cifra (ChordMark)</label>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
 							data-char="#">#</button>
-						<button type="button" class="btn btn-sm btn-outline-secondary btn-inserir"
+						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
 							data-char="_">_</button>
-						<button type="button" class="btn btn-sm btn-outline-secondary btn-inserir"
+						<button type="button" class="btn btn-sm btn-outline-primary btn-inserir"
 							data-char="/">/</button>
 					</div>
 					<button type="button" class="btn btn-sm btn-outline-warning" id="btn-importar-cifra">
@@ -138,7 +137,7 @@
 						Converter cifra
 					</button>
 				</div>
-				<textarea class="form-control font-monospace" id="editor-conteudo" rows="10"
+				<textarea class="form-control font-monospace" id="editor-conteudo" rows="9"
 					placeholder="Cifra no formato ChordMark..."></textarea>
 				<div class="form-text">Aprenda a usar o ChordMark <a
 						href="https://chordmark.netlify.app/docs/getting-started" target="_blank">AQUI!</a> </div>
