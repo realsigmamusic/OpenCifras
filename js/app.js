@@ -104,6 +104,12 @@ function mudarTom(delta) {
 	atualizarDisplayTom();
 }
 
+function resetarTom() {
+	tomAtual = 0;
+	renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
+	atualizarDisplayTom();
+}
+
 function mudarTamanhoFonte(delta) {
 	tamanhoFonte += delta;
 
@@ -207,6 +213,7 @@ window.mudarTom = mudarTom;
 window.alternarTema = alternarTema;
 window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
+window.resetarTom = resetarTom;
 
 function navigateToHome() {
 	musicaAtualId = null;
