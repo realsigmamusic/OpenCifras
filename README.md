@@ -1,126 +1,63 @@
 # [OpenCifras](https://realsigmamusic.github.io/OpenCifras/)
+O **OpenCifras** é uma aplicação web progressiva (PWA) criada para **músicos, professores e estudantes** que querem organizar e usar cifras de forma prática, rápida e confiável — **sem internet, sem contas e sem complicação**.
 
-**OpenCifras** é uma Aplicação Web Progressiva (PWA) de código aberto desenvolvida para músicos e estudantes. O projeto oferece uma ferramenta minimalista, leve e funcional para criar, organizar e visualizar cifras e letras de músicas, operando totalmente offline.
+Tudo funciona direto no seu dispositivo.
 
-O sistema utiliza o formato **ChordMark** para renderização, garantindo transposição automática de tons e formatação inteligente sem a necessidade de ajustes manuais de espaçamento.
+**Acesse agora:** [https://realsigmamusic.github.io/OpenCifras/](https://realsigmamusic.github.io/OpenCifras/)
 
-## Visão Geral
+## O que é o OpenCifras?
+Uma ferramenta **leve, minimalista e objetiva** para criar, guardar e visualizar cifras e letras de músicas.
 
-O foco do projeto é a simplicidade e a privacidade. Não há rastreamento de usuários, contas ou dependência de servidores remotos para armazenar os dados. Tudo é processado e salvo localmente no dispositivo.
+O sistema usa o formato **ChordMark**, que garante:
+* Acordes sempre alinhados
+* Transposição automática de tom
+* Formatação inteligente, sem ajustes manuais
 
-### Galeria
-
-<table>
-  <tr>
-    <td align="center" width="25%">
-      <strong>Repertório</strong><br>
-      <img src="./docs/list-light.jpg" alt="Repertório Claro">
-    </td>
-    <td align="center" width="25%">
-      <strong>Visualização</strong><br>
-      <img src="./docs/view-light.jpg" alt="Visualização Claro">
-    </td>
-    <td align="center" width="25%">
-      <strong>Informações</strong><br>
-      <img src="./docs/info-light.jpg" alt="Info Claro">
-    </td>
-    <td align="center" width="25%">
-      <strong>Edição</strong><br>
-      <img src="./docs/edit-light.jpg" alt="Edição Claro">
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="25%">
-      <img src="./docs/list-dark.jpg" alt="Repertório Escuro">
-    </td>
-    <td align="center" width="25%">
-      <img src="./docs/view-dark.jpg" alt="Visualização Escuro">
-    </td>
-    <td align="center" width="25%">
-      <img src="./docs/info-dark.jpg" alt="Info Escuro">
-    </td>
-    <td align="center" width="25%">
-      <img src="./docs/edit-dark.jpg" alt="Edição Escuro">
-    </td>
-  </tr>
-</table>
-
-## Funcionalidades
-
-### Gestão e Produtividade
-* **Funcionamento Offline:** Graças à tecnologia PWA e IndexedDB, o acesso ao repertório independe de conexão com a internet.
-* **CRUD Completo:** Criação, leitura, edição e exclusão de músicas de forma intuitiva.
-* **Busca Instantânea:** Filtragem em tempo real por título, artista ou conteúdo da letra.
-* **Backup e Restauração:** Exportação completa do banco de dados para arquivo JSON, permitindo migração entre dispositivos.
-
-### Ferramentas Musicais
-* **Renderização Dinâmica:** Formatação automática de cifras sobre as letras utilizando a biblioteca ChordMark.
-* **Transposição de Tom:** Alteração de tonalidade em tempo real com recálculo automático da harmonia.
-* **Metadados:** Organização por Artista e Título.
-
-### Interface e Acessibilidade
-* **Temas:** Suporte nativo a Modo Claro e Modo Escuro.
-* **Responsividade:** Layout adaptável para dispositivos móveis (Android/iOS) e Desktops.
-* **Zoom:** Controle de tamanho da fonte para melhor legibilidade durante a execução.
-
-## Tecnologias
-
-O projeto adota uma abordagem "Vanilla", evitando frameworks pesados e processos de build complexos, o que facilita a manutenção e o estudo do código.
-
-* **Core:** HTML5, CSS3 e JavaScript (ES6 Modules).
-* **Armazenamento:** Dexie.js (Wrapper para IndexedDB).
-* **Renderização:** ChordMark (Parser de cifras).
-* **Interface:** Bootstrap 5.3 (Grid system, componentes e utilitários).
-* **Ícones:** Bootstrap Icons.
-
-## Como Executar
-
-### Pré-requisitos
-Não é necessário instalar Node.js, PHP ou Python para o funcionamento básico, pois é uma aplicação *client-side* estática.
-
-### Passos
-1. Clone este repositório:
-```bash
-git clone https://github.com/realsigmamusic/OpenCifras.git
-```
-2. Acesse a pasta do projeto.
-3. Sirva os arquivos através de um servidor HTTP local.
-**Por que um servidor local?**
-Devido às políticas de segurança dos navegadores (CORS), os *Service Workers* e *ES6 Modules* não funcionam corretamente se abertos diretamente via protocolo de arquivo (`file://`).
-Exemplos de como subir um servidor simples:
-    * **Python:** `python -m http.server`
-    * **VS Code:** Extensão "Live Server".
-    * **Node (http-server):** `npx http-server .`
-4. Acesse `http://localhost:8000` (ou a porta indicada pelo seu servidor).
-
-## Hospedagem (Deploy)
-
-Sendo uma aplicação estática, o OpenCifras pode ser hospedado gratuitamente em serviços como:
-
-* GitHub Pages
-* Vercel
-* Netlify
-* Cloudflare Pages
-
-## Estrutura do Projeto
-
-* `index.html`: Ponto de entrada e estrutura DOM principal.
-* `sw.js`: Service Worker para cacheamento de ativos e suporte offline.
-* `manifest.json`: Definições de instalação PWA.
-* `js/`: Lógica da aplicação modularizada.
-* `app.js`: Controlador principal e roteamento.
-* `db.js`: Camada de persistência de dados.
-* `render.js`: Integração com o renderizador de cifras.
-* `ui.js`: Manipulação de eventos e interface.
-* `backup.js`: Rotinas de importação/exportação.
+Você escreve. O OpenCifras faz o resto.
 
 
+## Principais Vantagens
+### Funciona Offline
+Use seu repertório **em qualquer lugar**, mesmo sem internet. Ideal para ensaios, cultos, aulas e apresentações.
 
-## Licença e Créditos
+### Organize o seu Repertório
+Crie, edite e apague músicas com facilidade e **do seu jeito**. Tudo salvo localmente, com total privacidade.
 
-Este projeto é distribuído sob a licença **MIT**. Veja o arquivo `LICENSE` para detalhes.
+### Busca Rápida
+Encontre músicas instantaneamente por:
+* Título
+* Artista
+* Trecho da letra
 
-**Créditos de Terceiros:**
+### Backup Seguro
+Exporte todo o seu acervo em um único arquivo e restaure quando quiser — inclusive em outro dispositivo.
 
-* Ícones criados por Nikita Golubev (Flaticon).
-* Ícones adaptados via Maskable.app.
+### Conforto Visual
+* Modo Claro e Modo Escuro
+* Ajuste de tamanho da fonte para leitura confortável durante a execução
+
+## Pensado para Músicos
+* ❌ Sem login
+* ❌ Sem anúncios
+* ❌ Sem rastreamento
+* ✅ 100% privado
+* ✅ 100% local
+
+Você controla seus dados. Sempre foi assim que deveria ser.
+
+## 🧩 Tecnologias Utilizadas
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="16" valign="middle"/>  **HTML5** — https://developer.mozilla.org/en-US/docs/Web/HTML
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="16" valign="middle"/>  **CSS3** — https://developer.mozilla.org/en-US/docs/Web/CSS
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="16" valign="middle"/>  **Bootstrap** — https://getbootstrap.com/
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="16" valign="middle"/>  **JavaScript** — https://developer.mozilla.org/en-US/docs/Web/JavaScript
+- <img src="https://dexie.org/assets/images/dexie-logo.svg" width="16" valign="middle"/>  **Dexie.js** — https://dexie.org/
+- <img src="https://raw.githubusercontent.com/no-chris/chord-mark/main/docs/logo.svg" width="16" valign="middle"/>  **ChordMark** — https://github.com/no-chris/chord-mark
+- <img src="https://raw.githubusercontent.com/tonaljs/tonal/main/assets/logo.svg" width="16" valign="middle"/>  **Tonal.js** — https://github.com/tonaljs/tonal
+- <img src="https://web.dev/images/icons/pwa.svg" width="16" valign="middle"/>  **Progressive Web App (PWA)** — https://web.dev/progressive-web-apps/
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="16" valign="middle"/>  **Código Aberto (Open Source)** — https://opensource.org/
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="16" valign="middle"/>  **GitHub Pages** — https://pages.github.com/
+
+
+## Licença
+Projeto [**open source**](https://realsigmamusic.github.io/OpenCifras/), distribuído sob a [licença **MIT**](./LICENSE).
+Livre para usar, estudar e adaptar conforme sua necessidade.
