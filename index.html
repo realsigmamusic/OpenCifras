@@ -44,7 +44,7 @@
 		</div>
 	</nav>
 
-	<div class="container" style="padding-top: 90px; padding-bottom: 90px;">
+	<div class="container" style="margin-top: 90px; margin-bottom: 90px;">
 		<!-- LISTA -->
 		<div id="tela-lista" class="tela tela-ativa">
 			<h4 class="mb-3">Repertório</h4>
@@ -70,8 +70,8 @@
 
 		<!-- LEITOR -->
 		<div id="tela-leitor" class="tela">
-			<div
-				class="d-flex justify-content-center align-items-center gap-2 mb-4 p-2 bg-secondary bg-gradient bg-opacity-10 rounded">
+			<div class="fixed-top d-flex justify-content-center align-items-center gap-2 p-2 pb-3 bg-body-secondary"
+				style="margin-top: 55px;">
 				<button class="btn btn-secondary btn-sm fw-bold" onclick="mudarTom(-1)">
 					<i class="bi bi-arrow-down"></i>
 				</button>
@@ -103,11 +103,11 @@
 					Editar
 				</button>
 			</div>
-
-			<h1 id="titulo-musica" class="mb-1"></h1>
-			<p id="detalhes-musica" class="mb-3"></p>
-
-			<div id="render-area" class=""></div>
+			<section style="margin-top: 180px;">
+				<h1 id="titulo-musica" class="mb-1"></h1>
+				<p id="detalhes-musica" class="mb-3"></p>
+				<div id="render-area" class=""></div>
+			</section>
 		</div>
 
 		<!-- EDITOR -->
@@ -191,12 +191,13 @@
 			<div class="modal-content">
 				<div class="modal-header bg-body-secondary">
 					<h1 class="modal-title fw-bold">
-						Configurações
+						OpenCifras
+						<span class="mx-2 fw-light fs-6">v2.1.5</span>
 					</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
-					<h3 class="mb-3">Personalização</h3>
+					<h3 class="mb-3">Configurações</h3>
 					<p class="mb-1">Modo de vizualização:</p>
 					<select class="form-select mb-3" id="select-view" onchange="alterarModoVisualizacao()">
 						<option value="opencifras">OpenCifras</option>
@@ -227,18 +228,6 @@
 								Importar
 							</button>
 						</div>
-					</div>
-					<hr class="my-4">
-					<div class="text-center">
-						<p class="small text-muted mb-2">
-							<i class="bi bi-heart-fill"></i>
-							Gostou do aplicativo? <br>
-							Faça uma doação
-							<i class="bi bi-coin"></i>
-						</p>
-						<button class="btn btn-sm btn-outline-danger w-100" onclick="copiarPix()">
-							Copiar chave PIX
-						</button>
 					</div>
 				</div>
 			</div>
