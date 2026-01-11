@@ -28,6 +28,7 @@ export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 					printChordsDuration: 'never',
 					printSubBeatDelimiters: false
 				});
+				html = html.replace(/%/g, ' ');
 				break;
 		}
 
