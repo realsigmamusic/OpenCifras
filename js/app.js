@@ -11,19 +11,26 @@ const MUSICAS_EXEMPLO = [
 	}
 ]
 
+// --- ESTADO GLOBAL ---
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
 let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
+let artistaSelecionado = null;
 
+// --- NAVEGAÇÃO ---
 function navegar(tela, adicionarAoHistorico = true) {
 	alternarTela(tela);
 
 	if (tela === 'lista') {
+		// Ao voltar para a lista, mantemos o filtro de artista visualmente,
+		// mas limpamos a busca de texto para não confundir
 		const inputBusca = document.getElementById('input-busca');
 		if (inputBusca) inputBusca.value = '';
+
 		carregarLista();
-		musicaAtualId = null;
+		// Não resetamos musicaAtualId aqui para permitir voltar à edição se necessário,
+		// mas geralmente é bom limpar ao sair do editor.
 	}
 
 	if (tela === 'editor' && !musicaAtualId) {
@@ -35,22 +42,99 @@ function navegar(tela, adicionarAoHistorico = true) {
 	}
 }
 
-async function carregarLista(termoBusca = "") {
-	const ul = document.getElementById('lista-musicas');
-	ul.innerHTML = '<div class="text-center text-muted">Carregando...</div>';
+// --- LÓGICA DE LISTAGEM E FILTROS ---
+
+// 1. Gera os botões (chips) de artistas
+async function carregarFiltrosArtistas() {
+	const container = document.getElementById('filtro-artistas');
+	if (!container) return;
 
 	try {
-		let musicas;
-		if (termoBusca.trim().length > 0) {
-			const termo = termoBusca.toLowerCase();
-			musicas = await db.musicas.filter(musica => {
-				return musica.titulo.toLowerCase().includes(termo) ||
-					musica.conteudo.toLowerCase().includes(termo);
-			}).toArray();
-		} else {
-			musicas = await db.musicas.orderBy('titulo').toArray();
+		const todasMusicas = await db.musicas.toArray();
+		const artistasSet = new Set();
+
+		todasMusicas.forEach(m => {
+			if (m.artista) {
+				// Separa por ", " OU por " / "
+				const partes = m.artista.split(/, | \/ /);
+				partes.forEach(p => {
+					const nome = p.trim();
+					if (nome) artistasSet.add(nome);
+				});
+			}
+		});
+
+		const artistas = Array.from(artistasSet).sort();
+
+		container.innerHTML = '';
+		container.appendChild(criarBotaoChip('Todos', null));
+
+		artistas.forEach(artista => {
+			container.appendChild(criarBotaoChip(artista, artista));
+		});
+
+	} catch (e) {
+		console.error("Erro ao carregar filtros:", e);
+	}
+}
+
+function criarBotaoChip(texto, valorArtista) {
+	const btn = document.createElement('button');
+	const ehAtivo = artistaSelecionado === valorArtista;
+
+	// Estilo: Se ativo usa cor sólida, se não usa outline
+	btn.className = `btn btn-sm rounded-pill ${ehAtivo ? 'btn-secondary' : 'btn-outline-secondary'}`;
+	btn.style.whiteSpace = 'nowrap'; // Impede que o nome quebre linha
+	btn.textContent = texto;
+	btn.type = 'button';
+
+	btn.onclick = () => {
+		artistaSelecionado = valorArtista;
+
+		// Recarrega os filtros para atualizar a cor do botão ativo
+		carregarFiltrosArtistas();
+
+		// Recarrega a lista aplicando o novo filtro
+		const termo = document.getElementById('input-busca').value;
+		carregarLista(termo);
+	};
+
+	return btn;
+}
+
+// 2. Carrega a lista combinando Artista + Busca
+async function carregarLista(termoBusca = "") {
+	const ul = document.getElementById('lista-musicas');
+	ul.innerHTML = '<div class="text-center text-muted mt-5"><div class="spinner-border spinner-border-sm"></div> Carregando...</div>';
+
+	try {
+		// Passo A: Pega tudo do banco
+		let musicas = await db.musicas.toArray();
+
+		// Passo B: Filtra por Artista (Lógica para múltiplos artistas)
+		if (artistaSelecionado) {
+			musicas = musicas.filter(m => {
+				if (!m.artista) return false;
+				// Separa os artistas da música e verifica se o selecionado está entre eles
+				const listaArtistas = m.artista.split(/, | \/ /).map(a => a.trim());
+				return listaArtistas.includes(artistaSelecionado);
+			});
 		}
 
+		// Passo C: Filtra por Texto (Busca)
+		if (termoBusca.trim().length > 0) {
+			const termo = termoBusca.toLowerCase();
+			musicas = musicas.filter(musica => {
+				return musica.titulo.toLowerCase().includes(termo) ||
+					musica.conteudo.toLowerCase().includes(termo) ||
+					(musica.artista && musica.artista.toLowerCase().includes(termo));
+			});
+		}
+
+		// Passo D: Ordena por Título
+		musicas.sort((a, b) => a.titulo.localeCompare(b.titulo));
+
+		// Passo E: Renderiza
 		if (musicas.length === 0) {
 			ul.innerHTML = '<div class="text-center mt-5 text-muted">Nenhuma música encontrada.</div>';
 			return;
@@ -65,7 +149,7 @@ async function carregarLista(termoBusca = "") {
                 <div class="d-flex w-100 justify-content-between align-items-center">
                     <div>
                         <h6 class="mb-0 fw-bold text-body">${musica.titulo}</h6>
-                        <p class="small fst-italic text-secondary">${musica.artista}</p>
+                        <p class="small fst-italic text-secondary mb-0">${musica.artista || 'Desconhecido'}</p>
                     </div>
                     <i class="bi bi-chevron-right text-muted opacity-50"></i>
                 </div>
@@ -75,10 +159,16 @@ async function carregarLista(termoBusca = "") {
 		});
 	} catch (error) {
 		console.error(error);
+		ul.innerHTML = '<div class="text-center text-danger">Erro ao carregar lista.</div>';
 	}
 }
 
+// --- PLAYER / LEITOR ---
+
 function abrirMusica(musica) {
+	// Guarda na variável global para o renderizador usar
+	window.musicaAtualGlobal = musica;
+
 	musicaAtualId = musica.id;
 	musicaAtualConteudo = musica.conteudo;
 	tomAtual = 0;
@@ -135,11 +225,11 @@ function aplicarFonte() {
 
 const selectModoLimpo = document.getElementById('select-view');
 if (selectModoLimpo) {
-    selectModoLimpo.addEventListener('change', () => {
-        if (musicaAtualId) {
-            renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
-        }
-    });
+	selectModoLimpo.addEventListener('change', () => {
+		if (musicaAtualId) {
+			renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
+		}
+	});
 }
 
 function atualizarDisplayTom() {
@@ -149,6 +239,8 @@ function atualizarDisplayTom() {
 		display.innerText = tomAtual === 0 ? 'Tom' : `${sinal}${tomAtual}`;
 	}
 }
+
+// --- CRUD (Salvar/Editar/Deletar) ---
 
 async function salvar() {
 	const dados = obterDadosEditor();
@@ -177,6 +269,9 @@ async function salvar() {
 
 		const musicaAtualizada = await db.musicas.get(idParaAbrir);
 
+		// Atualiza os filtros (pois pode ter surgido um novo artista)
+		await carregarFiltrosArtistas();
+
 		abrirMusica(musicaAtualizada);
 
 	} catch (e) {
@@ -190,6 +285,10 @@ async function deletar() {
 	if (confirm("Excluir música?")) {
 		await db.musicas.delete(musicaAtualId);
 		musicaAtualId = null;
+
+		// Atualiza filtros ao deletar também
+		await carregarFiltrosArtistas();
+
 		navegar('lista');
 	}
 }
@@ -201,13 +300,17 @@ async function editar() {
 	navegar('editor');
 }
 
+// --- EXPORTAR FUNÇÕES PARA O HTML ---
 window.navegar = navegar;
 window.salvarMusica = salvar;
 window.cancelarEdicao = () => confirm("Descartar?") ? navigateToHome() : null;
 window.editarAtual = editar;
 window.deletarAtual = deletar;
 window.exportarDados = exportarDados;
-window.importarDados = (el) => importarDados(el, carregarLista);
+window.importarDados = (el) => importarDados(el, () => {
+	carregarLista();
+	carregarFiltrosArtistas(); // Recarrega filtros após importar
+});
 window.filtrarLista = () => carregarLista(document.getElementById('input-busca').value);
 window.mudarTom = mudarTom;
 window.alternarTema = alternarTema;
@@ -221,6 +324,8 @@ function navigateToHome() {
 	navegar('lista');
 }
 window.cancelarEdicao = navigateToHome;
+
+// --- EVENTOS E INICIALIZAÇÃO ---
 
 window.onpopstate = function (event) {
 	if (event.state && event.state.tela) {
@@ -240,6 +345,8 @@ async function verificarExemplos() {
 		if (quantidade === 0) {
 			await db.musicas.bulkAdd(MUSICAS_EXEMPLO);
 			console.log("Músicas de exemplo adicionadas!");
+			// Se adicionou exemplos, recarrega filtros
+			carregarFiltrosArtistas();
 		}
 	} catch (e) {
 		console.error("Erro ao criar exemplos:", e);
@@ -289,21 +396,23 @@ function mostrarInfoAcorde(acordeStr) {
 }
 
 window.addEventListener('load', () => {
-    if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
+	if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
 
-    carregarModoVisualizacao();
+	carregarModoVisualizacao();
 });
 
 document.addEventListener('solicita-renderizacao', () => {
-    const areaRender = document.getElementById('render-area');
-    if (window.musicaAtualGlobal && areaRender) {
-        renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0); 
-    }
+	const areaRender = document.getElementById('render-area');
+	// Usa a variável global salva no abrirMusica()
+	if (window.musicaAtualGlobal && areaRender) {
+		renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0);
+	}
 });
 
-// INICIALIZAÇÃO
+// Inicialização da Busca e Listagem
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));
 
 verificarExemplos().then(() => {
+	carregarFiltrosArtistas();
 	carregarLista();
 });
