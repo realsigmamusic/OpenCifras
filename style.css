@@ -16,7 +16,7 @@ body.bloquear-refresh {
 .cmSong {
 	font-family: var(--bs-font-monospace);
 	white-space: pre-wrap;
-	line-height: 1.2;
+	line-height: 0.5;
 }
 
 /* Tonalidade */
@@ -51,7 +51,7 @@ body.bloquear-refresh {
 /* Linha de acordes */
 .cmChordLine {
 	display: block;
-	margin-bottom: -1.0rem;
+	margin-bottom: -0.4rem;
 }
 
 /* Acordes */
