@@ -100,9 +100,36 @@
 
 				<div class="vr mx-2 btn-secondary text-secondary"></div>
 
-				<button class="btn btn-secondary btn-sm" onclick="editarAtual()">
-					Editar
-				</button>
+				<div class="dropdown">
+					<button class="btn btn-link text-body p-0" type="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						<i class="bi bi-three-dots-vertical fs-3"></i>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-end shadow">
+						<li>
+							<button class="dropdown-item" onclick="editarAtual()">
+								<i class="bi bi-pencil me-2"></i>
+								Editar
+							</button>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalSettings">
+							<i class="bi bi-sliders me-2"></i>
+							Configurações
+						</button>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<button class="dropdown-item text-danger" onclick="deletarAtual()">
+								<i class="bi bi-trash me-2"></i>
+								Excluir Música
+							</button>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<section style="margin-top: 120px;">
 				<h1 id="titulo-musica" class="mb-1"></h1>
@@ -125,26 +152,61 @@
 			</div>
 
 			<div class="mb-3">
-				<div class="d-flex justify-content-between align-bottom mb-2">
-					<label for="editor-conteudo" class="form-label mt-2">Cifra (ChordMark)</label>
-					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="#">#</button>
-					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="_">_</button>
-					<button type="button" class="btn btn-sm btn-outline-primary btn-inserir" data-char="/">/</button>
-					<button type="button" class="btn btn-sm btn-outline-warning" id="btn-importar-cifra">
-						<i class="bi bi-arrow-clockwise"></i>
-						Converter cifra
-					</button>
+				<div class="d-flex justify-content-start align-bottom mb-3 gap-3">
+					<div class="dropdown">
+						<button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+							aria-expanded="false" title="Ferramentas de Formatação">
+							Converter cifra
+						</button>
+						<ul class="dropdown-menu shadow">
+							<li>
+								<p class="dropdown-header">Qual o formato de origem?</p>
+							</li>
+							<li>
+								<button class="dropdown-item" onclick="converterCifra('chordsOverLyrics')">
+									Acordes sobre a letra
+								</button>
+							</li>
+							<li>
+								<button class="dropdown-item" onclick="converterCifra('chordPro')">
+									ChordPro
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div class="vr"></div>
+					<button class="btn btn-sm btn-outline-secondary btn-inserir" data-char="#">#</button>
+					<button class="btn btn-sm btn-outline-secondary btn-inserir" data-char="_">_</button>
+					<button class="btn btn-sm btn-outline-secondary btn-inserir" data-char="/">/</button>
+					<button class="btn btn-sm btn-outline-secondary btn-inserir" data-char="%">%</button>
+					<div class="dropdown">
+						<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+							aria-expanded="false" title="Ferramentas de Formatação"></button>
+						<ul class="dropdown-menu shadow">
+							<li><button class="dropdown-item btn-inserir" data-char="key">key</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="4/4">4/4</button></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#i">Intro</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#v">Verse</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#p">Pre-chorus</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#c">Chorus</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#s">Solo</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#b">Bridge</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#o">Outro</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#u">Interlude</button></li>
+							<li><button class="dropdown-item btn-inserir" data-char="#a">Adlib</button></li>
+						</ul>
+					</div>
 				</div>
 				<textarea class="form-control font-monospace" id="editor-conteudo" rows="9"
 					placeholder="Cifra no formato ChordMark..."></textarea>
-				<div class="form-text">Aprenda a usar o ChordMark <a
-						href="https://chordmark.netlify.app/docs/getting-started" target="_blank">AQUI!</a> </div>
+				<div class="form-text">Aprenda a usar o ChordMark
+					<a class="link-info" href="https://chordmark.netlify.app/docs/getting-started"
+						target="_blank">AQUI!</a>
+				</div>
 			</div>
 
 			<div class="d-flex justify-content-between gap-2">
-				<button class="btn btn-danger" onclick="deletarAtual()">
-					<i class="bi bi-trash"></i> Excluir
-				</button>
 				<button class="btn btn-secondary" onclick="cancelarEdicao()">
 					<i class="bi bi-x-circle"></i> Cancelar
 				</button>

@@ -1,6 +1,6 @@
 import { db } from './db.js';
 import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
-import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao } from './ui.js';
+import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao, converterCifra } from './ui.js';
 import { exportarDados, importarDados } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
@@ -282,14 +282,17 @@ async function salvar() {
 
 async function deletar() {
 	if (!musicaAtualId) return;
-	if (confirm("Excluir música?")) {
-		await db.musicas.delete(musicaAtualId);
-		musicaAtualId = null;
 
-		// Atualiza filtros ao deletar também
-		await carregarFiltrosArtistas();
-
-		navegar('lista');
+	if (confirm("Tem certeza que deseja excluir esta música permanentemente?")) {
+		try {
+			await db.musicas.delete(musicaAtualId);
+			alert("Música excluída.");
+			musicaAtualId = null;
+			navegar('lista');
+		} catch (e) {
+			console.error(e);
+			alert("Erro ao excluir.");
+		}
 	}
 }
 
@@ -318,6 +321,7 @@ window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
 window.resetarTom = resetarTom;
 window.alterarModoVisualizacao = alterarModoVisualizacao;
+window.converterCifra = converterCifra;
 
 function navigateToHome() {
 	musicaAtualId = null;

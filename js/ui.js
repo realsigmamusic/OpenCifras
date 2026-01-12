@@ -16,29 +16,39 @@ export function alternarTela(nomeTela) {
 	window.scrollTo(0, 0);
 }
 
-const btnLimpar = document.getElementById('btn-importar-cifra');
+export function converterCifra(formatoEntrada) {
+	const editor = document.getElementById('editor-conteudo');
+	if (!editor) return;
 
-if (btnLimpar) {
-	btnLimpar.addEventListener('click', () => {
-		const editor = document.getElementById('editor-conteudo');
-		const textoSujo = editor.value;
+	const textoSujo = editor.value;
 
-		if (!textoSujo.trim()) return;
+	if (!textoSujo.trim()) {
+		alert("O editor está vazio. Cole uma cifra primeiro.");
+		return;
+	}
 
-		if (confirm('Deseja formatar e alinhar a cifra automaticamente?')) {
-			try {
-				const textoLimpo = convert2ChordMark(textoSujo, {
-					inputFormat: 'chordsOverLyrics'
-				});
+	let mensagem = 'Isso substituirá o texto atual pela versão formatada. Continuar?';
+	if (formatoEntrada === 'chordPro') {
+		mensagem = 'Converter formato ChordPro (com colchetes) para ChordMark? ' + mensagem;
+	} else {
+		mensagem = 'Tentar alinhar e formatar cifra da internet? ' + mensagem;
+	}
 
-				editor.value = textoLimpo;
+	if (confirm(mensagem)) {
+		try {
+			const textoLimpo = convert2ChordMark(textoSujo, {
+				inputFormat: formatoEntrada
+			});
 
-			} catch (err) {
-				console.error("Erro na conversão:", err);
-				alert('Não foi possível formatar. Verifique se os acordes estão alinhados sobre a letra.');
-			}
+			editor.value = textoLimpo;
+
+			alert('Formatado com sucesso!'); 
+
+		} catch (err) {
+			console.error("Erro na conversão:", err);
+			alert('Não foi possível converter. Verifique se o formato selecionado corresponde ao texto colado.');
 		}
-	});
+	}
 }
 
 export function limparEditor() {
@@ -125,11 +135,6 @@ export function carregarTemaSalvo() {
 	}
 
 	aplicarTema(temaSalvo);
-}
-
-function copiarPix() {
-	navigator.clipboard.writeText('realsigmamusic@gmail.com');
-	alert("Chave PIX copiada!");
 }
 
 export async function exibirVersao() {
