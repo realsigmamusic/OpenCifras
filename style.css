@@ -16,7 +16,12 @@ body.bloquear-refresh {
 .cmSong {
 	font-family: var(--bs-font-monospace);
 	white-space: pre-wrap;
-	line-height: 0.5;
+	line-height: normal;
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 /* Tonalidade */
@@ -43,7 +48,8 @@ body.bloquear-refresh {
 	border-bottom: none;
 	color: var(--bs-warning);
 	font-weight: 900;
-	padding: 4px 10px;
+	padding: 0.5rem 0 0.4rem 0.5rem;
+	margin: 1.2rem 0 0.8rem 0;
 	display: block;
 	width: 100%;
 }
@@ -51,7 +57,6 @@ body.bloquear-refresh {
 /* Linha de acordes */
 .cmChordLine {
 	display: block;
-	margin-bottom: -0.4rem;
 }
 
 /* Acordes */
@@ -62,7 +67,7 @@ body.bloquear-refresh {
 }
 
 .cmChordSymbol:hover, .cmChordSymbol:active {
-    color: var(--bs-warning);
+    color: var(--bs-info);
 }
 
 /* Linha de letra da música */
