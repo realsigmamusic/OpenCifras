@@ -128,6 +128,25 @@ export function carregarTemaSalvo() {
 }
 
 function copiarPix() {
-    navigator.clipboard.writeText('realsigmamusic@gmail.com');
-    alert("Chave PIX copiada!");
+	navigator.clipboard.writeText('realsigmamusic@gmail.com');
+	alert("Chave PIX copiada!");
+}
+
+export async function exibirVersao() {
+	try {
+		// Lê o arquivo sw.js como texto puro
+		const response = await fetch('./sw.js');
+		const texto = await response.text();
+
+		// Procura pela linha: const CACHE_NAME = 'valor';
+		const match = texto.match(/const\s+CACHE_NAME\s*=\s*['"](.*?)['"]/);
+
+		if (match && match[1]) {
+
+			const el = document.getElementById('app-version');
+			if (el) el.textContent = match[1];
+		}
+	} catch (erro) {
+		console.error('Não foi possível ler a versão do SW:', erro);
+	}
 }

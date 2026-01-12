@@ -1,6 +1,6 @@
 import { db } from './db.js';
 import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
-import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo } from './ui.js';
+import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao } from './ui.js';
 import { exportarDados, importarDados } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
@@ -399,6 +399,7 @@ window.addEventListener('load', () => {
 	if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
 
 	carregarModoVisualizacao();
+	exibirVersao();
 });
 
 document.addEventListener('solicita-renderizacao', () => {
