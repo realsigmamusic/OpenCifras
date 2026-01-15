@@ -168,7 +168,8 @@ function abrirMusica(musica) {
 
 	musicaAtualId = musica.id;
 	musicaAtualConteudo = musica.conteudo;
-	tomAtual = 0;
+
+	tomAtual = musica.tom || 0;
 
 	document.getElementById('titulo-musica').textContent = musica.titulo;
 	const detalhesEl = document.getElementById('detalhes-musica');
@@ -189,12 +190,20 @@ function mudarTom(delta) {
 	tomAtual += delta;
 	renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
 	atualizarDisplayTom();
+
+	if (musicaAtualId) {
+        db.musicas.update(musicaAtualId, { tom: tomAtual }); 
+    }
 }
 
 function resetarTom() {
 	tomAtual = 0;
 	renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
 	atualizarDisplayTom();
+
+	if (musicaAtualId) {
+        db.musicas.update(musicaAtualId, { tom: 0 });
+    }
 }
 
 function mudarTamanhoFonte(delta) {
