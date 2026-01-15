@@ -36,7 +36,7 @@
 	<header>
 		<nav class="navbar bg-body-secondary mb-3 fixed-top border-0">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
+				<a class="navbar-brand">
 					<h1 class="fw-bolder">
 						<i class="bi bi-music-note-list"></i>
 						OpenCifras
@@ -241,7 +241,7 @@
 					<button class="btn btn-outline-secondary w-100 py-3" onclick="ajustarBpm(-1)">-1</button>
 				</div>
 				<div class="col-4">
-					<button id="btn-play-stop" class="btn btn-success w-100 py-3 shadow" onclick="alternarMetronomo()">
+					<button id="btn-play-stop" class="btn btn-success w-100 py-3" onclick="alternarMetronomo()">
 						<i class="bi bi-play-fill fs-1"></i>
 					</button>
 				</div>
@@ -292,6 +292,7 @@
 				<option value="light">Tema claro</option>
 				<option value="dark">Tema escuro</option>
 			</select>
+			<hr>
 			<label class="mb-1">Modo de vizualização da música:</label>
 			<select class="form-select mb-3" id="select-view" onchange="alterarModoVisualizacao()">
 				<option value="opencifras">OpenCifras</option>
@@ -321,6 +322,13 @@
 					</button>
 				</div>
 			</div>
+			<hr>
+			<a class="navbar-brand" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
+				<button class="btn btn-outline-secondary w-100">
+					<i class="bi bi-github"></i>
+					GitHub
+				</button>
+			</a>
 		</section>
 
 	</main>
