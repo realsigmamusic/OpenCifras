@@ -6,7 +6,7 @@ export async function exportarDados() {
 		const dadosBackup = {
 			data: new Date().toISOString(),
 			app: "OpenCifras",
-			versao: 1,
+			versao: 2,
 			musicas: musicas
 		};
 
