@@ -23,14 +23,10 @@ function navegar(tela, adicionarAoHistorico = true) {
 	alternarTela(tela);
 
 	if (tela === 'lista') {
-		// Ao voltar para a lista, mantemos o filtro de artista visualmente,
-		// mas limpamos a busca de texto para não confundir
 		const inputBusca = document.getElementById('input-busca');
 		if (inputBusca) inputBusca.value = '';
 
 		carregarLista();
-		// Não resetamos musicaAtualId aqui para permitir voltar à edição se necessário,
-		// mas geralmente é bom limpar ao sair do editor.
 	}
 
 	if (tela === 'editor' && !musicaAtualId) {
