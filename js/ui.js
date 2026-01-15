@@ -149,7 +149,7 @@ export async function exibirVersao() {
 		if (match && match[1]) {
 
 			const el = document.getElementById('app-version');
-			if (el) el.textContent = match[1];
+			if (el) el.textContent = 'v' + match[1];
 		}
 	} catch (erro) {
 		console.error('Não foi possível ler a versão do SW:', erro);
