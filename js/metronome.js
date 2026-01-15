@@ -56,6 +56,9 @@ function scheduleNote(beatNumber, time) {
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
+    // Opções: 'sine', 'square', 'sawtooth', 'triangle'
+    osc.type = 'sine';
+
     osc.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
@@ -68,10 +71,10 @@ function scheduleNote(beatNumber, time) {
 
     // Envelope de som curto (Bip!)
     gainNode.gain.setValueAtTime(1, time);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
 
     osc.start(time);
-    osc.stop(time + 0.1);
+    osc.stop(time + 0.04);
 
     // setTimeout para alterar a cor no momento exato
     const timeToVisual = (time - audioCtx.currentTime) * 1000;
