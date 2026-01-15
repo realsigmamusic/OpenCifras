@@ -34,6 +34,10 @@ function navegar(tela, adicionarAoHistorico = true) {
 		limparEditor();
 	}
 
+	if (tela !== 'metronomo' && typeof window.pararMetronomo === 'function') {
+        window.pararMetronomo();
+    }
+
 	if (adicionarAoHistorico) {
 		window.history.pushState({ tela: tela }, null, `?tela=${tela}`);
 	}

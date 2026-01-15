@@ -219,47 +219,67 @@
 			</div>
 		</section>
 
-		<!-- AFINADOR -->
-		<section id="tela-afinador" class="tela">
-            <h1 class="mb-4 text-center">Afinador</h1>
+		<!-- METRÔNOMO	 -->
+		<section id="tela-metronomo" class="tela text-center">
+			<h1 class="mb-4">Metrônomo</h1>
 
-            <div class="d-grid gap-2 col-8 mx-auto mb-4">
-                <button id="btn-power-tuner" class="btn btn-outline-success" onclick="alternarAfinador()">
-                    <i class="bi bi-power"></i> Ligar Afinador
-                </button>
-            </div>
+			<div id="visual-beat"
+				class="rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center shadow-sm"
+				style="width: 150px; height: 150px; border: 4px solid var(--bs-secondary-bg); transition: background-color 0.1s;">
 
-            <div id="tuner-interface" class="d-none">
-                
-                <p class="text-center text-muted mb-2">Selecione a corda que vai afinar:</p>
+				<div>
+					<h1 class="display-1 fw-bold mb-0" id="bpm-display">120</h1>
+					<small class="text-muted">BPM</small>
+				</div>
+			</div>
 
-                <div class="d-flex justify-content-center gap-2 mb-4">
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('E2', this)">E <sup>6ª</sup><br><small style="font-size:0.6rem">082.41</small></button>
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('A2', this)">A <sup>5ª</sup><br><small style="font-size:0.6rem">110.00</small></button>
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('D3', this)">D <sup>4ª</sup><br><small style="font-size:0.6rem">146.83</small></button>
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('G3', this)">G <sup>3ª</sup><br><small style="font-size:0.6rem">196.00</small></button>
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('B3', this)">B <sup>2ª</sup><br><small style="font-size:0.6rem">246.94</small></button>
-                    <button class="btn btn-sm btn-outline-secondary btn-corda" onclick="selecionarCorda('E4', this)">E <sup>1ª</sup><br><small style="font-size:0.6rem">329.63</small></button>
-                </div>
+			<div class="row justify-content-center g-2 mb-4 px-3">
+				<div class="col-2">
+					<button class="btn btn-outline-secondary w-100 py-3" onclick="ajustarBpm(-5)">-5</button>
+				</div>
+				<div class="col-2">
+					<button class="btn btn-outline-secondary w-100 py-3" onclick="ajustarBpm(-1)">-1</button>
+				</div>
+				<div class="col-4">
+					<button id="btn-play-stop" class="btn btn-success w-100 py-3 shadow" onclick="alternarMetronomo()">
+						<i class="bi bi-play-fill fs-1"></i>
+					</button>
+				</div>
+				<div class="col-2">
+					<button class="btn btn-outline-secondary w-100 py-3" onclick="ajustarBpm(1)">+1</button>
+				</div>
+				<div class="col-2">
+					<button class="btn btn-outline-secondary w-100 py-3" onclick="ajustarBpm(5)">+5</button>
+				</div>
+			</div>
 
-                <div class="text-center mb-3">
-                    <h1 class="display-1 fw-bold" id="display-nota">--</h1>
-                    <span class="badge bg-secondary mb-2" id="display-freq">0 Hz</span>
-                    <h4 id="display-status" class="text-muted">Selecione uma corda</h4>
-                </div>
+			<div class="px-4 mb-4">
+				<input type="range" class="form-range" min="40" max="220" value="100" id="bpm-slider"
+					oninput="definirBpm(this.value)">
+			</div>
 
-                <div class="progress" style="height: 30px; font-size: 1rem;">
-                    <div id="tuner-bar" class="progress-bar bg-warning" role="progressbar" style="width: 50%; transition: width 0.1s linear;">
-                        <span id="bar-text"></span>
-                    </div>
-                </div>
-                
-                <div class="d-flex justify-content-between text-muted mt-1 small">
-                    <span>Apertar (Baixo)</span>
-                    <span>Afrouxar (Alto)</span>
-                </div>
-            </div>
-        </section>
+			<div class="btn-group mb-4" role="group">
+				<input type="radio" class="btn-check" name="compasso" id="c-2" autocomplete="off"
+					onclick="mudarCompasso(2)">
+				<label class="btn btn-outline-secondary btn-sm" for="c-2">2/4</label>
+
+				<input type="radio" class="btn-check" name="compasso" id="c-3" autocomplete="off"
+					onclick="mudarCompasso(3)">
+				<label class="btn btn-outline-secondary btn-sm" for="c-3">3/4</label>
+
+				<input type="radio" class="btn-check" name="compasso" id="c-4" autocomplete="off" checked
+					onclick="mudarCompasso(4)">
+				<label class="btn btn-outline-secondary btn-sm" for="c-4">4/4</label>
+
+				<input type="radio" class="btn-check" name="compasso" id="c-5" autocomplete="off"
+					onclick="mudarCompasso(5)">
+				<label class="btn btn-outline-secondary btn-sm" for="c-5">5/4</label>
+
+				<input type="radio" class="btn-check" name="compasso" id="c-6" autocomplete="off"
+					onclick="mudarCompasso(6)">
+				<label class="btn btn-outline-secondary btn-sm" for="c-6">6/4</label>
+			</div>
+		</section>
 
 		<!-- CONFIGURAÇÕES -->
 		<section id="tela-config" class="tela">
@@ -353,9 +373,9 @@
 				</button>
 
 				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
-					onclick="navegar('afinador')">
-					<i class="bi bi-mic fs-5"></i>
-					<small style="font-size: 0.7rem;">Afinador</small>
+					onclick="navegar('metronomo')">
+					<i class="bi bi-speedometer2 fs-5"></i>
+					<small style="font-size: 0.7rem;">Metrônomo</small>
 				</button>
 
 				<button class="btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
@@ -371,7 +391,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://unpkg.com/dexie@3/dist/dexie.js"></script>
 	<script type="module" src="js/app.js"></script>
-	<script src="./js/tuner.js"></script>
+	<script src="./js/metronome.js"></script>
 </body>
 
 </html>
