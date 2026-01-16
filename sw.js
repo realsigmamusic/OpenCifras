@@ -14,9 +14,9 @@ const ASSETS = [
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
 	'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-	'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
+	'https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js',
 	'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm',
-    'https://cdn.jsdelivr.net/npm/chord-mark-converters@0.17.0/+esm',
+	'https://cdn.jsdelivr.net/npm/chord-mark-converters@0.17.0/+esm',
 	'https://cdn.jsdelivr.net/npm/tonal@latest/browser/tonal.min.js'
 ];
 
@@ -41,12 +41,16 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+	if (!e.request.url.startsWith('http')) return;
 	e.respondWith(
 		caches.match(e.request).then((cachedResponse) => {
 			const fetchPromise = fetch(e.request).then((networkResponse) => {
+				const responseToCache = networkResponse.clone();
+
 				caches.open(CACHE_NAME).then((cache) => {
-					cache.put(e.request, networkResponse.clone());
+					cache.put(e.request, responseToCache);
 				});
+
 				return networkResponse;
 			});
 

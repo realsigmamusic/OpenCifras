@@ -35,8 +35,8 @@ function navegar(tela, adicionarAoHistorico = true) {
 	}
 
 	if (tela !== 'metronomo' && typeof window.pararMetronomo === 'function') {
-        window.pararMetronomo();
-    }
+		window.pararMetronomo();
+	}
 
 	if (adicionarAoHistorico) {
 		window.history.pushState({ tela: tela }, null, `?tela=${tela}`);
@@ -116,7 +116,6 @@ async function carregarLista(termoBusca = "") {
 		if (artistaSelecionado) {
 			musicas = musicas.filter(m => {
 				if (!m.artista) return false;
-				// Separa os artistas da música e verifica se o selecionado está entre eles
 				const listaArtistas = m.artista.split(/, | \/ /).map(a => a.trim());
 				return listaArtistas.includes(artistaSelecionado);
 			});
@@ -197,8 +196,8 @@ function mudarTom(delta) {
 	atualizarDisplayTom();
 
 	if (musicaAtualId) {
-        db.musicas.update(musicaAtualId, { tom: tomAtual }); 
-    }
+		db.musicas.update(musicaAtualId, { tom: tomAtual });
+	}
 }
 
 function resetarTom() {
@@ -207,8 +206,8 @@ function resetarTom() {
 	atualizarDisplayTom();
 
 	if (musicaAtualId) {
-        db.musicas.update(musicaAtualId, { tom: 0 });
-    }
+		db.musicas.update(musicaAtualId, { tom: 0 });
+	}
 }
 
 function mudarTamanhoFonte(delta) {
@@ -432,18 +431,18 @@ document.addEventListener('solicita-renderizacao', () => {
 });
 
 async function atualizarContador() {
-    try {
-        const total = await db.musicas.count();
-        
-        const elemento = document.getElementById('contador-musicas');
-        if (total < 1) {
-            elemento.innerText = total + ' Músicas';
-        } else {
+	try {
+		const total = await db.musicas.count();
+
+		const elemento = document.getElementById('contador-musicas');
+		if (total < 1) {
+			elemento.innerText = total + ' Músicas';
+		} else {
 			elemento.innerText = total + ' Música';
 		}
-    } catch (e) {
-        console.error("Erro ao contar músicas:", e);
-    }
+	} catch (e) {
+		console.error("Erro ao contar músicas:", e);
+	}
 }
 
 // Inicialização da Busca e Listagem
