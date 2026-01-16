@@ -57,7 +57,7 @@ function scheduleNote(beatNumber, time) {
     const gainNode = audioCtx.createGain();
 
     // Opções: 'sine', 'square', 'sawtooth', 'triangle'
-    osc.type = 'sine';
+    osc.type = document.getElementById('click').value;
 
     osc.connect(gainNode);
     gainNode.connect(audioCtx.destination);

@@ -257,8 +257,14 @@
 			</div>
 
 			<div class="px-4 mb-4">
-				<input type="range" class="form-range" min="40" max="220" value="100" id="bpm-slider"
+				<input type="range" class="form-range mb-3" min="40" max="220" value="100" id="bpm-slider"
 					oninput="definirBpm(this.value)">
+
+				<select id="click" class="form-select mb-3">
+					<option value="sine" selected>sine</option>
+					<option value="triangle">triangle</option>
+					<option value="square">square</option>
+				</select>
 			</div>
 
 			<div class="btn-group mb-4" role="group">
@@ -282,6 +288,7 @@
 					onclick="mudarCompasso(6)">
 				<label class="btn btn-outline-secondary btn-sm" for="c-6">6/4</label>
 			</div>
+
 		</section>
 
 		<!-- CONFIGURAÇÕES -->
