@@ -12,13 +12,17 @@ window.gerarCampoHarmonico = function () {
     let html = "";
 
     for (let i = 0; i < 7; i++) {
+        let acordeMelodica = formatarAcorde(minor.melodic.chords[i]);
+        if (i === 6) {
+            acordeMelodica = acordeMelodica.replace('m7(b5)', '7alt');
+        }
         html += `
             <tr>
-                <td class="bg-body-tertiary small" style="width: 10%;">${major.grades[i]}</td>
-                <td class="text-primary fw-bold">${formatarAcorde(major.chords[i])}</td>
-                <td class="text-info fw-bold">${formatarAcorde(minor.natural.chords[i])}</td>
-                <td class="text-warning fw-bold">${formatarAcorde(minor.harmonic.chords[i])}</td>
-                <td class="text-danger fw-bold">${formatarAcorde(minor.melodic.chords[i])}</td>
+                <td class="bg-body-tertiary small" style="width: 5%;">${major.grades[i]}</td>
+                <td class="text-primary fw-bold small">${formatarAcorde(major.chords[i])}</td>
+                <td class="text-info fw-bold small">${formatarAcorde(minor.natural.chords[i])}</td>
+                <td class="text-warning fw-bold small">${formatarAcorde(minor.harmonic.chords[i])}</td>
+                <td class="text-danger fw-bold small">${acordeMelodica}</td>
             </tr>
         `;
     }
@@ -34,6 +38,7 @@ function formatarAcorde(nomeAcorde) {
     return nomeAcorde
         .replace('maj7', 'M7')
         .replace('mMaj7', 'mM7')
+        .replace('m6', 'mM7')
         .replace('+M7', 'M7(#5)')
         .replace('m7b5', 'm7(b5)')
         .replace('o7', 'º7');
