@@ -162,6 +162,7 @@ async function carregarLista(termoBusca = "") {
 		console.error(error);
 		ul.innerHTML = '<div class="text-center text-danger">Erro ao carregar lista.</div>';
 	}
+	atualizarContador();
 }
 
 // --- PLAYER / LEITOR ---
@@ -326,7 +327,8 @@ window.deletarAtual = deletar;
 window.exportarDados = exportarDados;
 window.importarDados = (el) => importarDados(el, () => {
 	carregarLista();
-	carregarFiltrosArtistas(); // Recarrega filtros após importar
+	carregarFiltrosArtistas();
+	atualizarContador();
 });
 window.filtrarLista = () => carregarLista(document.getElementById('input-busca').value);
 window.mudarTom = mudarTom;
@@ -434,9 +436,11 @@ async function atualizarContador() {
         const total = await db.musicas.count();
         
         const elemento = document.getElementById('contador-musicas');
-        if (elemento) {
-            elemento.innerText = total;
-        }
+        if (total < 1) {
+            elemento.innerText = total + ' Músicas';
+        } else {
+			elemento.innerText = total + ' Música';
+		}
     } catch (e) {
         console.error("Erro ao contar músicas:", e);
     }
