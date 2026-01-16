@@ -23,15 +23,15 @@ export function converterCifra(formatoEntrada) {
 	const textoSujo = editor.value;
 
 	if (!textoSujo.trim()) {
-		alert("O editor está vazio. Cole uma cifra primeiro.");
+		alert("O editor está vazio. Escreva ou cole uma cifra primeiro.");
 		return;
 	}
 
-	let mensagem = 'Isso substituirá o texto atual pela versão formatada. Continuar?';
+	let mensagem = 'Isso substituirá o texto atual pela versão formatada. (Não tem como desfazer.) Continuar?';
 	if (formatoEntrada === 'chordPro') {
 		mensagem = 'Converter formato ChordPro (com colchetes) para ChordMark? ' + mensagem;
 	} else {
-		mensagem = 'Tentar alinhar e formatar cifra da internet? ' + mensagem;
+		mensagem = 'Alinhar e formatar cifra da internet? ' + mensagem;
 	}
 
 	if (confirm(mensagem)) {
@@ -42,7 +42,7 @@ export function converterCifra(formatoEntrada) {
 
 			editor.value = textoLimpo;
 
-			alert('Formatado com sucesso!'); 
+			// alert('Formatado com sucesso!'); 
 
 		} catch (err) {
 			console.error("Erro na conversão:", err);

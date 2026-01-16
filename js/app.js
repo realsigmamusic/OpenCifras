@@ -282,6 +282,8 @@ async function salvar() {
 		// Atualiza os filtros (pois pode ter surgido um novo artista)
 		await carregarFiltrosArtistas();
 
+		atualizarContador();
+
 		abrirMusica(musicaAtualizada);
 
 	} catch (e) {
@@ -304,6 +306,8 @@ async function deletar() {
 			alert("Erro ao excluir.");
 		}
 	}
+
+	atualizarContador();
 }
 
 async function editar() {
@@ -414,6 +418,7 @@ window.addEventListener('load', () => {
 
 	carregarModoVisualizacao();
 	exibirVersao();
+	atualizarContador();
 });
 
 document.addEventListener('solicita-renderizacao', () => {
@@ -423,6 +428,19 @@ document.addEventListener('solicita-renderizacao', () => {
 		renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0);
 	}
 });
+
+async function atualizarContador() {
+    try {
+        const total = await db.musicas.count();
+        
+        const elemento = document.getElementById('contador-musicas');
+        if (elemento) {
+            elemento.innerText = total;
+        }
+    } catch (e) {
+        console.error("Erro ao contar músicas:", e);
+    }
+}
 
 // Inicialização da Busca e Listagem
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));

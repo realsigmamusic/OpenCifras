@@ -22,7 +22,7 @@ export async function exportarDados() {
 		a.click();
 		document.body.removeChild(a);
 		
-		alert('Backup baixado com sucesso!');
+		// alert('Backup baixado com sucesso!');
 	} catch (error) {
 		alert('Erro ao exportar: ' + error.message);
 	}
