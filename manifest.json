@@ -14,9 +14,19 @@
 	],
 	"file_handlers": [
 		{
-			"action": "/",
+			"action": "./",
 			"accept": {
 				"application/json": [
+					".json"
+				],
+				"text/json": [
+					".json"
+				],
+				"text/plain": [
+					".json",
+					".txt"
+				],
+				"application/octet-stream": [
 					".json"
 				]
 			}
