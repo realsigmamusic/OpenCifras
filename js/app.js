@@ -1,7 +1,7 @@
 import { db } from './db.js';
 import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
 import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao, converterCifra } from './ui.js';
-import { exportarDados, importarDados } from './backup.js';
+import { exportarDados, importarDados, copiarLinkMusica } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
 	{
@@ -337,6 +337,11 @@ window.resetarFonte = resetarFonte;
 window.resetarTom = resetarTom;
 window.alterarModoVisualizacao = alterarModoVisualizacao;
 window.converterCifra = converterCifra;
+window.copiarLinkMusica = () => {
+	if (window.musicaAtualGlobal) {
+		copiarLinkMusica(window.musicaAtualGlobal);
+	}
+};
 
 function navigateToHome() {
 	musicaAtualId = null;
@@ -444,6 +449,55 @@ async function atualizarContador() {
 		console.error("Erro ao contar músicas:", e);
 	}
 }
+
+async function verificarLinkCompartilhado() {
+	const params = new URLSearchParams(window.location.search);
+	const codigoCifra = params.get('cifra');
+
+	if (codigoCifra) {
+		try {
+			const jsonString = LZString.decompressFromEncodedURIComponent(codigoCifra);
+
+			if (!jsonString) throw new Error("Link corrompido ou inválido.");
+
+			const musica = JSON.parse(jsonString);
+
+			const existe = await db.musicas.where('titulo').equals(musica.titulo).first();
+
+			let idFinal;
+
+			if (existe) {
+				idFinal = existe.id;
+
+				alert(`Você já tem a música "${musica.titulo}". Abrindo...`);
+			} else {
+				idFinal = await db.musicas.add(musica);
+				alert(`Música "${musica.titulo}" importada com sucesso!`);
+			}
+
+			window.history.replaceState({}, document.title, window.location.pathname);
+
+			await carregarLista();
+			atualizarContador();
+
+			const musicaSalva = await db.musicas.get(idFinal);
+			abrirMusica(musicaSalva);
+
+		} catch (e) {
+			console.error(e);
+			alert("Erro ao importar música pelo link.");
+		}
+	}
+}
+
+// --- INICIALIZAÇÃO ÚNICA ---
+window.addEventListener('load', () => {
+	if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
+	carregarModoVisualizacao();
+	exibirVersao();
+	atualizarContador();
+	verificarLinkCompartilhado();
+});
 
 // Inicialização da Busca e Listagem
 document.getElementById('input-busca')?.addEventListener('input', (e) => carregarLista(e.target.value));

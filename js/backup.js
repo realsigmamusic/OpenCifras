@@ -59,3 +59,32 @@ export async function importarDados(input, aoTerminar) {
 	};
 	leitor.readAsText(arquivo);
 }
+
+export function copiarLinkMusica(musica) {
+    if (!musica) return;
+
+    try {
+        const dados = {
+            titulo: musica.titulo,
+            artista: musica.artista,
+            tom: musica.tom,
+            conteudo: musica.conteudo
+        };
+
+        const stringJson = JSON.stringify(dados);
+        const comprimido = LZString.compressToEncodedURIComponent(stringJson);
+
+        const urlBase = window.location.origin + window.location.pathname;
+        const linkFinal = `${urlBase}?cifra=${comprimido}`;
+
+        navigator.clipboard.writeText(linkFinal).then(() => {
+            alert('Link copiado! Cole no WhatsApp para seu aluno.');
+        }).catch(err => {
+            prompt("Copie o link abaixo:", linkFinal);
+        });
+
+    } catch (e) {
+        console.error(e);
+        alert("Erro ao gerar link.");
+    }
+}
