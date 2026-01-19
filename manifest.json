@@ -1,9 +1,7 @@
 {
 	"name": "OpenCifras",
 	"short_name": "OpenCifras",
-	"id": "/?opencifras=true",
-	"start_url": "./index.html",
-	"scope": "./",
+	"start_url": "index.html",
 	"display": "standalone",
 	"background_color": "#ffffff",
 	"theme_color": "#e9ecef",
@@ -19,26 +17,6 @@
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "any maskable"
-		}
-	],
-	"file_handlers": [
-		{
-			"action": "./index.html",
-			"accept": {
-				"application/json": [
-					".json"
-				],
-				"text/json": [
-					".json"
-				],
-				"text/plain": [
-					".json",
-					".txt"
-				],
-				"application/octet-stream": [
-					".json"
-				]
-			}
 		}
 	]
 }
