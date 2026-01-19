@@ -18,15 +18,5 @@
 			"type": "image/png",
 			"purpose": "any maskable"
 		}
-	],
-	"file_handlers": [
-		{
-			"action": "/",
-			"accept": {
-				"application/json": [
-					".json"
-				]
-			}
-		}
 	]
 }

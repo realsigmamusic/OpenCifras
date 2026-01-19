@@ -90,13 +90,13 @@
 				<div class="vr mx-2 text-secondary"></div>
 
 				<div class="btn-group" role="group">
-					<button class="btn btn-secondary btn-sm" onclick="mudarTamanhoFonte(-10)">
+					<button class="btn btn-secondary btn-sm" onclick="mudarTamanhoFonte(-5)">
 						<i class="bi bi-dash-lg"></i>
 					</button>
 					<button class="btn btn-secondary btn-sm" onclick="resetarFonte()">
 						<i class="bi bi-arrow-counterclockwise"></i>
 					</button>
-					<button class="btn btn-secondary btn-sm" onclick="mudarTamanhoFonte(10)">
+					<button class="btn btn-secondary btn-sm" onclick="mudarTamanhoFonte(5)">
 						<i class="bi bi-plus-lg"></i>
 					</button>
 				</div>
@@ -331,60 +331,69 @@
 
 		</section>
 
-		<!-- CONFIGURAÇÕES -->
-		<section id="tela-config" class="tela">
-			<h1 class="mb-3">
-				OpenCifras
-				<span id="app-version" class="fs-6"></span>
-			</h1>
-			<label class="mb-1">Temas:</label>
-			<select class="form-select mb-3" id="tema" onchange="alternarTema(this.value)">
-				<option value="light">Tema claro</option>
-				<option value="dark">Tema escuro</option>
-			</select>
-			<hr>
-			<label class="mb-1">Modo de vizualização da música:</label>
-			<select class="form-select mb-3" id="select-view" onchange="alterarModoVisualizacao()">
-				<option value="opencifras">OpenCifras</option>
-				<option value="chordmark">ChordMark</option>
-				<option value="minimalist">Minimalista</option>
-				<option value="lyric">Letra</option>
-				<option value="chords">Acordes</option>
-			</select>
-			<hr>
-			<h3 class="mb-3">Backup</h3>
-			<p class="mb-2">Arquivo <code>.json</code> com todas as suas músicas.</p>
-			<div class="d-flex justify-content-center align-items-center gap-3">
-				<div class="col-5">
-					<button class="btn btn-outline-primary w-100" onclick="exportarDados()">
-						<i class="bi bi-box-arrow-in-up"></i>
-						Exportar
-					</button>
-				</div>
-				<div class="vr"></div>
-				<div class="col-5">
-					<input type="file" id="input-importar" accept="*/*" style="display: none"
-						onchange="importarDados(this)">
-					<button class="btn btn-outline-warning w-100"
-						onclick="document.getElementById('input-importar').click()">
-						<i class="bi bi-box-arrow-in-down"></i>
-						Importar
-					</button>
-				</div>
-			</div>
-			<hr>
-			<a class="navbar-brand" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
-				<button class="btn btn-outline-secondary w-100">
-					<i class="bi bi-github"></i>
-					GitHub
-				</button>
-			</a>
-		</section>
-
 	</main>
 
-	<!-- MODAL INFORMAÇÃO DO ACORDE -->
-	<div class="modal fade" id="modalAcorde" tabindex="-1" aria-hidden="true">
+	<!-- CONFIGURAÇÕES -->
+	<section class="modal fade" id="modalConfig" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-body-secondary">
+					<h1 class="mb-3">
+						OpenCifras
+						<span id="app-version" class="fs-6"></span>
+					</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<label class="mb-1">Temas:</label>
+					<select class="form-select mb-3" id="tema" onchange="alternarTema(this.value)">
+						<option value="light">Tema claro</option>
+						<option value="dark">Tema escuro</option>
+					</select>
+					<hr>
+					<label class="mb-1">Modo de vizualização da música:</label>
+					<select class="form-select mb-3" id="select-view" onchange="alterarModoVisualizacao()">
+						<option value="opencifras">OpenCifras</option>
+						<option value="chordmark">ChordMark</option>
+						<option value="minimalist">Minimalista</option>
+						<option value="lyric">Letra</option>
+						<option value="chords">Acordes</option>
+					</select>
+					<hr>
+					<h3 class="mb-3">Backup</h3>
+					<p class="mb-2">Arquivo <code>.json</code> com todas as suas músicas.</p>
+					<div class="d-flex justify-content-center align-items-center gap-3">
+						<div class="col-5">
+							<button class="btn btn-outline-primary w-100" onclick="exportarDados()">
+								<i class="bi bi-box-arrow-in-up"></i>
+								Exportar
+							</button>
+						</div>
+						<div class="vr"></div>
+						<div class="col-5">
+							<input type="file" id="input-importar" accept="*/*" style="display: none"
+								onchange="importarDados(this)">
+							<button class="btn btn-outline-warning w-100"
+								onclick="document.getElementById('input-importar').click()">
+								<i class="bi bi-box-arrow-in-down"></i>
+								Importar
+							</button>
+						</div>
+					</div>
+					<hr>
+					<a class="navbar-brand" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
+						<button class="btn btn-outline-secondary w-100">
+							<i class="bi bi-github"></i>
+							GitHub
+						</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- INFORMAÇÕES DO ACORDE -->
+	<section class="modal fade" id="modalAcorde" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-sm">
 			<div class="modal-content">
 				<div class="modal-header bg-body-secondary">
@@ -411,7 +420,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 
 	<!-- RODAPÉ -->
 	<footer class="bg-body-secondary fixed-bottom">
@@ -443,7 +452,7 @@
 				</button>
 
 				<button class="col btn nav-link text-decoration-none d-flex flex-column align-items-center p-1"
-					onclick="navegar('config')">
+					data-bs-toggle="modal" data-bs-target="#modalConfig">
 					<i class="bi bi-sliders fs-5"></i>
 					<small style="font-size: 0.7rem;">Opções</small>
 				</button>

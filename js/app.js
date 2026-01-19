@@ -12,69 +12,11 @@ const MUSICAS_EXEMPLO = [
 	}
 ]
 
-if ('launchQueue' in window) {
-	window.launchQueue.setConsumer(async (launchParams) => {
-		if (!launchParams.files || launchParams.files.length === 0) {
-			return;
-		}
-
-		// Processa o primeiro arquivo recebido
-		const fileHandle = launchParams.files[0];
-
-		try {
-			const file = await fileHandle.getFile();
-
-			// Verifica se é um arquivo JSON
-			if (file.type === 'application/json' || file.name.endsWith('.json')) {
-				const conteudo = await file.text();
-				const json = JSON.parse(conteudo);
-
-				// Verifica se é um backup do OpenCifras
-				if (json.app === "OpenCifras" && json.musicas) {
-					const musicasNoBanco = await db.musicas.toArray();
-					const titulosExistentes = new Set(musicasNoBanco.map(m => m.titulo.toLowerCase().trim()));
-
-					const novasMusicas = json.musicas.filter(m => {
-						return !titulosExistentes.has(m.titulo.toLowerCase().trim());
-					});
-
-					if (novasMusicas.length === 0) {
-						alert("Todas as músicas deste backup já estão salvas!");
-					} else {
-						const confirmacao = confirm(
-							`Importar ${novasMusicas.length} nova(s) música(s) do arquivo "${file.name}"?`
-						);
-
-						if (confirmacao) {
-							const paraSalvar = novasMusicas.map(({ id, ...resto }) => resto);
-							await db.musicas.bulkAdd(paraSalvar);
-							alert(`${novasMusicas.length} música(s) importada(s) com sucesso!`);
-
-							// Atualiza a interface
-							await carregarFiltrosArtistas();
-							carregarLista();
-							atualizarContador();
-
-							// Navega para a lista
-							navegar('lista');
-						}
-					}
-				} else {
-					alert("⚠️ Este não é um arquivo de backup válido do OpenCifras.");
-				}
-			}
-		} catch (error) {
-			console.error("Erro ao processar arquivo:", error);
-			alert("Erro ao processar o arquivo: " + error.message);
-		}
-	});
-}
-
 // --- ESTADO GLOBAL ---
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
-let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
+let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 90;
 let artistaSelecionado = null;
 
 // --- NAVEGAÇÃO ---
@@ -279,7 +221,7 @@ function mudarTamanhoFonte(delta) {
 }
 
 function resetarFonte() {
-	tamanhoFonte = 100;
+	tamanhoFonte = 90;
 	localStorage.setItem('tamanhoFonte', tamanhoFonte);
 	aplicarFonte();
 }
