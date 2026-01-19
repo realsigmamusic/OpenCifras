@@ -32,9 +32,19 @@ window.gerarCampoHarmonico = function () {
     tabela.classList.remove('d-none');
 };
 
+function copiarCampoHarmonico() {
+    const mensagem = `Campo harmônico`;
+
+    navigator.clipboard.writeText(mensagem).then(() => {
+        alert(`Copiado para a área de transferência`);
+    }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+    });
+}
+
 function formatarAcorde(nomeAcorde) {
     if (!nomeAcorde) return "";
-    
+
     return nomeAcorde
         .replace('maj7', 'M7')
         .replace('mMaj7', 'mM7')
