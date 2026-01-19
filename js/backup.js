@@ -58,3 +58,4 @@ export async function importarDados(input, aoTerminar) {
 		input.value = '';
 	};
 	leitor.readAsText(arquivo);
+}
