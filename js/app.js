@@ -298,7 +298,7 @@ async function deletar() {
 	if (confirm("Tem certeza que deseja excluir esta música permanentemente?")) {
 		try {
 			await db.musicas.delete(musicaAtualId);
-			alert("Música excluída.");
+			// alert("Música excluída.");
 			musicaAtualId = null;
 			navegar('lista');
 		} catch (e) {
@@ -363,7 +363,7 @@ async function verificarExemplos() {
 		const quantidade = await db.musicas.count();
 		if (quantidade === 0) {
 			await db.musicas.bulkAdd(MUSICAS_EXEMPLO);
-			console.log("Músicas de exemplo adicionadas!");
+			// console.log("Músicas de exemplo adicionadas!");
 			// Se adicionou exemplos, recarrega filtros
 			carregarFiltrosArtistas();
 		}
@@ -435,7 +435,7 @@ async function atualizarContador() {
 		const total = await db.musicas.count();
 
 		const elemento = document.getElementById('contador-musicas');
-		if (total < 1) {
+		if (total > 1) {
 			elemento.innerText = total + ' Músicas';
 		} else {
 			elemento.innerText = total + ' Música';
