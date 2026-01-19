@@ -78,7 +78,7 @@ export function copiarLinkMusica(musica) {
         const linkFinal = `${urlBase}?cifra=${comprimido}`;
 
         navigator.clipboard.writeText(linkFinal).then(() => {
-            alert('Link copiado! Cole no WhatsApp para seu aluno.');
+            alert('Link copiado para a área de transferência.');
         }).catch(err => {
             prompt("Copie o link abaixo:", linkFinal);
         });
