@@ -20,23 +20,23 @@ let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
 let artistaSelecionado = null;
 
 if ('launchQueue' in window) {
-    window.launchQueue.setConsumer(async (launchParams) => {
-        // console.log("Arquivo recebido!", launchParams); // DEBUG
+	window.launchQueue.setConsumer(async (launchParams) => {
+		// console.log("Arquivo recebido!", launchParams); // DEBUG
 
-        if (launchParams.files && launchParams.files.length > 0) {
-            const fileHandle = launchParams.files[0];
-            const file = await fileHandle.getFile();
-            
-            const tentarImportar = () => {
-                if (window.importarDadosDireto) {
-                    window.importarDadosDireto(file);
-                } else {
-                    setTimeout(tentarImportar, 100);
-                }
-            };
-            tentarImportar();
-        }
-    });
+		if (launchParams.files && launchParams.files.length > 0) {
+			const fileHandle = launchParams.files[0];
+			const file = await fileHandle.getFile();
+
+			const tentarImportar = () => {
+				if (window.importarDadosDireto) {
+					window.importarDadosDireto(file);
+				} else {
+					setTimeout(tentarImportar, 100);
+				}
+			};
+			tentarImportar();
+		}
+	});
 }
 
 // --- NAVEGAÇÃO ---
@@ -349,6 +349,13 @@ window.importarDados = (el) => importarDados(el, () => {
 	carregarFiltrosArtistas();
 	atualizarContador();
 });
+window.importarDadosDireto = (file) => {
+	importarDados(file, () => {
+		carregarLista();
+		carregarFiltrosArtistas();
+		atualizarContador();
+	});
+};
 window.filtrarLista = () => carregarLista(document.getElementById('input-busca').value);
 window.mudarTom = mudarTom;
 window.alternarTema = alternarTema;
