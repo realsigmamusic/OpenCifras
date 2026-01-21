@@ -83,13 +83,6 @@ export function aplicarTema(tema) {
 	document.documentElement.setAttribute('data-bs-theme', temaAplicado);
 	localStorage.setItem('tema', tema);
 
-	const icone = document.getElementById('icone-tema');
-	if (icone) {
-		icone.className = temaAplicado === 'dark'
-			? 'bi bi-sun-fill'
-			: 'bi bi-moon-fill';
-	}
-
 	const metaThemeColor = document.querySelector('meta[name="theme-color"]');
 	if (metaThemeColor) {
 		metaThemeColor.setAttribute(
