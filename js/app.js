@@ -38,6 +38,19 @@ function navegar(tela, adicionarAoHistorico = true) {
 		window.pararMetronomo();
 	}
 
+	// --- LÓGICA DE CAMPO HARMÔNICO AUTOMÁTICO ---
+	const telaDestino = document.getElementById(`tela-${tela}`);
+	const inputTonica = document.getElementById('tonica');
+
+	if (telaDestino && inputTonica && telaDestino.contains(inputTonica)) {
+		const keyEl = document.querySelector('#render-area .cmKeyDeclaration');
+		if (keyEl) {
+			// Pega o texto do tom (ex: "Key: A") e limpa para ficar apenas "A"
+			inputTonica.value = keyEl.textContent.replace(/Key:?\s*/i, '').trim();
+			if (typeof window.gerarCampoHarmonico === 'function') window.gerarCampoHarmonico();
+		}
+	}
+
 	if (adicionarAoHistorico) {
 		window.history.pushState({ tela: tela }, null, `?tela=${tela}`);
 	}
