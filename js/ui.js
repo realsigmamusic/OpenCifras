@@ -75,12 +75,17 @@ export function preencherEditor(musica) {
 }
 
 export function aplicarTema(tema) {
-	document.documentElement.setAttribute('data-bs-theme', tema);
+	let temaAplicado = tema;
+	if (tema === 'auto') {
+		temaAplicado = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	}
+
+	document.documentElement.setAttribute('data-bs-theme', temaAplicado);
 	localStorage.setItem('tema', tema);
 
 	const icone = document.getElementById('icone-tema');
 	if (icone) {
-		icone.className = tema === 'dark'
+		icone.className = temaAplicado === 'dark'
 			? 'bi bi-sun-fill'
 			: 'bi bi-moon-fill';
 	}
@@ -89,7 +94,7 @@ export function aplicarTema(tema) {
 	if (metaThemeColor) {
 		metaThemeColor.setAttribute(
 			'content',
-			tema === 'dark' ? '#343a40' : '#e9ecef'
+			temaAplicado === 'dark' ? '#343a40' : '#e9ecef'
 		);
 	}
 }
@@ -127,15 +132,28 @@ function inserirNoCursor(texto) {
 }
 
 export function carregarTemaSalvo() {
-	const temaSalvo = localStorage.getItem('tema') || 'light';
+	const temaSalvo = localStorage.getItem('tema') || 'auto';
 
 	const select = document.getElementById('tema');
 	if (select) {
+		if (!select.querySelector('option[value="auto"]')) {
+			const opt = document.createElement('option');
+			opt.value = 'auto';
+			opt.textContent = 'Auto (Sistema)';
+			select.insertBefore(opt, select.firstChild);
+		}
 		select.value = temaSalvo;
 	}
 
 	aplicarTema(temaSalvo);
 }
+
+// Monitorar mudanças no sistema
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+	if (localStorage.getItem('tema') === 'auto') {
+		aplicarTema('auto');
+	}
+});
 
 export async function exibirVersao() {
 	try {

@@ -361,9 +361,8 @@ window.onpopstate = function (event) {
 	}
 };
 
-const temaSalvo = localStorage.getItem('tema');
-const preferenciaSistema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-aplicarTema(temaSalvo || preferenciaSistema);
+const temaSalvo = localStorage.getItem('tema') || 'auto';
+aplicarTema(temaSalvo);
 
 async function verificarExemplos() {
 	try {
