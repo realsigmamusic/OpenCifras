@@ -320,7 +320,6 @@ async function editar() {
 // --- EXPORTAR FUNÇÕES PARA O HTML ---
 window.navegar = navegar;
 window.salvarMusica = salvar;
-window.cancelarEdicao = () => confirm("Descartar?") ? navigateToHome() : null;
 window.editarAtual = editar;
 window.deletarAtual = deletar;
 window.exportarDados = exportarDados;
@@ -343,11 +342,14 @@ window.copiarLinkMusica = () => {
 	}
 };
 
-function navigateToHome() {
-	musicaAtualId = null;
-	navegar('lista');
+function cancelarEdicao() {
+	if (musicaAtualId) {
+		navegar('leitor');
+	} else {
+		navegar('lista');
+	}
 }
-window.cancelarEdicao = navigateToHome;
+window.cancelarEdicao = cancelarEdicao;
 
 // --- EVENTOS E INICIALIZAÇÃO ---
 
@@ -418,14 +420,6 @@ function mostrarInfoAcorde(acordeStr) {
 	const modal = new bootstrap.Modal(modalElement);
 	modal.show();
 }
-
-window.addEventListener('load', () => {
-	if (typeof carregarTemaSalvo === 'function') carregarTemaSalvo();
-
-	carregarModoVisualizacao();
-	exibirVersao();
-	atualizarContador();
-});
 
 document.addEventListener('solicita-renderizacao', () => {
 	const areaRender = document.getElementById('render-area');
