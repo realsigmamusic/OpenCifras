@@ -16,18 +16,73 @@ window.gerarCampoHarmonico = function () {
         if (i === 6) {
             acordeMelodica = acordeMelodica.replace('m7(b5)', '7alt');
         }
+
         html += `
             <tr>
                 <td class="bg-body-tertiary small" style="width: 5%;">${major.grades[i]}</td>
                 <td class="text-primary fw-bold small">${formatarAcorde(major.chords[i])}</td>
                 <td class="text-info fw-bold small">${formatarAcorde(minor.natural.chords[i])}</td>
-                <td class="text-warning fw-bold small">${formatarAcorde(minor.harmonic.chords[i])}</td>
-                <td class="text-danger fw-bold small">${acordeMelodica}</td>
+                <td class="text-secondary fw-bold small">${formatarAcorde(minor.harmonic.chords[i])}</td>
+                <td class="text-secondary fw-bold small">${acordeMelodica}</td>
             </tr>
         `;
     }
 
     acordes.innerHTML = html;
+
+    // --- GERAÇÃO DA TABELA DE DOMINANTES SECUNDÁRIOS ---
+    let divSec = document.getElementById('area-secundarios');
+    if (!divSec) {
+        divSec = document.createElement('div');
+        divSec.id = 'area-secundarios';
+        tabela.parentNode.insertBefore(divSec, tabela.nextSibling);
+    }
+
+    let htmlSec = '';
+    htmlSec += '<h5 class="mb-2">Dominantes Secundários & Substitutos</h5>';
+    htmlSec += `
+    <div class="table-responsive"><table class="table">
+        <thead class="small">
+            <tr>
+		    	<th>Dominate</th>
+		    	<th></th>
+		    	<th>Alvo</th>
+                <th>Sub-cinco</th>
+		    	<th></th>
+		    	<th>Alvo</th>
+		    </tr>
+        </thead>
+    <tbody>`;
+
+    major.secondaryDominants.forEach((dom, i) => {
+        if (dom) {
+            htmlSec += `
+                <tr>
+                    <td class="text-danger small fw-bold">
+                        ${formatarAcorde(major.secondaryDominants[i])} 
+                    </td>
+                    <td class="text-muted small">
+                        <i class="bi bi-arrow-right"></i>
+                    </td>
+                    <td class="text-primary small fw-bolder">
+                        ${formatarAcorde(major.chords[i])}
+                    </td>
+                    <td class="text-danger small fw-bold">
+                        ${formatarAcorde(major.substituteDominants[i])} 
+                    </td>
+                    <td class="text-muted small">
+                        <i class="bi bi-arrow-right"></i>
+                    </td>
+                    <td class="text-primary small fw-bolder">
+                        <i class="bi bi-arrow-right"></i>
+                        ${formatarAcorde(major.chords[i])}
+                    </td>
+                </tr>`;
+        }
+    });
+
+    htmlSec += '</tbody></table></div>';
+    divSec.innerHTML = htmlSec;
 
     tabela.classList.remove('d-none');
 };
