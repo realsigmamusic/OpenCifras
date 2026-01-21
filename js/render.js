@@ -20,16 +20,6 @@ export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 					printSubBeatDelimiters: true
 				});
 				break;
-			case 'chordmark':
-				html = renderSong(song, {
-					alignBars: true,
-					alignChordsWithLyrics: true,
-					transposeValue: valTransposicao,
-					printBarSeparators: 'always',
-					printChordsDuration: 'always',
-					printSubBeatDelimiters: true
-				});
-				break;
 			case 'minimalist':
 				html = renderSong(song, {
 					alignBars: false,
