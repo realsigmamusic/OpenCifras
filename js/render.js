@@ -1,4 +1,5 @@
-import { parseSong, renderSong } from 'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm';
+//import { parseSong, renderSong } from 'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm';
+const { parseSong, renderSong } = window["chord-mark"];
 
 export function renderizarCifra(elementoDestino, conteudo, semitons = 0) {
 	try {
