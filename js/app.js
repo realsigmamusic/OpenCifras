@@ -1,7 +1,7 @@
 import { db } from './db.js';
 import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
 import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao, converterCifra } from './ui.js';
-import { exportarDados, importarDados, copiarLinkMusica } from './backup.js';
+import { exportarDados, importarDados, copiarLinkMusica, copiarTextoWhatsapp } from './backup.js';
 
 const MUSICAS_EXEMPLO = [
 	{
@@ -352,6 +352,11 @@ window.converterCifra = converterCifra;
 window.copiarLinkMusica = () => {
 	if (window.musicaAtualGlobal) {
 		copiarLinkMusica(window.musicaAtualGlobal);
+	}
+};
+window.copiarTextoWhatsapp = () => {
+	if (window.musicaAtualGlobal) {
+		copiarTextoWhatsapp(window.musicaAtualGlobal, tomAtual);
 	}
 };
 
