@@ -16,7 +16,7 @@ const MUSICAS_EXEMPLO = [
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
-let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 90;
+let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
 let artistaSelecionado = null;
 
 // --- NAVEGAÇÃO ---
@@ -234,7 +234,7 @@ function mudarTamanhoFonte(delta) {
 }
 
 function resetarFonte() {
-	tamanhoFonte = 90;
+	tamanhoFonte = 100;
 	localStorage.setItem('tamanhoFonte', tamanhoFonte);
 	aplicarFonte();
 }
