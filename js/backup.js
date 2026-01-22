@@ -4,7 +4,7 @@ export async function exportarDados() {
 	try {
 		const musicas = await db.musicas.toArray();
 		const dadosBackup = {
-			data: new Date().toISOString(),
+			data: new Date().toLocaleString(),
 			app: "OpenCifras",
 			versao: 3,
 			musicas: musicas
@@ -14,9 +14,9 @@ export async function exportarDados() {
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 
-		const dataHoje = new Date().toISOString().split('T')[0];
+		const dataHoje = new Date().toLocaleString().replaceAll('/','-').replaceAll(':','-').replaceAll(',','');
 		a.href = url;
-		a.download = `OpenCifras-${dataHoje}.json`;
+		a.download = `OpenCifras ${dataHoje}.json`;
 
 		document.body.appendChild(a);
 		a.click();
@@ -61,30 +61,30 @@ export async function importarDados(input, aoTerminar) {
 }
 
 export function copiarLinkMusica(musica) {
-    if (!musica) return;
+	if (!musica) return;
 
-    try {
-        const dados = {
-            titulo: musica.titulo,
-            artista: musica.artista,
-            tom: musica.tom,
-            conteudo: musica.conteudo
-        };
+	try {
+		const dados = {
+			titulo: musica.titulo,
+			artista: musica.artista,
+			tom: musica.tom,
+			conteudo: musica.conteudo
+		};
 
-        const stringJson = JSON.stringify(dados);
-        const comprimido = LZString.compressToEncodedURIComponent(stringJson);
+		const stringJson = JSON.stringify(dados);
+		const comprimido = LZString.compressToEncodedURIComponent(stringJson);
 
-        const urlBase = window.location.origin + window.location.pathname;
-        const linkFinal = `${urlBase}?cifra=${comprimido}`;
+		const urlBase = window.location.origin + window.location.pathname;
+		const linkFinal = `${urlBase}?cifra=${comprimido}`;
 
-        navigator.clipboard.writeText(linkFinal).then(() => {
-            alert('Link copiado para a área de transferência.');
-        }).catch(err => {
-            prompt("Copie o link abaixo:", linkFinal);
-        });
+		navigator.clipboard.writeText(linkFinal).then(() => {
+			alert('Link copiado para a área de transferência.');
+		}).catch(err => {
+			prompt("Copie o link abaixo:", linkFinal);
+		});
 
-    } catch (e) {
-        console.error(e);
-        alert("Erro ao gerar link.");
-    }
+	} catch (e) {
+		console.error(e);
+		alert("Erro ao gerar link.");
+	}
 }
