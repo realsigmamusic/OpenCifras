@@ -353,6 +353,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
+					<h3 class="mb-3">Configurações</h3>
 					<label class="mb-1">Temas:</label>
 					<select class="form-select mb-3" id="tema" onchange="alternarTema(this.value)">
 						<option value="light">Tema claro</option>
@@ -388,12 +389,23 @@
 						</div>
 					</div>
 					<hr>
-					<a class="navbar-brand" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
-						<button class="btn btn-outline-secondary w-100">
-							<i class="bi bi-github"></i>
-							GitHub
-						</button>
-					</a>
+					<h3 class="mb-3">Créditos</h3>
+					<div class="d-flex justify-content-center align-items-center gap-3 mb-2">
+						<a class="navbar-brand col-5" href="https://github.com/realsigmamusic/OpenCifras" target="_blank">
+							<button class="btn btn-outline-secondary w-100">
+								<i class="bi bi-github"></i>
+								GitHub
+							</button>
+						</a>
+						<div class="vr"></div>
+						<a class="navbar-brand col-5" href="https://chordmark.netlify.app/docs/getting-started"
+							target="_blank">
+							<button class="btn btn-outline-secondary w-100">
+								<i class="bi bi-file-earmark-music-fill"></i>
+								ChordMark
+							</button>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
