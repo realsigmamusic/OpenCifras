@@ -16,9 +16,9 @@ const MUSICAS_EXEMPLO = [
 if (navigator.storage && navigator.storage.persist) {
 	navigator.storage.persist().then(granted => {
 		if (granted) {
-			console.log("✅ Armazenamento persistente concedido! O navegador não vai apagar seus dados.");
+			console.log("Armazenamento persistente concedido! O navegador não vai apagar seus dados.");
 		} else {
-			console.warn("⚠️ Armazenamento persistente negado. O sistema pode limpar dados se faltar espaço.");
+			console.warn("Armazenamento persistente negado. O sistema pode limpar dados se faltar espaço.");
 		}
 	});
 }
