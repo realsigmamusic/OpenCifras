@@ -27,7 +27,7 @@ if (navigator.storage && navigator.storage.persist) {
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
 let tomAtual = 0;
-let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
+let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 90;
 let artistaSelecionado = null;
 let scrollInterval = null;
 
@@ -248,7 +248,7 @@ function mudarTamanhoFonte(delta) {
 }
 
 function resetarFonte() {
-	tamanhoFonte = 100;
+	tamanhoFonte = 90;
 	localStorage.setItem('tamanhoFonte', tamanhoFonte);
 	aplicarFonte();
 }
