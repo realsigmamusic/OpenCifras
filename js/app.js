@@ -12,6 +12,17 @@ const MUSICAS_EXEMPLO = [
 	}
 ]
 
+// Solicita persistência de dados ao navegador
+if (navigator.storage && navigator.storage.persist) {
+	navigator.storage.persist().then(granted => {
+		if (granted) {
+			console.log("✅ Armazenamento persistente concedido! O navegador não vai apagar seus dados.");
+		} else {
+			console.warn("⚠️ Armazenamento persistente negado. O sistema pode limpar dados se faltar espaço.");
+		}
+	});
+}
+
 // --- ESTADO GLOBAL ---
 let musicaAtualId = null;
 let musicaAtualConteudo = "";
