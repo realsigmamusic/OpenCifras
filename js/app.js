@@ -29,6 +29,7 @@ let musicaAtualConteudo = "";
 let tomAtual = 0;
 let tamanhoFonte = parseInt(localStorage.getItem('tamanhoFonte')) || 100;
 let artistaSelecionado = null;
+let scrollInterval = null;
 
 // --- NAVEGAÇÃO ---
 function navegar(tela, adicionarAoHistorico = true) {
@@ -44,6 +45,8 @@ function navegar(tela, adicionarAoHistorico = true) {
 	if (tela === 'editor' && !musicaAtualId) {
 		limparEditor();
 	}
+
+	pararRolagem();
 
 	if (tela !== 'metronomo' && typeof window.pararMetronomo === 'function') {
 		window.pararMetronomo();
@@ -257,6 +260,38 @@ function aplicarFonte() {
 	}
 }
 
+function rolagemAutomatica() {
+	const btn = document.querySelector('button[onclick="rolagemAutomatica()"]');
+
+	if (scrollInterval) {
+		pararRolagem();
+	} else {
+		if (btn) {
+			btn.classList.remove('btn-secondary');
+			btn.classList.add('btn-warning');
+		}
+
+		scrollInterval = setInterval(() => {
+			window.scrollBy(0, 1);
+			if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.documentElement.scrollHeight) {
+				pararRolagem();
+			}
+		}, 80);
+	}
+}
+
+function pararRolagem() {
+	if (scrollInterval) {
+		clearInterval(scrollInterval);
+		scrollInterval = null;
+	}
+	const btn = document.querySelector('button[onclick="rolagemAutomatica()"]');
+	if (btn) {
+		btn.classList.remove('btn-warning');
+		btn.classList.add('btn-secondary');
+	}
+}
+
 const selectModoLimpo = document.getElementById('select-view');
 if (selectModoLimpo) {
 	selectModoLimpo.addEventListener('change', () => {
@@ -358,6 +393,7 @@ window.alternarTema = alternarTema;
 window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
 window.resetarTom = resetarTom;
+window.rolagemAutomatica = rolagemAutomatica;
 window.alterarModoVisualizacao = alterarModoVisualizacao;
 window.converterCifra = converterCifra;
 window.copiarLinkMusica = () => {
