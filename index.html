@@ -101,14 +101,10 @@
 
 				<div class="vr mx-2 btn-secondary text-secondary"></div>
 
-				<button class="btn btn-secondary btn-sm" onclick="copiarLinkMusica()">
-					<i class="bi bi-link-45deg"></i>
-				</button>
-
 				<div class="dropdown">
 					<button class="btn btn-link text-body p-0" type="button" data-bs-toggle="dropdown"
 						aria-expanded="false">
-						<i class="bi bi-three-dots-vertical fs-3"></i>
+						<i class="bi bi-three-dots-vertical fs-3 me-2"></i>
 					</button>
 					<ul class="dropdown-menu dropdown-menu-end shadow">
 						<li>
@@ -123,7 +119,16 @@
 						<li>
 							<button class="dropdown-item" onclick="copiarTextoWhatsapp()">
 								<i class="bi bi-whatsapp me-2"></i>
-								Copiar
+								Copiar texto
+							</button>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<button class="dropdown-item" onclick="copiarLinkMusica()">
+								<i class="bi bi-download me-2"></i> <!-- bi-escape -->
+								Copiar link
 							</button>
 						</li>
 						<li>
@@ -146,6 +151,10 @@
 						</li>
 					</ul>
 				</div>
+
+				<button class="btn btn-secondary btn-sm" onclick="alert('rolagem automática');">
+					<i class="bi bi-arrow-down-up"></i>
+				</button>
 			</div>
 			<section style="margin-top: 8rem;">
 				<h1 id="titulo-musica" class="mb-1"></h1>
