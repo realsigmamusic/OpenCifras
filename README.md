@@ -35,6 +35,7 @@ O sistema usa o formato **ChordMark**, que garante:
 * Compartilhar musica por:
 	* Link
 	* Texto formatado para whatsapp
+* Rolagem automática
 
 ## Tecnologias Utilizadas
 * HTML5 — https://developer.mozilla.org/en-US/docs/Web/HTML
