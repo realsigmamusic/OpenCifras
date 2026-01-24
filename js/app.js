@@ -474,6 +474,9 @@ function mostrarInfoAcorde(acordeStr) {
 
 	drawChord(acordeLimpo);
 
+	const acordeNome = info.name;
+	document.getElementById('nome-acorde').textContent = acordeNome;
+
 	const acordeNomes = info.aliases && info.aliases.length ? info.aliases.join(', ') : '...';
 	document.getElementById('aliases-acorde').textContent = acordeNomes;
 

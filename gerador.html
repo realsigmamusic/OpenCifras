@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Acordes (Formato Customizado)</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; display: flex; gap: 30px; padding: 30px; background: #f4f4f9; }
+        h3 { margin-top: 0; color: #333; }
+        
+        .panel { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        label { font-size: 12px; font-weight: bold; color: #666; display: block; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+
+        .fretboard { display: grid; grid-template-columns: repeat(6, 40px); gap: 4px; background: #222; padding: 4px; border-radius: 4px; width: max-content; }
+        
+        /* Botões de Topo (X ou 0) */
+        .top-btn { 
+            width: 40px; height: 30px; border: none; font-weight: bold; cursor: pointer; border-radius: 2px;
+            font-size: 14px; display: flex; align-items: center; justify-content: center;
+        }
+        .btn-mute { background: #ffcccc; color: #a00; } /* X */
+        .btn-open { background: #ccffcc; color: #006600; } /* 0 */
+
+        /* Casas */
+        .fret { 
+            width: 40px; height: 50px; background: #fff; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 14px; color: #ccc; user-select: none;
+        }
+        .fret:hover { background: #f9f9f9; }
+        .fret.selected { background: #4caf50; color: white; font-weight: bold; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); }
+
+        textarea { width: 400px; height: 400px; font-family: 'Consolas', 'Monaco', monospace; font-size: 13px; background: #2d2d2d; color: #eee; border: none; padding: 15px; border-radius: 8px; }
+        
+        .action-btn { background: #333; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; width: 100%; font-weight: bold; margin-top: 10px;}
+        .action-btn:hover { background: #555; }
+
+        .pestana-box { background: #eee; padding: 10px; border-radius: 4px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <h3>1. Configurar</h3>
+        
+        <div class="inputs">
+            <div>
+                <label>Nota (Chave)</label>
+                <input type="text" id="keyInput" placeholder="Ex: C, F#" value="C">
+            </div>
+            <div>
+                <label>Sufixo (Tipo)</label>
+                <input type="text" id="suffixInput" placeholder="Ex: major, minor7" value="major">
+            </div>
+            <div>
+                <label>Posição (Casa Inicial)</label>
+                <input type="number" id="posInput" value="0" min="0">
+            </div>
+        </div>
+
+        <div class="pestana-box">
+            <label style="margin-bottom: 5px;">
+                <input type="checkbox" id="hasBarre" onchange="updateOutput()"> Adicionar Pestana (Barre)
+            </label>
+            <div id="barreControls" style="display:none; gap: 5px; grid-template-columns: 1fr 1fr 1fr;">
+                <input type="number" id="barreFret" placeholder="Casa" min="1" value="1">
+                <input type="number" id="barreStart" placeholder="De (6)" min="1" max="6" value="6">
+                <input type="number" id="barreEnd" placeholder="Até (1)" min="1" max="6" value="1">
+            </div>
+        </div>
+
+        <h3>2. Desenhar</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(6, 44px); margin-bottom: 5px;">
+            <button class="top-btn btn-mute" id="btn-6" onclick="toggleString(6)">X</button>
+            <button class="top-btn btn-mute" id="btn-5" onclick="toggleString(5)">X</button>
+            <button class="top-btn btn-mute" id="btn-4" onclick="toggleString(4)">X</button>
+            <button class="top-btn btn-mute" id="btn-3" onclick="toggleString(3)">X</button>
+            <button class="top-btn btn-mute" id="btn-2" onclick="toggleString(2)">X</button>
+            <button class="top-btn btn-mute" id="btn-1" onclick="toggleString(1)">X</button>
+        </div>
+
+        <div id="fretboard" class="fretboard">
+            </div>
+
+        <button class="action-btn" onclick="copyToClipboard()">COPIAR CÓDIGO</button>
+    </div>
+
+    <div class="panel">
+        <h3>Resultado</h3>
+        <textarea id="output" spellcheck="false"></textarea>
+    </div>
+
+    <script>
+        // ESTADO
+        // -1 = X (Mute)
+        // 0 = Corda Solta
+        // >0 = Casa pressionada
+        let strings = { 6: -1, 5: -1, 4: -1, 3: -1, 2: -1, 1: -1 }; 
+
+        // INICIALIZAÇÃO
+        function init() {
+            const board = document.getElementById('fretboard');
+            
+            // Cria 5 casas
+            for (let fret = 1; fret <= 5; fret++) {
+                // Cria 6 cordas (ordem visual 6 -> 1)
+                for (let str = 6; str >= 1; str--) {
+                    const div = document.createElement('div');
+                    div.className = 'fret';
+                    div.dataset.str = str;
+                    div.dataset.fret = fret;
+                    div.onclick = () => selectFret(str, fret);
+                    div.innerText = ""; 
+                    board.appendChild(div);
+                }
+            }
+            updateOutput();
+        }
+
+        // LÓGICA DE INTERAÇÃO
+        function toggleString(str) {
+            const btn = document.getElementById(`btn-${str}`);
+            // Se estava Mute (-1), vira Solta (0)
+            if (strings[str] === -1) {
+                strings[str] = 0;
+                btn.className = "top-btn btn-open";
+                btn.innerText = "0";
+            } else {
+                // Volta para Mute (-1) e limpa qualquer casa selecionada
+                strings[str] = -1;
+                btn.className = "top-btn btn-mute";
+                btn.innerText = "X";
+                clearFretSelection(str);
+            }
+            updateOutput();
+        }
+
+        function selectFret(str, fret) {
+            const currentFret = strings[str];
+            const btn = document.getElementById(`btn-${str}`);
+
+            // Se clicar na mesma casa, desmarca (volta para solta 0)
+            if (currentFret === fret) {
+                strings[str] = 0; // Volta para corda solta
+                clearFretSelection(str);
+                // Atualiza botão topo
+                btn.className = "top-btn btn-open";
+                btn.innerText = "0";
+            } else {
+                // Marca nova casa
+                strings[str] = fret;
+                clearFretSelection(str); // Limpa visuais anteriores
+                // Marca visualmente a casa atual
+                const el = document.querySelector(`.fret[data-str="${str}"][data-fret="${fret}"]`);
+                if(el) {
+                    el.classList.add('selected');
+                    el.innerText = fret; // Mostra número
+                }
+                // Botão topo fica neutro ou indicando que tem dedo
+                btn.className = "top-btn";
+                btn.style.background = "#ddd";
+                btn.style.color = "#333";
+                btn.innerText = "↓";
+            }
+            updateOutput();
+        }
+
+        function clearFretSelection(str) {
+            document.querySelectorAll(`.fret[data-str="${str}"]`).forEach(d => {
+                d.classList.remove('selected');
+                d.innerText = "";
+            });
+        }
+
+        // GERADOR DE CÓDIGO
+        function updateOutput() {
+            const key = document.getElementById('keyInput').value || 'KEY';
+            const suffix = document.getElementById('suffixInput').value || 'type';
+            const position = document.getElementById('posInput').value;
+            const hasBarre = document.getElementById('hasBarre').checked;
+
+            document.getElementById('barreControls').style.display = hasBarre ? 'grid' : 'none';
+
+            let chordLines = [];
+            
+            // Loop de 1 a 6 (para sair na ordem correta do array javascript)
+            for (let s = 1; s <= 6; s++) {
+                const val = strings[s];
+                
+                if (val === -1) {
+                    // Mute (X) - Usuário quer ver o X
+                    chordLines.push(`                [${s}, 'x']`);
+                } else if (val === 0) {
+                    // Solta (0) - Usuário quer COMENTADO
+                    chordLines.push(`                //[${s}, 0]`);
+                } else {
+                    // Dedo pressionado
+                    chordLines.push(`                [${s}, ${val}]`);
+                }
+            }
+
+            let barreSection = '';
+            if (hasBarre) {
+                const bFret = document.getElementById('barreFret').value;
+                const bStart = document.getElementById('barreStart').value;
+                const bEnd = document.getElementById('barreEnd').value;
+                barreSection = `,\n            barres: [\n                { fromString: ${bStart}, toString: ${bEnd}, fret: ${bFret} }\n            ]`;
+            }
+
+            // Montagem final com a formatação exata pedida
+            const finalString = `    "${key}": {
+        "${suffix}": {
+            chord: [
+${chordLines.join(',\n')}
+            ]${barreSection},
+            position: ${position}
+        }
+    },`;
+
+            document.getElementById('output').value = finalString;
+        }
+
+        function copyToClipboard() {
+            const copyText = document.getElementById("output");
+            copyText.select();
+            document.execCommand("copy");
+            const btn = document.querySelector('.action-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "COPIADO!";
+            setTimeout(() => btn.innerText = originalText, 1500);
+        }
+
+        // Listeners para inputs de texto
+        document.querySelectorAll('input').forEach(i => i.addEventListener('input', updateOutput));
+
+        init();
+    </script>
+</body>
+</html>
