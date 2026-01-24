@@ -1,4 +1,4 @@
-const CACHE_NAME = '26.01.23';
+const CACHE_NAME = '26.01.24';
 const ASSETS = [
 	'./',
 	'./index.html',
@@ -17,7 +17,9 @@ const ASSETS = [
 	'https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js',
 	'https://cdn.jsdelivr.net/npm/chord-mark@0.17.0/+esm',
 	'https://cdn.jsdelivr.net/npm/chord-mark-converters@0.17.0/+esm',
-	'https://cdn.jsdelivr.net/npm/tonal@latest/browser/tonal.min.js'
+	'https://cdn.jsdelivr.net/npm/tonal@latest/browser/tonal.min.js',
+	'https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js',
+	'https://unpkg.com/vexchords/dist/vexchords.dev.js'
 ];
 
 self.addEventListener('install', (e) => {
