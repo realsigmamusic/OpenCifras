@@ -2,6 +2,7 @@ import { db } from './db.js';
 import { renderizarCifra, carregarModoVisualizacao, alterarModoVisualizacao } from './render.js';
 import { alternarTela, limparEditor, obterDadosEditor, preencherEditor, aplicarTema, alternarTema, carregarTemaSalvo, exibirVersao, converterCifra } from './ui.js';
 import { exportarDados, importarDados, copiarLinkMusica, copiarTextoWhatsapp } from './backup.js';
+import { chordDatabase } from "./chordDatabase.js";
 
 const MUSICAS_EXEMPLO = [
 	{
@@ -471,6 +472,8 @@ function mostrarInfoAcorde(acordeStr) {
 
 	document.getElementById('titulo-acorde').textContent = info.symbol || acordeLimpo;
 
+	drawChord(acordeLimpo);
+
 	const acordeNomes = info.aliases && info.aliases.length ? info.aliases.join(', ') : '...';
 	document.getElementById('aliases-acorde').textContent = acordeNomes;
 
@@ -492,6 +495,46 @@ document.addEventListener('solicita-renderizacao', () => {
 		renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0);
 	}
 });
+
+function drawChord(chordName) {
+	document.getElementById('chord').innerHTML = '';
+
+	const info = Tonal.Chord.get(chordName);
+	const root = info.tonic;
+	let type = info.type;
+
+	if (info.bass) {
+		type = `${type} over ${info.bass}`;
+	}
+
+	const data = chordDatabase[root] && chordDatabase[root][type];
+
+	if (!data) {
+		document.getElementById('chord').innerHTML = '<p class="text-danger">Diagrama de acorde não encontrado.</p>';
+		return;
+	}
+
+	const chordChart = new vexchords.ChordBox(document.getElementById('chord'), {
+		//width: 140,
+		//height: 180,
+		//numStrings: 6,
+		//numFrets: 5,
+		showTuning: false,
+		//fretWidth: 1.5,
+		//stringWidth: 1,
+		defaultColor: 'var(--bs-secondary)',
+		bgColor: 'var(--bs-secondary)',
+		fontSize: '0.5rem'
+	});
+
+	//chordChart.metrics.circleRadius = 5;
+
+	chordChart.draw({
+		chord: data.chord,
+		position: data.position || 0,
+		barres: data.barres || []
+	});
+}
 
 async function atualizarContador() {
 	try {
