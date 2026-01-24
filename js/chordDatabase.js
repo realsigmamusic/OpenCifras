@@ -164,6 +164,20 @@ export const chordDatabase = {
 			],
 			position: 3
 		},
+		"minor seventh": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				//[3, 1],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 3
+		},
 		"minor/major seventh": {
 			chord: [
 				[1, 1],

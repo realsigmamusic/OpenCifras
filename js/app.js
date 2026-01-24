@@ -216,11 +216,13 @@ function abrirMusica(musica) {
 	atualizarDisplayTom();
 	navegar('leitor');
 	aplicarFonte();
+	gerarListaAcordes();
 }
 
 function mudarTom(delta) {
 	tomAtual += delta;
 	renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
+	gerarListaAcordes();
 	atualizarDisplayTom();
 
 	if (musicaAtualId) {
@@ -231,6 +233,7 @@ function mudarTom(delta) {
 function resetarTom() {
 	tomAtual = 0;
 	renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
+	gerarListaAcordes();
 	atualizarDisplayTom();
 
 	if (musicaAtualId) {
@@ -496,11 +499,18 @@ document.addEventListener('solicita-renderizacao', () => {
 	// Usa a variável global salva no abrirMusica()
 	if (window.musicaAtualGlobal && areaRender) {
 		renderizarCifra(areaRender, window.musicaAtualGlobal.conteudo, 0);
+		gerarListaAcordes();
 	}
 });
 
-function drawChord(chordName) {
-	document.getElementById('chord').innerHTML = '';
+function drawChord(chordName, targetElement = null, options = {}) {
+	const el = targetElement || document.getElementById('chord');
+	el.innerHTML = '';
+
+	// Se não for um elemento específico (é o modal), limpa mensagens de erro antigas
+	if (!targetElement) {
+		document.getElementById('chord').innerHTML = '';
+	}
 
 	const info = Tonal.Chord.get(chordName);
 	const root = info.tonic;
@@ -513,29 +523,90 @@ function drawChord(chordName) {
 	const data = chordDatabase[root] && chordDatabase[root][type];
 
 	if (!data) {
-		document.getElementById('chord').innerHTML = '<p class="text-danger">Diagrama de acorde não encontrado.</p>';
+		if (!targetElement) { // Só mostra erro no modal
+			el.innerHTML = '<p class="text-danger">Diagrama de acorde não encontrado.</p>';
+		} else {
+			// Na lista renderiza apenas o nome se não tiver diagrama
+			el.innerHTML = `<span class="fw-bold text-muted">${chordName}</span>`;
+			el.className += " d-flex justify-content-center align-items-center bg-light rounded";
+			el.style.width = options.width ? options.width + "px" : "100px";
+			el.style.height = options.height ? options.height + "px" : "120px";
+		}
 		return;
 	}
 
-	const chordChart = new vexchords.ChordBox(document.getElementById('chord'), {
-		//width: 140,
-		//height: 180,
+	const chordChart = new vexchords.ChordBox(el, {
+		width: options.width || 140,
+		height: options.height || 180,
 		//numStrings: 6,
 		//numFrets: 5,
 		showTuning: false,
-		//fretWidth: 1.5,
-		//stringWidth: 1,
 		defaultColor: 'var(--bs-secondary)',
 		bgColor: 'var(--bs-secondary)',
-		fontSize: '0.5rem'
+		fontSize: options.fontSize || '0.5rem',
+		...options
 	});
-
-	//chordChart.metrics.circleRadius = 5;
 
 	chordChart.draw({
 		chord: data.chord,
 		position: data.position || 0,
 		barres: data.barres || []
+	});
+}
+
+function gerarListaAcordes() {
+	const container = document.getElementById('area-diagramas');
+	if (!container) return;
+
+	container.innerHTML = '';
+
+	// 1. Extrair acordes do DOM renderizado (já transpostos)
+	const chordElements = document.querySelectorAll('#render-area .cmChordSymbol');
+	const chordsSet = new Set();
+
+	chordElements.forEach(el => {
+		// Limpa caracteres de ritmo/duração: . [ ] | e espaços
+		const nomeLimpo = el.textContent.replace(/[.\[\]|]/g, '').trim();
+		if (nomeLimpo) {
+			chordsSet.add(nomeLimpo);
+		}
+	});
+
+	const chords = Array.from(chordsSet);
+
+	if (chords.length === 0) return;
+
+	// Título opcional
+	// const title = document.createElement('h5');
+	// title.className = 'w-100 text-center text-muted mb-3';
+	// title.textContent = 'Acordes';
+	// container.appendChild(title);
+
+	chords.forEach(chordName => {
+		const wrapper = document.createElement('div');
+		wrapper.className = 'text-center';
+
+		// Nome do acorde
+		const label = document.createElement('div');
+		label.className = 'fw-bold text-primary mb-1';
+		label.textContent = chordName;
+		wrapper.appendChild(label);
+
+		// Container do diagrama
+		const diagramDiv = document.createElement('div');
+		// diagramDiv.style.border = '1px solid #eee'; 
+		// diagramDiv.className = 'rounded bg-body';
+
+		wrapper.appendChild(diagramDiv);
+		container.appendChild(wrapper);
+
+		const acordeLimpo = chordName.replace(/[\s().]+/g, '');
+
+		drawChord(acordeLimpo, diagramDiv, {
+			width: 100,
+			height: 120,
+			fontSize: '0.4rem'
+		});
 	});
 }
 

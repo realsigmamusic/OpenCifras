@@ -7,9 +7,9 @@
 }
 
 /* Bloqueia o "pull-to-refresh" (puxar para atualizar) */
-html.bloquear-refresh, 
+html.bloquear-refresh,
 body.bloquear-refresh {
-    overscroll-behavior-y: contain;
+	overscroll-behavior-y: contain;
 }
 
 /* ChordMark CSS Classes */
@@ -66,8 +66,9 @@ p {
 	cursor: pointer;
 }
 
-.cmChordSymbol:hover, .cmChordSymbol:active {
-    color: var(--bs-info);
+.cmChordSymbol:hover,
+.cmChordSymbol:active {
+	color: var(--bs-info);
 }
 
 /* Linha de letra da música */
@@ -98,4 +99,10 @@ p {
 .cmSubBeatGroupCloser {
 	color: var(--bs-secondary);
 	opacity: 0.7;
+}
+
+/* Diagramas de acordes */
+#chord svg,
+#area-diagramas div div svg {
+	margin-top: -1.2rem;
 }
