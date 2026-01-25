@@ -565,8 +565,8 @@ function gerarListaAcordes() {
 	const chordsSet = new Set();
 
 	chordElements.forEach(el => {
-		// Limpa caracteres de ritmo/duração: . [ ] | e espaços
-		const nomeLimpo = el.textContent.replace(/[.\[\]|]/g, '').trim();
+		// Limpa caracteres de ritmo/duração: . [ ] | % e espaços
+		const nomeLimpo = el.textContent.replace(/[.\[\]|%]/g, '').trim();
 		if (nomeLimpo) {
 			chordsSet.add(nomeLimpo);
 		}

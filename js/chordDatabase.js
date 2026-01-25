@@ -11,311 +11,302 @@ export const chordDatabase = {
 				[6, 'x']
 			],
 			position: 0
-		},
-		"major over E": {
+		}
+	},
+	"D": {
+		"major": {
 			chord: [
-				//[1, 0],
-				[2, 1],
-				//[3, 0],
-				[4, 2],
-				[5, 'x'],
-				[6, 'x']
-			],
-			position: 0
-		},
-		"major over G": {
-			chord: [
-				//[1, 0],
-				[2, 1],
-				//[3, 0],
-				[4, 2],
-				[5, 3],
-				[6, 3]
-			],
-			position: 0
-		},
-		"major over Bb": {
-			chord: [
-				//[1, 0],
-				[2, 1],
-				//[3, 0],
-				[4, 'x'],
-				[5, 1],
-				[6, 'x']
-			],
-			position: 0
-		},
-		"dominant seventh": {
-			chord: [
-				//[1, 0],
-				[2, 1],
-				[3, 3],
-				[4, 2],
-				[5, 3],
-				[6, 'x']
-			],
-			position: 0
-		},
-		"dominant seventh over E": {
-			chord: [
-				//[1, 0],
-				[2, 1],
-				[3, 3],
-				[4, 2],
-				[5, 'x'],
-				[6, 'x']
-			],
-			position: 0
-		},
-		"dominant seventh over G": {
-			chord: [
-				[1, 'x'],
-				[2, 1],
-				[3, 3],
-				[4, 2],
-				[5, 'x'],
-				[6, 3]
-			],
-			position: 0
-		},
-		"dominant ninth": {
-			chord: [
-				[1, 'x'],
+				[1, 2],
 				[2, 3],
-				[3, 3],
-				[4, 2],
-				[5, 3],
+				[3, 2],
+				//[4, 0],
+				[5, 'x'],
 				[6, 'x']
 			],
 			position: 0
-		},
-		"major seventh": {
+		}
+	},
+	"E": {
+		"major": {
 			chord: [
 				//[1, 0],
 				//[2, 0],
-				//[3, 0],
+				[3, 1],
 				[4, 2],
+				[5, 2],
+				//[6, 0]
+			],
+			position: 0
+		}
+	},
+	"F": {
+		"major": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				[3, 2],
+				[4, 3],
 				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 0
+		}
+	},
+	"G": {
+		"major": {
+			chord: [
+				[1, 3],
+				[2, 3],
+				[3, 'x'],
+				[4, 'x'],
+				[5, 2],
+				[6, 3]
+			],
+			position: 0
+		}
+	},
+	"A": {
+		"major": {
+			chord: [
+				[1, 'x'],
+				[2, 2],
+				[3, 2],
+				[4, 2],
+				[5, 'x'],
 				[6, 'x']
 			],
 			position: 0
-		},
-		"minor": {
+		}
+	},
+	"B": {
+		"major": {
 			chord: [
-				//[1, 1],
-				[2, 2],
-				[3, 3],
-				[4, 3],
-				//[5, 1],
+				//[1, 2],
+				[2, 4],
+				[3, 4],
+				[4, 4],
+				//[5, 2],
 				[6, 'x']
 			],
 			barres: [
 				{ fromString: 5, toString: 1, fret: 1 }
 			],
-			position: 3
-		},
-		"minor over Eb": {
-			chord: [
-				[1, 'x'],
-				[2, 1],
-				[3, 2],
-				[4, 2],
-				[5, 3],
-				[6, 'x']
-			],
-			position: 3
-		},
-		"minor over G": {
+			position: 0
+		}
+	},
+	"C#": {
+		"major": {
 			chord: [
 				//[1, 1],
 				[2, 2],
-				[3, 3],
+				//[3, 1],
 				[4, 3],
-				//[5, 1],
+				[5, 4],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 3, toString: 1, fret: 1 }
+			],
+			position: 0
+		}
+	},
+	"D#": {
+		"major": {
+			chord: [
+				[1, 3],
+				[2, 4],
+				[3, 3],
+				[4, 1],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		}
+	},
+	"E#": {
+		"major": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				[3, 2],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 0
+		}
+	},
+	"F#": {
+		"major": {
+			chord: [
+				//[1, 2],
+				//[2, 2],
+				[3, 3],
+				[4, 4],
+				[5, 4],
+				//[6, 2]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 2 }
+			],
+			position: 0
+		}
+	},
+	"G#": {
+		"major": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				[3, 2],
+				[4, 3],
+				[5, 3],
 				//[6, 1]
 			],
 			barres: [
 				{ fromString: 6, toString: 1, fret: 1 }
 			],
 			position: 3
-		},
-		"minor over Bb": {
+		}
+	},
+	"A#": {
+		"major": {
+            chord: [
+                //[1, 1],
+                [2, 3],
+                [3, 3],
+                [4, 3],
+                //[5, 1],
+                [6, 'x']
+            ],
+            barres: [
+                { fromString: 5, toString: 1, fret: 1 }
+            ],
+            position: 0
+        }
+	},
+	"B#": {
+		"major": {
 			chord: [
-				[1, 'x'],
+				//[1, 0],
 				[2, 1],
-				[3, 2],
+				//[3, 0],
 				[4, 2],
-				[5, 'x'],
-				[6, 3]
+				[5, 3],
+				[6, 'x']
 			],
-			position: 3
-		},
-		"minor seventh over Bb": {
+			position: 0
+		}
+	},
+	"Cb": {
+		"major": {
 			chord: [
-				//[1, 1],
-				[2, 2],
-				//[3, 1],
-				[4, 3],
-				[5, 'x'],
-				[6, 4]
-			],
-			barres: [
-				{ fromString: 5, toString: 1, fret: 1 }
-			],
-			position: 3
-		},
-		"minor seventh": {
-			chord: [
-				//[1, 1],
-				[2, 2],
-				//[3, 1],
-				[4, 3],
-				//[5, 1],
+				//[1, 2],
+				[2, 4],
+				[3, 4],
+				[4, 4],
+				//[5, 2],
 				[6, 'x']
 			],
 			barres: [
 				{ fromString: 5, toString: 1, fret: 1 }
 			],
-			position: 3
-		},
-		"minor/major seventh": {
+			position: 0
+		}
+	},
+	"Db": {
+		"major": {
 			chord: [
-				[1, 1],
+				//[1, 1],
 				[2, 2],
-				[3, 2],
+				//[3, 1],
 				[4, 3],
-				[5, 1],
+				[5, 4],
 				[6, 'x']
 			],
 			barres: [
-				{ fromString: 5, toString: 1, fret: 1 }
+				{ fromString: 3, toString: 1, fret: 1 }
 			],
-			position: 3
-		},
-		"minor sixth": {
+			position: 0
+		}
+	},
+	"Eb": {
+		"major": {
 			chord: [
 				[1, 3],
 				[2, 4],
-				[3, 2],
-				[4, 'x'],
-				[5, 3],
-				[6, 'x']
-			],
-			position: 0
-		},
-		"minor ninth": {
-			chord: [
-				[1, 'x'],
-				[2, 3],
 				[3, 3],
 				[4, 1],
-				[5, 3],
+				[5, 'x'],
 				[6, 'x']
 			],
 			position: 0
-		},
-		"half-diminished": {
+		}
+	},
+	"Fb": {
+		"major": {
 			chord: [
-				[1, 'x'],
-				[2, 2],
+				//[1, 0],
+				//[2, 0],
 				[3, 1],
 				[4, 2],
-				[5, 1],
-				[6, 'x']
-			],
-			position: 3
-		},
-		"diminished": {
-			chord: [
-				[1, 'x'],
-				[2, 2],
-				[3, 3],
-				[4, 2],
-				[5, 1],
-				[6, 'x']
-			],
-			position: 3
-		},
-		"diminished seventh": {
-			chord: [
-				[1, 'x'],
-				[2, 3],
-				[3, 1],
-				[4, 3],
 				[5, 2],
-				[6, 'x']
+				//[6, 0]
 			],
-			position: 3
-		},
-		"augmented": {
+			position: 0
+		}
+	},
+	"Gb": {
+		"major": {
 			chord: [
-				[1, 'x'],
-				[2, 1],
-				[3, 1],
-				[4, 2],
-				[5, 3],
-				[6, 'x']
-			],
-			barres: [
-				{ fromString: 3, toString: 2, fret: 1 }
-			],
-			position: 3
-		},
-		"augmented seventh": {
-			chord: [
-				[1, 'x'],
-				[2, 3],
-				//[3, 1],
+				//[1, 2],
+				//[2, 2],
+				[3, 3],
 				[4, 4],
-				//[5, 1],
-				[6, 'x']
+				[5, 4],
+				//[6, 2]
 			],
 			barres: [
-				{ fromString: 5, toString: 2, fret: 1 }
+				{ fromString: 6, toString: 1, fret: 2 }
 			],
-			position: 3
-		},
-		"suspended second": {
+			position: 0
+		}
+	},
+	"Ab": {
+		"major": {
 			chord: [
 				//[1, 1],
 				//[2, 1],
-				[3, 3],
+				[3, 2],
 				[4, 3],
-				//[5, 1],
-				[6, 'x']
+				[5, 3],
+				//[6, 1]
 			],
 			barres: [
-				{ fromString: 5, toString: 1, fret: 1 }
-			],
-			position: 3
-		},
-		"suspended fourth": {
-			chord: [
-				//[1, 1],
-				[2, 4],
-				[3, 3],
-				[4, 3],
-				//[5, 1],
-				[6, 'x']
-			],
-			barres: [
-				{ fromString: 5, toString: 1, fret: 1 }
-			],
-			position: 3
-		},
-		"suspended fourth seventh": {
-			chord: [
-				//[1, 1],
-				[2, 4],
-				//[3, 1],
-				[4, 3],
-				//[5, 1],
-				[6, 'x']
-			],
-			barres: [
-				{ fromString: 5, toString: 1, fret: 1 }
+				{ fromString: 6, toString: 1, fret: 1 }
 			],
 			position: 3
 		}
+	},
+	"Bb": {
+		"major": {
+            chord: [
+                //[1, 1],
+                [2, 3],
+                [3, 3],
+                [4, 3],
+                //[5, 1],
+                [6, 'x']
+            ],
+            barres: [
+                { fromString: 5, toString: 1, fret: 1 }
+            ],
+            position: 0
+        }
 	}
 }
