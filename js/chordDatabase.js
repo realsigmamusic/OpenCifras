@@ -11,12 +11,37 @@ export const chordDatabase = {
 				[6, 'x']
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 3
 		}
 	},
 	"D": {
 		"major": {
 			chord: [
 				[1, 2],
+				[2, 3],
+				[3, 2],
+				//[4, 0],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				[1, 1],
 				[2, 3],
 				[3, 2],
 				//[4, 0],
@@ -32,6 +57,17 @@ export const chordDatabase = {
 				//[1, 0],
 				//[2, 0],
 				[3, 1],
+				[4, 2],
+				[5, 2],
+				//[6, 0]
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 0],
+				//[2, 0],
+				//[3, 0],
 				[4, 2],
 				[5, 2],
 				//[6, 0]
@@ -53,6 +89,20 @@ export const chordDatabase = {
 				{ fromString: 6, toString: 1, fret: 1 }
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				//[3, 1],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 0
 		}
 	},
 	"G": {
@@ -66,6 +116,20 @@ export const chordDatabase = {
 				[6, 3]
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				//[3, 1],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 3
 		}
 	},
 	"A": {
@@ -77,6 +141,17 @@ export const chordDatabase = {
 				[4, 2],
 				[5, 'x'],
 				[6, 'x']
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 0],
+				[2, 1],
+				[3, 2],
+				[4, 2],
+				//[5, 0],
+				//[6, 0]
 			],
 			position: 0
 		}
@@ -95,6 +170,20 @@ export const chordDatabase = {
 				{ fromString: 5, toString: 1, fret: 1 }
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 2],
+				[2, 3],
+				[3, 4],
+				[4, 4],
+				//[5, 2],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 2 }
+			],
+			position: 0
 		}
 	},
 	"C#": {
@@ -111,12 +200,37 @@ export const chordDatabase = {
 				{ fromString: 3, toString: 1, fret: 1 }
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 4
 		}
 	},
 	"D#": {
 		"major": {
 			chord: [
 				[1, 3],
+				[2, 4],
+				[3, 3],
+				[4, 1],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				[1, 2],
 				[2, 4],
 				[3, 3],
 				[4, 1],
@@ -132,6 +246,20 @@ export const chordDatabase = {
 				//[1, 1],
 				//[2, 1],
 				[3, 2],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				//[3, 1],
 				[4, 3],
 				[5, 3],
 				//[6, 1]
@@ -156,6 +284,20 @@ export const chordDatabase = {
 				{ fromString: 6, toString: 1, fret: 2 }
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 2],
+				//[2, 2],
+				//[3, 2],
+				[4, 4],
+				[5, 4],
+				//[6, 2]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 2 }
+			],
+			position: 0
 		}
 	},
 	"G#": {
@@ -172,23 +314,51 @@ export const chordDatabase = {
 				{ fromString: 6, toString: 1, fret: 1 }
 			],
 			position: 3
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				//[3, 1],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 4
 		}
 	},
 	"A#": {
 		"major": {
-            chord: [
-                //[1, 1],
-                [2, 3],
-                [3, 3],
-                [4, 3],
-                //[5, 1],
-                [6, 'x']
-            ],
-            barres: [
-                { fromString: 5, toString: 1, fret: 1 }
-            ],
-            position: 0
-        }
+			chord: [
+				//[1, 1],
+				[2, 3],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 1
+		}
 	},
 	"B#": {
 		"major": {
@@ -201,6 +371,20 @@ export const chordDatabase = {
 				[6, 'x']
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 3
 		}
 	},
 	"Cb": {
@@ -215,6 +399,20 @@ export const chordDatabase = {
 			],
 			barres: [
 				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 2],
+				[2, 3],
+				[3, 4],
+				[4, 4],
+				//[5, 2],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 2 }
 			],
 			position: 0
 		}
@@ -233,12 +431,37 @@ export const chordDatabase = {
 				{ fromString: 3, toString: 1, fret: 1 }
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 4
 		}
 	},
 	"Eb": {
 		"major": {
 			chord: [
 				[1, 3],
+				[2, 4],
+				[3, 3],
+				[4, 1],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				[1, 2],
 				[2, 4],
 				[3, 3],
 				[4, 1],
@@ -259,6 +482,17 @@ export const chordDatabase = {
 				//[6, 0]
 			],
 			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 0],
+				//[2, 0],
+				//[3, 0],
+				[4, 2],
+				[5, 2],
+				//[6, 0]
+			],
+			position: 0
 		}
 	},
 	"Gb": {
@@ -267,6 +501,20 @@ export const chordDatabase = {
 				//[1, 2],
 				//[2, 2],
 				[3, 3],
+				[4, 4],
+				[5, 4],
+				//[6, 2]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 2 }
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 2],
+				//[2, 2],
+				//[3, 2],
 				[4, 4],
 				[5, 4],
 				//[6, 2]
@@ -291,22 +539,50 @@ export const chordDatabase = {
 				{ fromString: 6, toString: 1, fret: 1 }
 			],
 			position: 3
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				//[3, 1],
+				[4, 3],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 4
 		}
 	},
 	"Bb": {
 		"major": {
-            chord: [
-                //[1, 1],
-                [2, 3],
-                [3, 3],
-                [4, 3],
-                //[5, 1],
-                [6, 'x']
-            ],
-            barres: [
-                { fromString: 5, toString: 1, fret: 1 }
-            ],
-            position: 0
-        }
+			chord: [
+				//[1, 1],
+				[2, 3],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 0
+		},
+		"minor": {
+			chord: [
+				//[1, 1],
+				[2, 2],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 1
+		}
 	}
 }
