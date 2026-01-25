@@ -524,7 +524,7 @@ function drawChord(chordName, targetElement = null, options = {}) {
 
 	if (!data) {
 		if (!targetElement) { // Só mostra erro no modal
-			el.innerHTML = '<p class="text-danger">Diagrama de acorde não encontrado.</p>';
+			el.innerHTML = '<p class="text-danger">Desculpa, acorde não encontrado.</p>';
 		} else {
 			// Na lista renderiza apenas o nome se não tiver diagrama
 			el.innerHTML = `<span class="fw-bold text-muted">${chordName}</span>`;
