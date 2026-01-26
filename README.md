@@ -45,6 +45,7 @@ O sistema usa o formato **ChordMark**, que garante:
 * Dexie.js — https://dexie.org/
 * ChordMark — https://github.com/no-chris/chord-mark
 * Tonal.js — https://github.com/tonaljs/tonal
+* Vexchord — https://github.com/0xfe/vexchords
 * Progressive Web App (PWA) — https://web.dev/progressive-web-apps/
 * Código Aberto (Open Source) — https://opensource.org/
 * GitHub Pages — https://pages.github.com/

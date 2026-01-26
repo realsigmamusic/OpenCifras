@@ -1,3 +1,4 @@
+// https://github.com/0xfe/vexchords
 // [corda, casa, dedo]
 export const chordDatabase = {
 	"C": {
@@ -22,6 +23,20 @@ export const chordDatabase = {
 				[6, 'x']
 			],
 			position: 0
+		},
+		"suspended fourth": {
+			chord: [
+				//[1, 1],
+				[2, 4],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 3
 		},
 		"minor": {
 			chord: [
@@ -68,6 +83,17 @@ export const chordDatabase = {
 			chord: [
 				[1, 2],
 				[2, 1],
+				[3, 2],
+				//[4, 0],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"suspended fourth": {
+			chord: [
+				[1, 3],
+				[2, 3],
 				[3, 2],
 				//[4, 0],
 				[5, 'x'],
@@ -124,6 +150,17 @@ export const chordDatabase = {
 			],
 			position: 0
 		},
+		"suspended fourth": {
+			chord: [
+				//[1, 0],
+				//[2, 0],
+				[3, 2],
+				[4, 2],
+				[5, 2],
+				//[6, 0]
+			],
+			position: 0
+		},
 		"minor": {
 			chord: [
 				//[1, 0],
@@ -168,6 +205,20 @@ export const chordDatabase = {
 				//[2, 1],
 				[3, 2],
 				//[4, 1],
+				[5, 3],
+				//[6, 1]
+			],
+			barres: [
+				{ fromString: 6, toString: 1, fret: 1 }
+			],
+			position: 0
+		},
+		"suspended fourth": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				[3, 3],
+				[4, 3],
 				[5, 3],
 				//[6, 1]
 			],
@@ -228,6 +279,17 @@ export const chordDatabase = {
 			],
 			position: 0
 		},
+		"suspended fourth": {
+			chord: [
+				[1, 3],
+				[2, 1],
+				//[3, 0],
+				//[4, 0],
+				[5, 'x'],
+				[6, 3]
+			],
+			position: 0
+		},
 		"minor": {
 			chord: [
 				//[1, 1],
@@ -280,6 +342,17 @@ export const chordDatabase = {
 			],
 			position: 0
 		},
+		"suspended fourth": {
+			chord: [
+				//[1, 0],
+				[2, 3],
+				[3, 2],
+				[4, 2],
+				//[5, 0],
+				[6, 'x']
+			],
+			position: 0
+		},
 		"minor": {
 			chord: [
 				//[1, 0],
@@ -326,6 +399,20 @@ export const chordDatabase = {
 				[4, 1],
 				[5, 2],
 				[6, 'x']
+			],
+			position: 0
+		},
+		"suspended fourth": {
+			chord: [
+				//[1, 2],
+				[2, 5],
+				[3, 4],
+				[4, 4],
+				//[5, 2],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 2 }
 			],
 			position: 0
 		},
