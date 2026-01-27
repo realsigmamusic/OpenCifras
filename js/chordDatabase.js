@@ -24,6 +24,20 @@ export const chordDatabase = {
 			],
 			position: 0
 		},
+		"augmented": {
+			chord: [
+				[1, 'x'],
+				//[2, 1],
+				//[3, 1],
+				[4, 2],
+				[5, 3],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 3, toString: 2, fret: 1 }
+			],
+			position: 0
+		},
 		"suspended fourth": {
 			chord: [
 				//[1, 1],
@@ -84,6 +98,17 @@ export const chordDatabase = {
 				[1, 2],
 				[2, 1],
 				[3, 2],
+				//[4, 0],
+				[5, 'x'],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"augmented": {
+			chord: [
+				[1, 2],
+				[2, 3],
+				[3, 3],
 				//[4, 0],
 				[5, 'x'],
 				[6, 'x']
@@ -322,11 +347,11 @@ export const chordDatabase = {
 	"A": {
 		"major": {
 			chord: [
-				[1, 'x'],
+				//[1, 0],
 				[2, 2],
 				[3, 2],
 				[4, 2],
-				[5, 'x'],
+				//[5, 0],
 				[6, 'x']
 			],
 			position: 0
@@ -337,6 +362,17 @@ export const chordDatabase = {
 				[2, 2],
 				//[3, 0],
 				[4, 2],
+				//[5, 0],
+				[6, 'x']
+			],
+			position: 0
+		},
+		"augmented": {
+			chord: [
+				//[1, 0],
+				[2, 2],
+				[3, 2],
+				[4, 3],
 				//[5, 0],
 				[6, 'x']
 			],
@@ -539,6 +575,20 @@ export const chordDatabase = {
 				[6, 'x']
 			],
 			position: 0
+		},
+		"augmented": {
+			chord: [
+				[1, 'x'],
+				//[2, 1],
+				//[3, 1],
+				[4, 2],
+				[5, 3],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 3, toString: 2, fret: 1 }
+			],
+			position: 4
 		},
 		"suspended fourth": {
 			chord: [
@@ -868,6 +918,20 @@ export const chordDatabase = {
 				[4, 1],
 				[5, 'x'],
 				[6, 'x']
+			],
+			position: 0
+		},
+		"augmented": {
+			chord: [
+				[1, 'x'],
+				//[2, 1],
+				//[3, 1],
+				[4, 2],
+				[5, 3],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 3, toString: 2, fret: 1 }
 			],
 			position: 0
 		},
