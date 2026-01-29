@@ -1137,6 +1137,20 @@ export const chordDatabase = {
 			],
 			position: 0
 		},
+		"suspended fourth": {
+			chord: [
+				//[1, 1],
+				//[2, 1],
+				[3, 3],
+				[4, 3],
+				//[5, 1],
+				[6, 'x']
+			],
+			barres: [
+				{ fromString: 5, toString: 1, fret: 1 }
+			],
+			position: 4
+		},
 		"minor": {
 			chord: [
 				//[1, 1],
