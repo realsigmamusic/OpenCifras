@@ -60,7 +60,6 @@ export function limparEditor() {
 
 export function obterDadosEditor() {
 	return {
-		id: document.getElementById('editor-id').value,
 		titulo: document.getElementById('editor-titulo').value.trim(),
 		artista: document.getElementById('editor-artista').value.trim(),
 		conteudo: document.getElementById('editor-conteudo').value

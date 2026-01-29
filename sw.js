@@ -43,7 +43,9 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-	if (!e.request.url.startsWith('http')) return;
+	// Apenas processa requisições de mesma origem para evitar erros de CORS e problemas com dev servers
+	if (!e.request.url.startsWith(self.location.origin)) return;
+
 	e.respondWith(
 		caches.match(e.request).then((cachedResponse) => {
 			const fetchPromise = fetch(e.request).then((networkResponse) => {
@@ -54,6 +56,11 @@ self.addEventListener('fetch', (e) => {
 				});
 
 				return networkResponse;
+			}).catch(err => {
+				// Se falhar o fetch e não tiver cache, apenas deixa falhar o fetch original
+				// sem rejeitar a promise do respondWith
+				console.warn('[SW] Fetch failed:', e.request.url, err);
+				return cachedResponse || new Response('Network error occurred', { status: 408, statusText: 'Network error occurred' });
 			});
 
 			return cachedResponse || fetchPromise;

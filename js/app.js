@@ -195,6 +195,10 @@ async function carregarLista(termoBusca = "") {
 // --- PLAYER / LEITOR ---
 
 function abrirMusica(musica) {
+	if (!musica) {
+		console.warn("abrirMusica chamada com musica indefinida");
+		return;
+	}
 	// Guarda na variável global para o renderizador usar
 	window.musicaAtualGlobal = musica;
 
@@ -331,8 +335,11 @@ async function salvarMusica() {
 		await carregarFiltrosArtistas();
 		atualizarContador();
 
+		// Após salvar ou atualizar, recuperamos a música do banco para garantir que temos o objeto completo (com ID)
 		const musicaSalva = await db.musicas.get(musicaAtualId);
-		abrirMusica(musicaSalva);
+		if (musicaSalva) {
+			abrirMusica(musicaSalva);
+		}
 
 	} catch (error) {
 		console.error(error);
