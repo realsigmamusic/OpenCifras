@@ -264,163 +264,150 @@ function aplicarFonte() {
 	}
 }
 
-function rolagemAutomatica() {
-	const btn = document.querySelector('button[onclick="rolagemAutomatica()"]');
+function atualizarDisplayTom() {
+	const display = document.getElementById('display-tom');
+	if (display) {
+		display.textContent = `Tom: ${tomAtual > 0 ? '+' : ''}${tomAtual}`;
+	}
+}
 
-	if (scrollInterval) {
+function rolagemAutomatica() {
+	const isScrolling = scrollInterval !== null;
+
+	if (isScrolling) {
 		pararRolagem();
 	} else {
-		if (btn) {
-			btn.classList.remove('btn-secondary');
-			btn.classList.add('btn-warning');
-		}
+		const velocidadeScrollPixelsPorSegundo = 40;
 
 		scrollInterval = setInterval(() => {
-			window.scrollBy(0, 1);
-			if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.documentElement.scrollHeight) {
+			window.scrollBy(0, velocidadeScrollPixelsPorSegundo / 30);
+
+			const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+			const scrollHeight = document.documentElement.scrollHeight;
+			const clientHeight = document.documentElement.clientHeight;
+
+			if (scrollTop + clientHeight >= scrollHeight - 10) {
 				pararRolagem();
 			}
-		}, 80);
+		}, 1000 / 30);
 	}
 }
 
 function pararRolagem() {
-	if (scrollInterval) {
+	if (scrollInterval !== null) {
 		clearInterval(scrollInterval);
 		scrollInterval = null;
 	}
-	const btn = document.querySelector('button[onclick="rolagemAutomatica()"]');
-	if (btn) {
-		btn.classList.remove('btn-warning');
-		btn.classList.add('btn-secondary');
-	}
 }
 
-const selectModoLimpo = document.getElementById('select-view');
-if (selectModoLimpo) {
-	selectModoLimpo.addEventListener('change', () => {
-		if (musicaAtualId) {
-			renderizarCifra(document.getElementById('render-area'), musicaAtualConteudo, tomAtual);
-		}
-	});
-}
+// --- EDITOR ---
 
-function atualizarDisplayTom() {
-	const display = document.getElementById('display-tom');
-	if (display) {
-		const sinal = tomAtual > 0 ? '+' : '';
-		display.innerText = tomAtual === 0 ? 'Tom' : `${sinal}${tomAtual}`;
-	}
-}
-
-// --- CRUD (Salvar/Editar/Deletar) ---
-
-async function salvar() {
+async function salvarMusica() {
 	const dados = obterDadosEditor();
-	if (!dados.titulo || !dados.conteudo) {
-		alert("Preencha título e conteúdo!");
+
+	if (!dados.titulo.trim()) {
+		alert('Insira pelo menos o título da música');
 		return;
 	}
 
 	try {
-		let idParaAbrir;
+		const id = document.getElementById('editor-id').value;
 
-		if (musicaAtualId) {
-			await db.musicas.update(musicaAtualId, {
-				titulo: dados.titulo,
-				conteudo: dados.conteudo,
-				artista: dados.artista
-			});
-			idParaAbrir = musicaAtualId;
+		if (id) {
+			await db.musicas.update(parseInt(id), dados);
+			musicaAtualId = parseInt(id);
+			musicaAtualConteudo = dados.conteudo;
+
+			alert('Música atualizada com sucesso!');
 		} else {
-			idParaAbrir = await db.musicas.add({
-				titulo: dados.titulo,
-				conteudo: dados.conteudo,
-				artista: dados.artista
-			});
+			const idNovo = await db.musicas.add(dados);
+			musicaAtualId = idNovo;
+			musicaAtualConteudo = dados.conteudo;
+
+			alert('Música salva com sucesso!');
 		}
 
-		const musicaAtualizada = await db.musicas.get(idParaAbrir);
-
-		// Atualiza os filtros (pois pode ter surgido um novo artista)
+		await carregarLista();
 		await carregarFiltrosArtistas();
-
 		atualizarContador();
 
-		abrirMusica(musicaAtualizada);
+		const musicaSalva = await db.musicas.get(musicaAtualId);
+		abrirMusica(musicaSalva);
 
-	} catch (e) {
-		console.error(e);
-		alert("Erro ao salvar: " + e.message);
+	} catch (error) {
+		console.error(error);
+		alert('Erro ao salvar música');
 	}
 }
 
-async function deletar() {
+function editarAtual() {
+	if (!musicaAtualId) {
+		alert('Nenhuma música carregada');
+		return;
+	}
+
+	db.musicas.get(musicaAtualId).then(musica => {
+		preencherEditor(musica);
+		navegar('editor');
+	});
+}
+
+async function deletarAtual() {
 	if (!musicaAtualId) return;
 
-	if (confirm("Tem certeza que deseja excluir esta música permanentemente?")) {
-		try {
+	try {
+		const musica = await db.musicas.get(musicaAtualId);
+		const confirmacao = confirm(`Deseja realmente excluir a música "${musica.titulo}"?`);
+
+		if (confirmacao) {
 			await db.musicas.delete(musicaAtualId);
-			// alert("Música excluída.");
 			musicaAtualId = null;
+			musicaAtualConteudo = "";
+
+			carregarLista();
+			carregarFiltrosArtistas();
+			atualizarContador();
+
 			navegar('lista');
-		} catch (e) {
-			console.error(e);
-			alert("Erro ao excluir.");
+			alert('Música excluída com sucesso');
 		}
+	} catch (error) {
+		console.error(error);
+		alert('Erro ao excluir música');
 	}
-
-	atualizarContador();
 }
 
-async function editar() {
-	if (!musicaAtualId) return;
-	const musica = await db.musicas.get(musicaAtualId);
-	preencherEditor(musica);
-	navegar('editor');
+function filtrarLista() {
+	const termo = document.getElementById('input-busca').value;
+	carregarLista(termo);
 }
 
-// --- EXPORTAR FUNÇÕES PARA O HTML ---
 window.navegar = navegar;
-window.salvarMusica = salvar;
-window.editarAtual = editar;
-window.deletarAtual = deletar;
-window.exportarDados = exportarDados;
-window.importarDados = (el) => importarDados(el, () => {
-	carregarLista();
-	carregarFiltrosArtistas();
-	atualizarContador();
-});
-window.filtrarLista = () => carregarLista(document.getElementById('input-busca').value);
+window.salvarMusica = salvarMusica;
 window.mudarTom = mudarTom;
-window.alternarTema = alternarTema;
+window.resetarTom = resetarTom;
 window.mudarTamanhoFonte = mudarTamanhoFonte;
 window.resetarFonte = resetarFonte;
-window.resetarTom = resetarTom;
 window.rolagemAutomatica = rolagemAutomatica;
+window.editarAtual = editarAtual;
+window.deletarAtual = deletarAtual;
 window.alterarModoVisualizacao = alterarModoVisualizacao;
+window.filtrarLista = filtrarLista;
+window.alternarTema = alternarTema;
 window.converterCifra = converterCifra;
+
+window.exportarDados = exportarDados;
+window.importarDados = (input) => importarDados(input, carregarLista);
 window.copiarLinkMusica = () => {
-	if (window.musicaAtualGlobal) {
-		copiarLinkMusica(window.musicaAtualGlobal);
+	if (musicaAtualId) {
+		db.musicas.get(musicaAtualId).then(m => copiarLinkMusica(m));
 	}
 };
 window.copiarTextoWhatsapp = () => {
-	if (window.musicaAtualGlobal) {
-		copiarTextoWhatsapp(window.musicaAtualGlobal, tomAtual);
+	if (musicaAtualId) {
+		db.musicas.get(musicaAtualId).then(m => copiarTextoWhatsapp(m, tomAtual));
 	}
 };
-
-function cancelarEdicao() {
-	if (musicaAtualId) {
-		navegar('leitor');
-	} else {
-		navegar('lista');
-	}
-}
-window.cancelarEdicao = cancelarEdicao;
-
-// --- EVENTOS E INICIALIZAÇÃO ---
 
 window.onpopstate = function (event) {
 	if (event.state && event.state.tela) {
@@ -663,6 +650,74 @@ async function verificarLinkCompartilhado() {
 			alert("Erro ao importar música pelo link.");
 		}
 	}
+}
+
+// ABRIR ARQUIVOS JSON (File Handling API)
+async function processarArquivoAberto(file) {
+	if (!file || !file.name.endsWith('.json')) {
+		alert('Por favor, selecione um arquivo JSON válido.');
+		return;
+	}
+
+	try {
+		const texto = await file.text();
+		const json = JSON.parse(texto);
+
+		// Valida se é um backup do OpenCifras
+		if (!json.app || json.app !== "OpenCifras") {
+			throw new Error("Este arquivo não é um backup válido do OpenCifras.");
+		}
+
+		// Pega as músicas já existentes no banco
+		const musicasNoBanco = await db.musicas.toArray();
+		const titulosExistentes = new Set(musicasNoBanco.map(m => m.titulo.toLowerCase().trim()));
+
+		// Filtra apenas as músicas novas
+		const novasMusicas = json.musicas.filter(m => {
+			return !titulosExistentes.has(m.titulo.toLowerCase().trim());
+		});
+
+		if (novasMusicas.length === 0) {
+			alert("Todas as músicas deste backup já existem no seu banco.");
+			await carregarLista();
+			return;
+		}
+
+		// Confirma a importação
+		if (confirm(`Importar ${novasMusicas.length} nova(s) música(s)?`)) {
+			// Remove o campo 'id' para deixar o banco gerar automaticamente
+			const paraSalvar = novasMusicas.map(({ id, ...resto }) => resto);
+			await db.musicas.bulkAdd(paraSalvar);
+
+			alert(`✅ ${novasMusicas.length} música(s) importada(s) com sucesso!`);
+
+			// Atualiza a interface
+			await carregarLista();
+			await carregarFiltrosArtistas();
+			atualizarContador();
+		}
+
+	} catch (error) {
+		console.error('Erro ao processar arquivo:', error);
+		alert('Erro ao importar arquivo: ' + error.message);
+	}
+}
+
+// Detecta quando o app é aberto com um arquivo (File Handling API)
+if ('launchQueue' in window) {
+	window.launchQueue.setConsumer(async (launchParams) => {
+		if (!launchParams.files || launchParams.files.length === 0) return;
+
+		for (const fileHandle of launchParams.files) {
+			try {
+				const file = await fileHandle.getFile();
+				console.log('Arquivo aberto:', file.name);
+				await processarArquivoAberto(file);
+			} catch (error) {
+				console.error('Erro ao acessar arquivo:', error);
+			}
+		}
+	});
 }
 
 // --- INICIALIZAÇÃO ÚNICA ---
