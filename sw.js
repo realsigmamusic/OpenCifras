@@ -1,4 +1,4 @@
-const CACHE_NAME = '26.01.29';
+const CACHE_NAME = '26.03.28';
 const ASSETS = [
 	'./',
 	'./index.html',
@@ -43,27 +43,31 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-	// Apenas processa requisições de mesma origem para evitar erros de CORS e problemas com dev servers
-	if (!e.request.url.startsWith(self.location.origin)) return;
+    const url = new URL(e.request.url);
 
-	e.respondWith(
-		caches.match(e.request).then((cachedResponse) => {
-			const fetchPromise = fetch(e.request).then((networkResponse) => {
-				const responseToCache = networkResponse.clone();
+    if (url.pathname.includes('sockjs-node') || e.request.url.startsWith('chrome-extension')) {
+        return;
+    }
 
-				caches.open(CACHE_NAME).then((cache) => {
-					cache.put(e.request, responseToCache);
-				});
+    e.respondWith(
+        caches.match(e.request).then((cachedResponse) => {
+            // 1. CACHE FIRST
+            if (cachedResponse) {
+                return cachedResponse;
+            }
 
-				return networkResponse;
-			}).catch(err => {
-				// Se falhar o fetch e não tiver cache, apenas deixa falhar o fetch original
-				// sem rejeitar a promise do respondWith
-				console.warn('[SW] Fetch failed:', e.request.url, err);
-				return cachedResponse || new Response('Network error occurred', { status: 408, statusText: 'Network error occurred' });
-			});
-
-			return cachedResponse || fetchPromise;
-		})
-	);
+            // 2. REDE
+            return fetch(e.request).then((networkResponse) => {
+                // Guarda no cache para a próxima vez
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(e.request, responseToCache);
+                });
+                return networkResponse;
+            }).catch(err => {
+                console.warn('[SW] Offline e recurso não cacheado:', e.request.url);
+                return new Response('Offline', { status: 503, statusText: 'Offline' });
+            });
+        })
+    );
 });
