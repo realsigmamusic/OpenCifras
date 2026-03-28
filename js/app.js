@@ -271,7 +271,7 @@ function aplicarFonte() {
 function atualizarDisplayTom() {
 	const display = document.getElementById('display-tom');
 	if (display) {
-		display.textContent = `Tom: ${tomAtual > 0 ? '+' : ''}${tomAtual}`;
+		display.textContent = `${tomAtual > 0 ? '+' : ''}${tomAtual}`;
 	}
 }
 
