@@ -81,8 +81,7 @@
   }
 
   function renderCard(song) {
-    const url = '?file=' + encodeURIComponent(song.file)
-      + (song.chordCount !== undefined ? '&chords=' + song.chordCount : '');
+    const url = '?file=' + encodeURIComponent(song.file);
     return '<a href="' + url + '" class="song-item">'
       + '<div class="song-card-content">'
       +   '<h1 class="song-card-title">'  + escapeHtml(song.title)

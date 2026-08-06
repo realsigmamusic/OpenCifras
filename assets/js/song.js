@@ -40,7 +40,6 @@ let fileUrl;        // caminho do arquivo .cho (vem da URL)
 let titleParam;     // título da música (vem da URL)
 let artistParam;    // artista (vem da URL)
 let keyParam;       // tom original (vem da URL)
-let chordsParam;    // quantidade de acordes distintos (vem da URL)
 let transposeParam; // transposição inicial (vem da URL, se compartilhada com tom)
 let TRANS_KEY;      // chave no localStorage para salvar a transposição desta música
 
@@ -81,7 +80,6 @@ function updateStateFromUrl() {
   titleParam      = params.get('title')     || '';
   artistParam     = params.get('artist')    || '';
   keyParam        = params.get('key')       || '';
-  chordsParam     = params.get('chords')    || '';
   transposeParam  = params.get('transpose');
   TRANS_KEY       = `chordsheets_transpose_${fileUrl}`;
 }
@@ -214,7 +212,8 @@ function renderMetadata(song) {
   if (meta.key)       html += `<span class="song-meta-item"><strong>Tom:</strong> ${escapeHtml(meta.key)}</span>`;
   if (meta.time)      html += `<span class="song-meta-item"><strong>Compasso:</strong> ${escapeHtml(meta.time)}</span>`;
   if (meta.tempo)     html += `<span class="song-meta-item"><strong>bpm:</strong> ${escapeHtml(meta.tempo)}</span>`;
-  if (chordsParam)    html += `<span class="song-meta-item"><strong>Acordes:</strong> ${escapeHtml(chordsParam)}</span>`;
+  const chordCount = song.getChords().length;
+  if (chordCount)     html += `<span class="song-meta-item"><strong>Acordes:</strong> ${chordCount}</span>`;
 
   elSongHeader.innerHTML = html;
 }
