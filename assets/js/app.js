@@ -6,6 +6,7 @@
   let allSongs         = [];    // acervo oficial + cifras locais, em ordem alfabética
   let recentSongs      = [];    // as mesmas músicas, ordenadas pela data de edição
   let showingAll       = false; // controla se estamos mostrando todas ou só as 5 recentes
+  let showingAllArtists = false; // controla se a aba Artistas mostra o Top 7 (por qtd. de músicas) ou todos
   let fuse             = null;  // motor de busca fuzzy (Fuse.js)
 
   // Estado dos filtros combinados
@@ -234,6 +235,8 @@
 
   function renderArtistsSection() {
     const artistsEl = document.getElementById('artists-list');
+    const titleEl   = document.getElementById('artists-title');
+    const showAllBtn = document.getElementById('btn-show-all-artists');
     const artists   = {};
 
     allSongs.forEach(s => {
@@ -244,9 +247,24 @@
       });
     });
 
-    const sorted = Object.keys(artists).sort((a, b) => a.localeCompare(b));
+    const names = Object.keys(artists);
 
-    artistsEl.innerHTML = sorted.map(artist => {
+    // Lista completa, em ordem alfabética (usada quando "Ver todos" é clicado)
+    const alphabetical = names.slice().sort((a, b) => a.localeCompare(b));
+
+    // "Relevância" = quantidade de músicas cadastradas por artista, sem depender de métricas de acesso.
+    // Empate na contagem é desempatado em ordem alfabética.
+    const byRelevance = names.slice().sort((a, b) => {
+      const diff = artists[b].length - artists[a].length;
+      return diff !== 0 ? diff : a.localeCompare(b);
+    });
+
+    const showTop7 = !showingAllArtists && byRelevance.length > LIMIT_HOME;
+    const toShow   = showTop7 ? byRelevance.slice(0, LIMIT_HOME) : alphabetical;
+
+    titleEl.textContent = showingAllArtists ? 'Todos os artistas' : 'Artistas em destaque';
+
+    artistsEl.innerHTML = toShow.map(artist => {
       const count = artists[artist].length;
       return `
         <div class="artist-item" data-artist="${escapeHtml(artist)}">
@@ -259,6 +277,21 @@
     artistsEl.querySelectorAll('.artist-item').forEach(el => {
       el.addEventListener('click', () => renderArtistSongs(el.dataset.artist));
     });
+
+    if (showAllBtn) {
+      if (showTop7) {
+        showAllBtn.style.display = 'block';
+        showAllBtn.textContent   = `Ver todos os ${byRelevance.length} artistas`;
+      } else {
+        showAllBtn.style.display = 'none';
+      }
+    }
+  }
+
+  function onShowAllArtists() {
+    showingAllArtists = true;
+    renderArtistsSection();
+    window.scrollTo(0, 0);
   }
 
   function renderArtistSongs(artist) {
@@ -435,8 +468,12 @@
     syncView();
     setActiveNav('nav-artistas');
     showTab('artistas');
+    showingAllArtists = false; // sempre volta a abrir a aba no Top 7
     renderArtistsSection();
   });
+
+  const elBtnShowAllArtists = document.getElementById('btn-show-all-artists');
+  if (elBtnShowAllArtists) elBtnShowAllArtists.addEventListener('click', onShowAllArtists);
 
   document.getElementById('nav-favoritos').addEventListener('click', () => {
     window.history.pushState({}, '', '?');
@@ -577,6 +614,9 @@
   }
 
   // ---------- Fonte ----------
+  // Afeta só a fonte da cifra, não a UI inteira: assim como os botões de tamanho
+  // da fonte (song.js) mexem direto no style do #chord-sheet, aqui a variável
+  // --font-song também é setada só nesse elemento, não no documentElement.
   function applyFont(value) {
     const elChordSheet = document.getElementById('chord-sheet');
     if (elChordSheet) elChordSheet.style.setProperty('--font-song', value);
