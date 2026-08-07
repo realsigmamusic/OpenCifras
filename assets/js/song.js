@@ -455,8 +455,38 @@ document.addEventListener('click', () => elDropdownMenu.classList.remove('open')
 // AUTOSCROLL =====================================================================================
 
 let autoscrollInterval = null;
-const AUTOSCROLL_STEP_MS = 50;   // intervalo entre cada "passinho" de rolagem
-const AUTOSCROLL_STEP_PX = 1;    // quantos pixels rola a cada passinho
+const AUTOSCROLL_STEP_PX   = 1;    // quantos pixels rola a cada passinho
+const AUTOSCROLL_MIN_MS    = 16;   // intervalo mais rápido entre passinhos (velocidade 10)
+const AUTOSCROLL_MAX_MS    = 127;  // intervalo mais lento entre passinhos (velocidade 1)
+const AUTOSCROLL_SPEED_KEY = 'chordsheets_autoscroll_speed';
+
+const elAutoscrollSpeedWrap  = document.getElementById('autoscroll-speed-wrap');
+const elAutoscrollSpeedInput = document.getElementById('autoscroll-speed');
+
+function getSavedAutoscrollSpeed() {
+  try {
+    const saved = Number(localStorage.getItem(AUTOSCROLL_SPEED_KEY));
+    return (saved >= 1 && saved <= 10) ? saved : 5;
+  } catch (e) {
+    return 5;
+  }
+}
+
+// Converte o valor do slider (1 = mais lento, 10 = mais rápido) no intervalo em ms usado pelo setInterval
+function speedToIntervalMs(speed) {
+  const ratio = (speed - 1) / 9;
+  return Math.round(AUTOSCROLL_MAX_MS - ratio * (AUTOSCROLL_MAX_MS - AUTOSCROLL_MIN_MS));
+}
+
+if (elAutoscrollSpeedInput) elAutoscrollSpeedInput.value = getSavedAutoscrollSpeed();
+
+function autoscrollTick() {
+  window.scrollBy(0, AUTOSCROLL_STEP_PX);
+  // Chegou ao fim da página → para sozinho
+  if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+    stopAutoscroll();
+  }
+}
 
 function stopAutoscroll() {
   if (autoscrollInterval) {
@@ -464,17 +494,15 @@ function stopAutoscroll() {
     autoscrollInterval = null;
   }
   elBtnAutoscroll.classList.remove('active');
+  // O controle de velocidade só faz sentido com a rolagem ativa
+  if (elAutoscrollSpeedWrap) elAutoscrollSpeedWrap.style.display = 'none';
 }
 
 function startAutoscroll() {
-  autoscrollInterval = setInterval(() => {
-    window.scrollBy(0, AUTOSCROLL_STEP_PX);
-    // Chegou ao fim da página → para sozinho
-    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-      stopAutoscroll();
-    }
-  }, AUTOSCROLL_STEP_MS);
+  const speed = elAutoscrollSpeedInput ? Number(elAutoscrollSpeedInput.value) : 5;
+  autoscrollInterval = setInterval(autoscrollTick, speedToIntervalMs(speed));
   elBtnAutoscroll.classList.add('active');
+  if (elAutoscrollSpeedWrap) elAutoscrollSpeedWrap.style.display = 'flex';
 }
 
 elBtnAutoscroll.addEventListener('click', () => {
@@ -484,6 +512,17 @@ elBtnAutoscroll.addEventListener('click', () => {
     startAutoscroll();
   }
 });
+
+// Ajusta a velocidade em tempo real (reinicia o interval que já está rodando) e lembra a preferência
+if (elAutoscrollSpeedInput) {
+  elAutoscrollSpeedInput.addEventListener('input', () => {
+    try { localStorage.setItem(AUTOSCROLL_SPEED_KEY, elAutoscrollSpeedInput.value); } catch (e) {}
+    if (autoscrollInterval) {
+      clearInterval(autoscrollInterval);
+      autoscrollInterval = setInterval(autoscrollTick, speedToIntervalMs(Number(elAutoscrollSpeedInput.value)));
+    }
+  });
+}
 
 // Se o usuário rolar manualmente enquanto o autoscroll está ativo, ele para (evita "briga" entre os dois)
 // window.addEventListener('wheel', () => { if (autoscrollInterval) stopAutoscroll(); });

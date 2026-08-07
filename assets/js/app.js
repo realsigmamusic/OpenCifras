@@ -577,9 +577,6 @@
   }
 
   // ---------- Fonte ----------
-  // Afeta só a fonte da cifra, não a UI inteira: assim como os botões de tamanho
-  // da fonte (song.js) mexem direto no style do #chord-sheet, aqui a variável
-  // --font-song também é setada só nesse elemento, não no documentElement.
   function applyFont(value) {
     const elChordSheet = document.getElementById('chord-sheet');
     if (elChordSheet) elChordSheet.style.setProperty('--font-song', value);

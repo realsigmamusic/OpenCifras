@@ -467,6 +467,25 @@ button.dropdown-item.chord-filter-item {
   border-color: var(--warning-text-emphasis);
 }
 
+.autoscroll-speed-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.35rem 0 0.15rem 0;
+}
+
+.autoscroll-speed-label {
+  font-size: 0.7rem;
+  color: var(--secondary-color);
+  flex-shrink: 0;
+}
+
+.autoscroll-speed-wrap input[type="range"] {
+  flex: 1;
+  accent-color: var(--warning-text-emphasis);
+}
+
 /* ---------- Filtro por quantidade de acordes ---------- */
 .filter-dropdown-wrap {
   position: relative;
