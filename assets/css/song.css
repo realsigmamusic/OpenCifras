@@ -11,6 +11,7 @@ h1.title {
 
 h2.subtitle {
   color: var(--secondary-text-emphasis);
+  font-size: 1em;
   margin: 0;
 }
 
